@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=22.13.0"
+    "node": "24.x"
   },
   "scripts": {
     "install:ci": "bash scripts/install-ci.sh",
@@ -14,6 +14,8 @@
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "start:vercel": "next start",
     "test": "npm run build && npm run typography:check && node --test tests/*.test.mjs",
+    "lint:vercel": "eslint app next.config.ts --quiet",
+    "test:vercel": "npm run build:vercel && npm run lint:vercel && npm run typography:check && node --test tests/checkin-flow.test.mjs",
     "typography:check": "node scripts/enforce-typography.mjs",
     "validate:artifact": "bash scripts/validate-artifact.sh",
     "lint": "bash scripts/sites-env.sh -- eslint . --ignore-pattern dist --ignore-pattern .next",

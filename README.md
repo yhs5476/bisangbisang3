@@ -4,14 +4,18 @@
 
 ## Prerequisites
 
-- Node.js `>=22.13.0`
+- Node.js `24.x`
 - Sites 빌드: Linux with `flock`, `curl`, and GNU `timeout`
 
 ## Deployment targets
 
 - `npm run build`: 기존 Sites용 Vinext/Vite/Cloudflare Worker 빌드
 - `npm run build:vercel`: 교육 과정용 표준 Next.js/Vercel 빌드
+- `npm run test:vercel`: Windows에서도 실행되는 Vercel 전체 사전 검증
 - `vercel.json`: Vercel에서 Next.js 프리셋과 전용 빌드 명령을 지정
+
+Windows 수업에서는 Sites용 기본 명령 대신 `npm run dev:vercel`과
+`npm run test:vercel`을 사용한다.
 
 GitHub Desktop, Vercel, Supabase 연결 순서는
 [`COURSE_SETUP_2026-07-24.md`](./COURSE_SETUP_2026-07-24.md)를 참고한다.
@@ -102,6 +106,8 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 - `npm run dev:vercel`: start the standard Next.js development server
 - `npm run build`: build and validate the deployable Sites artifact
 - `npm run build:vercel`: build the standard Next.js artifact used by Vercel
+- `npm run lint:vercel`: run the Next.js application lint check on Windows or Linux
+- `npm run test:vercel`: run the Vercel build, lint, typography, and check-in regression checks
 - `npm run start`: start the built Vinext application
 - `npm test`: build the Sites target and run typography, check-in flow, and rendered HTML tests
 - `npm run validate:artifact`: recheck an existing artifact's manifest and ESM `default.fetch` export
