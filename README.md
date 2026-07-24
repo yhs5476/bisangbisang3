@@ -1,13 +1,20 @@
-# vinext-starter
+# 비상비상 MVP
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+보호자와 초등 저학년 자녀가 함께 사용하는 재난안전 게이미피케이션 MVP다.
 
 ## Prerequisites
 
 - Node.js `>=22.13.0`
-- Linux with `flock`, `curl`, and GNU `timeout`
+- Sites 빌드: Linux with `flock`, `curl`, and GNU `timeout`
+
+## Deployment targets
+
+- `npm run build`: 기존 Sites용 Vinext/Vite/Cloudflare Worker 빌드
+- `npm run build:vercel`: 교육 과정용 표준 Next.js/Vercel 빌드
+- `vercel.json`: Vercel에서 Next.js 프리셋과 전용 빌드 명령을 지정
+
+GitHub Desktop, Vercel, Supabase 연결 순서는
+[`COURSE_SETUP_2026-07-24.md`](./COURSE_SETUP_2026-07-24.md)를 참고한다.
 
 ## Sites Lifecycle
 
@@ -92,9 +99,11 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 
 - `npm run install:ci`: perform the one bounded lockfile install
 - `npm run dev`: start the Vite/Vinext development server
+- `npm run dev:vercel`: start the standard Next.js development server
 - `npm run build`: build and validate the deployable Sites artifact
+- `npm run build:vercel`: build the standard Next.js artifact used by Vercel
 - `npm run start`: start the built Vinext application
-- `npm test`: build, validate, and verify the rendered development-preview metadata
+- `npm test`: build the Sites target and run typography, check-in flow, and rendered HTML tests
 - `npm run validate:artifact`: recheck an existing artifact's manifest and ESM `default.fetch` export
 - `npm run db:generate`: generate Drizzle migrations after schema changes
 
