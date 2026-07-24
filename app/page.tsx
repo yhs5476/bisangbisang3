@@ -163,6 +163,11 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const openCheckin = () => {
+    setCheckinSent(true);
+    navigate("checkin");
+  };
+
   const analyzeAlert = () => {
     if (!alertText.trim()) {
       setAlertError(true);
@@ -310,10 +315,7 @@ export default function Home() {
 
             <button
               className={`one-click-checkin ${checkinSent ? "sent" : ""}`}
-              onClick={() => {
-                setCheckinSent(true);
-                navigate("checkin");
-              }}
+              onClick={openCheckin}
             >
               <span className="checkin-heart">{checkinSent ? "✓" : "♥"}</span>
               <span>
@@ -569,10 +571,7 @@ export default function Home() {
             <p className="source-note">출처: 행정안전부 국민행동요령 · 정보 예시 화면</p>
             <button
               className="primary-button emergency-safe-button"
-              onClick={() => {
-                setCheckinSent(true);
-                navigate("checkin");
-              }}
+              onClick={openCheckin}
             >
               <span>♥</span> 보호자에게 ‘안전해요’ 보내기
             </button>
@@ -1047,7 +1046,7 @@ export default function Home() {
                 <strong>전화하기</strong>
                 <small>도도에게 전화 연결</small>
               </button>
-              <button onClick={() => navigate("checkin")}>
+              <button onClick={openCheckin}>
                 <span>♥</span>
                 <strong>안부 묻기</strong>
                 <small>1‑Click 확인 요청</small>

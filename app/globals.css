@@ -14,6 +14,39 @@
   --blue: #64aeee;
   --line: #e8ece8;
   --shadow: 0 16px 44px rgba(24, 51, 45, 0.12);
+
+  /*
+   * Typography follows the Android Material 3 type scale.
+   * CSS px is used as the web equivalent of Android sp at the default scale.
+   * Product copy must not use a size below 12px; 11px is reserved for
+   * short system or micro labels such as the simulated status bar.
+   */
+  --type-display-small-size: 36px;
+  --type-display-small-line: 44px;
+  --type-headline-large-size: 32px;
+  --type-headline-large-line: 40px;
+  --type-headline-medium-size: 28px;
+  --type-headline-medium-line: 36px;
+  --type-headline-small-size: 24px;
+  --type-headline-small-line: 32px;
+  --type-title-large-size: 22px;
+  --type-title-large-line: 28px;
+  --type-title-medium-size: 16px;
+  --type-title-medium-line: 24px;
+  --type-title-small-size: 14px;
+  --type-title-small-line: 20px;
+  --type-body-large-size: 16px;
+  --type-body-large-line: 24px;
+  --type-body-medium-size: 14px;
+  --type-body-medium-line: 20px;
+  --type-body-small-size: 12px;
+  --type-body-small-line: 16px;
+  --type-label-large-size: 14px;
+  --type-label-large-line: 20px;
+  --type-label-medium-size: 12px;
+  --type-label-medium-line: 16px;
+  --type-label-small-size: 11px;
+  --type-label-small-line: 16px;
 }
 
 * {
