@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { supabase } from "./supabaseClient";
 
 type Screen =
   | "onboarding"
+  | "login"
   | "home"
   | "alert"
   | "situation"
@@ -103,7 +105,7 @@ function BackHeader({
   return (
     <header className={`sub-header ${tone === "emergency" ? "emergency-header" : ""}`}>
       <button className="icon-button back-button" onClick={onBack} aria-label="뒤로 가기">
-        ‹
+        <span className="material-symbols-rounded back-icon">arrow_back_ios_new</span>
       </button>
       <strong>{title}</strong>
       <span className="header-spacer" />
@@ -136,7 +138,7 @@ function BottomNav({
 }
 
 export default function Home() {
-  const [screen, setScreen] = useState<Screen>("onboarding");
+  const [screen, setScreen] = useState<Screen>("login");
   const [alertText, setAlertText] = useState("");
   const [alertError, setAlertError] = useState(false);
   const [location, setLocation] = useState("home");
@@ -149,6 +151,14 @@ export default function Home() {
   const [userPhoto, setUserPhoto] = useState<string | null>(null);
   const [role, setRole] = useState<"guardian" | "child">("guardian");
   const [checkinSent, setCheckinSent] = useState(false);
+
+  // Auth states
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [authLoading, setAuthLoading] = useState(false);
+  const [authError, setAuthError] = useState("");
+  const [authSuccess, setAuthSuccess] = useState("");
 
   const completedChecks = checks.filter(Boolean).length;
   const progress = Math.round((completedChecks / checks.length) * 100);
@@ -269,6 +279,93 @@ export default function Home() {
             <button className="primary-button" onClick={() => navigate("home")}>
               비상비상 시작하기 <span>→</span>
             </button>
+          </div>
+        )}
+
+        {screen === "login" && (
+          <div className="screen-content login-screen">
+            <BackHeader title="로그인 / 회원가입" onBack={() => navigate("onboarding")} />
+            
+            <div className="login-hero">
+              <MascotImage className="login-mascot" alt="비상비상 마스코트" />
+              <h2>우리 가족 안전 맞춤 서비스</h2>
+              <p>이메일이나 간편 계정으로 시작해 보세요</p>
+            </div>
+
+            <form
+              className="login-form"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setAuthLoading(true);
+                setAuthError("");
+                try {
+                  if (isSignUp) {
+                    const { error } = await supabase.auth.signUp({
+                      email,
+                      password,
+                    });
+                    if (error) throw error;
+                    setAuthSuccess("회원가입 확인 메일을 전송했거나 계정이 생성되었습니다!");
+                  } else {
+                    const { error } = await supabase.auth.signInWithPassword({
+                      email,
+                      password,
+                    });
+                    if (error) throw error;
+                    navigate("home");
+                  }
+                } catch (err: any) {
+                  setAuthError(err?.message || "인증 중 오류가 발생했습니다.");
+                } finally {
+                  setAuthLoading(false);
+                }
+              }}
+            >
+              <div className="input-group">
+                <label htmlFor="auth-email">이메일 주소</label>
+                <input
+                  id="auth-email"
+                  type="email"
+                  placeholder="example@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="input-group">
+                <label htmlFor="auth-password">비밀번호</label>
+                <input
+                  id="auth-password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              {authError && <div className="auth-message error-message">{authError}</div>}
+              {authSuccess && <div className="auth-message success-message">{authSuccess}</div>}
+
+              <button className="primary-button wide" type="submit" disabled={authLoading}>
+                {authLoading ? "처리 중..." : isSignUp ? "회원가입 완료" : "로그인하기"}
+              </button>
+            </form>
+
+            <div className="auth-toggle">
+              <span>{isSignUp ? "이미 계정이 있으신가요?" : "아직 계정이 없으신가요?"}</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSignUp(!isSignUp);
+                  setAuthError("");
+                  setAuthSuccess("");
+                }}
+              >
+                {isSignUp ? "로그인하기" : "회원가입하기"}
+              </button>
+            </div>
           </div>
         )}
 
@@ -1191,13 +1288,23 @@ export default function Home() {
             <p className="report-disclaimer">
               이 기록은 가족의 안전교육 진행 상황을 보여주는 참고 자료이며 실제 재난 대응 능력을 평가하지 않아요.
             </p>
-            <button className="outline-button wide onboarding-replay" onClick={() => navigate("onboarding")}>
-              온보딩 다시 보기
+            <button
+              className="outline-button wide onboarding-replay"
+              onClick={async () => {
+                await supabase.auth.signOut();
+                setEmail("");
+                setPassword("");
+                setAuthSuccess("");
+                setAuthError("");
+                navigate("login");
+              }}
+            >
+              로그아웃
             </button>
           </div>
         )}
 
-        {!["onboarding", "alert", "situation", "actions", "checkin", "mission", "quiz", "photoReward", "reward"].includes(screen) && (
+        {!["onboarding", "login", "alert", "situation", "actions", "checkin", "mission", "quiz", "photoReward", "reward"].includes(screen) && (
           <BottomNav current={screen} onNavigate={navigate} />
         )}
       </section>
