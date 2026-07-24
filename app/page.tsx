@@ -508,9 +508,11 @@ export default function Home() {
                 setAlertError(false);
               }}
             >
-              <span className="sample-icon">☂</span>
+              <span className="sample-icon">
+                <span className="material-symbols-rounded">notifications_active</span>
+              </span>
               <span>
-                <strong>호우경보 예시 불러오기</strong>
+                <strong>지금 울린 재난알림 문자 불러오기</strong>
                 <small>프로토타입을 바로 체험해보세요</small>
               </span>
               <span>＋</span>

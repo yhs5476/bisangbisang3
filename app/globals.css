@@ -1033,11 +1033,17 @@ textarea:focus-visible {
   gap: 10px;
   margin-top: 12px;
   padding: 13px 14px;
-  border: 1px solid #d8e8f5;
+  border: 1px solid #f9d5ce;
   border-radius: 17px;
-  background: #f3f8fc;
+  background: #fff4f1;
   cursor: pointer;
   text-align: left;
+  transition: all 0.2s ease;
+}
+
+.sample-button:hover {
+  border-color: #f5b7ab;
+  background: #ffebe6;
 }
 
 .sample-icon {
@@ -1046,9 +1052,13 @@ textarea:focus-visible {
   height: 38px;
   place-items: center;
   border-radius: 13px;
-  background: #dceefe;
-  color: #2878b7;
+  background: #ffe3de;
+  color: var(--coral-deep);
   font-size: 20px;
+}
+
+.sample-icon .material-symbols-rounded {
+  font-size: 22px;
 }
 
 .sample-button > span:nth-child(2) {
@@ -1058,8 +1068,13 @@ textarea:focus-visible {
 }
 
 .sample-button strong {
+  color: var(--ink);
   font-size: var(--type-label-large-size);
   line-height: var(--type-label-large-line);
+}
+
+.sample-button > span:last-child {
+  color: var(--coral);
 }
 
 .sample-button small {
