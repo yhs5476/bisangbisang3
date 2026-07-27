@@ -67,18 +67,7 @@ function FlameBuddy({
 }) {
   return (
     <div className={`flame-buddy flame-${size} mood-${mood}`} aria-hidden="true">
-      <div className="flame-glow" />
-      <div className="flame-body">
-        <span className="flame-eye left" />
-        <span className="flame-eye right" />
-        <span className="flame-mouth" />
-        <span className="flame-cheek left" />
-        <span className="flame-cheek right" />
-      </div>
-      <span className="flame-arm left" />
-      <span className="flame-arm right" />
-      <span className="flame-leg left" />
-      <span className="flame-leg right" />
+      <MascotImage className="flame-buddy-img" />
     </div>
   );
 }
@@ -90,7 +79,7 @@ function MascotImage({
   className?: string;
   alt?: string;
 }) {
-  return <img className={`mascot-image ${className}`} src="/assets/fire-character.png" alt={alt} />;
+  return <img className={`mascot-image ${className}`} src="/assets/fire-character.png?v=3" alt={alt} />;
 }
 
 function BackHeader({
@@ -1346,7 +1335,7 @@ export default function Home() {
               <div className="character-row">
                 <article className="character-item unlocked">
                   <div className="character-orb fire">
-                    <img src="/assets/fire-character.png" alt="불이" />
+                    <MascotImage alt="불이" />
                   </div>
                   <strong>불이</strong><small>Lv. 2</small>
                 </article>
