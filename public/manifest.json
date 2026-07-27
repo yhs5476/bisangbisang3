@@ -1,0 +1,16 @@
+{
+  "name": "비상비상 위기모드 데모",
+  "short_name": "비상비상",
+  "description": "아동용 재난 위기 모드 데모 애플리케이션",
+  "start_url": "/demo/lock",
+  "display": "standalone",
+  "background_color": "#1A0505",
+  "theme_color": "#8B0000",
+  "icons": [
+    {
+      "src": "/assets/fire-character.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    }
+  ]
+}

@@ -314,8 +314,8 @@ export default function Home() {
                     if (error) throw error;
                     navigate("home");
                   }
-                } catch (err: any) {
-                  setAuthError(err?.message || "인증 중 오류가 발생했습니다.");
+                } catch (err: unknown) {
+                  setAuthError(err instanceof Error ? err.message : "인증 중 오류가 발생했습니다.");
                 } finally {
                   setAuthLoading(false);
                 }
@@ -473,6 +473,29 @@ export default function Home() {
                 <span className="map-pin pin-school">▤</span>
                 <span className="map-pin pin-park">♧</span>
               </div>
+            </button>
+
+            {/* 신규: 재난상황 시뮬레이션 이동 버튼 */}
+            <button
+              className="primary-button wide"
+              style={{
+                marginTop: "12px",
+                backgroundColor: "#e95042",
+                color: "#ffffff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                fontSize: "16px",
+                fontWeight: "800",
+                boxShadow: "0 6px 16px rgba(233, 80, 66, 0.35)",
+              }}
+              onClick={() => {
+                window.location.href = "/demo/lock";
+              }}
+            >
+              <span className="material-symbols-rounded">warning</span>
+              <span>재난상황 시뮬레이션</span>
             </button>
           </div>
         )}
