@@ -138,6 +138,29 @@ export default function Home() {
   const [profileAvatarSrc, setProfileAvatarSrc] = useState<string | null>(null);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [showKitModal, setShowKitModal] = useState(false);
+  const [showCodexModal, setShowCodexModal] = useState(false);
+  const [selectedCodexName, setSelectedCodexName] = useState<string>("불이");
+  const [codexCategory, setCodexCategory] = useState<"all" | "fire" | "water" | "wind" | "earth">("all");
+  const [fireForm, setFireForm] = useState<{ name: string; src: string; level: string }>({
+    name: "불이",
+    src: "/assets/fire-character.png?v=9",
+    level: "Lv. 2",
+  });
+  const [waterForm, setWaterForm] = useState<{ name: string; src: string; level: string }>({
+    name: "물이",
+    src: "/assets/water-character.png?v=7",
+    level: "Lv. 1",
+  });
+  const [windForm, setWindForm] = useState<{ name: string; src: string; level: string }>({
+    name: "바람이",
+    src: "/assets/wind-character.png?v=6",
+    level: "Lv. 1",
+  });
+  const [earthForm, setEarthForm] = useState<{ name: string; src: string; level: string }>({
+    name: "땅이",
+    src: "/assets/earth-character.png?v=5",
+    level: "Lv. 1",
+  });
   const [sparks, setSparks] = useState(50);
   const [missionDone, setMissionDone] = useState(false);
   const [quizIndex, setQuizIndex] = useState(0);
@@ -1412,33 +1435,61 @@ export default function Home() {
             <section className="character-collection">
               <div className="section-heading">
                 <div><span className="eyebrow">성장 캐릭터</span><h2>우리의 안전 친구들</h2></div>
-                <button>도감 보기</button>
+                <button onClick={() => setShowCodexModal(true)}>도감 보기</button>
               </div>
               <div className="character-row">
-                <article className="character-item unlocked">
+                <article
+                  className="character-item unlocked"
+                  onClick={() => {
+                    setCodexCategory("fire");
+                    setSelectedCodexName(fireForm.name);
+                    setShowCodexModal(true);
+                  }}
+                >
                   <div className="character-orb fire">
-                    <MascotImage alt="불이" />
+                    <img src={fireForm.src} alt={fireForm.name} style={{ width: 44, height: 44, objectFit: "contain" }} />
                   </div>
-                  <strong>불이</strong><small>Lv. 2</small>
+                  <strong>{fireForm.name}</strong><small>{fireForm.level}</small>
                 </article>
-                <article className="character-item unlocked">
+                <article
+                  className="character-item unlocked"
+                  onClick={() => {
+                    setCodexCategory("water");
+                    setSelectedCodexName(waterForm.name);
+                    setShowCodexModal(true);
+                  }}
+                >
                   <span className="character-badge-heart">❤️</span>
                   <div className="character-orb water">
-                    <img src="/assets/water-character.png?v=4" alt="물이" />
+                    <img src={waterForm.src} alt={waterForm.name} style={{ width: 44, height: 44, objectFit: "contain" }} />
                   </div>
-                  <strong>물이</strong><small>Lv. 1</small>
+                  <strong>{waterForm.name}</strong><small>{waterForm.level}</small>
                 </article>
-                <article className="character-item unlocked">
+                <article
+                  className="character-item unlocked"
+                  onClick={() => {
+                    setCodexCategory("wind");
+                    setSelectedCodexName(windForm.name);
+                    setShowCodexModal(true);
+                  }}
+                >
                   <div className="character-orb wind">
-                    <img src="/assets/wind-character.png?v=4" alt="바람이" />
+                    <img src={windForm.src} alt={windForm.name} style={{ width: 44, height: 44, objectFit: "contain" }} />
                   </div>
-                  <strong>바람이</strong><small>Lv. 1</small>
+                  <strong>{windForm.name}</strong><small>{windForm.level}</small>
                 </article>
-                <article className="character-item unlocked">
+                <article
+                  className="character-item unlocked"
+                  onClick={() => {
+                    setCodexCategory("earth");
+                    setSelectedCodexName(earthForm.name);
+                    setShowCodexModal(true);
+                  }}
+                >
                   <div className="character-orb earth">
-                    <img src="/assets/earth-character.png?v=4" alt="땅이" />
+                    <img src={earthForm.src} alt={earthForm.name} style={{ width: 44, height: 44, objectFit: "contain" }} />
                   </div>
-                  <strong>땅이</strong><small>Lv. 1</small>
+                  <strong>{earthForm.name}</strong><small>{earthForm.level}</small>
                 </article>
               </div>
             </section>
@@ -1536,6 +1587,469 @@ export default function Home() {
 
         {!["onboarding", "login", "alert", "situation", "actions", "checkin", "mission", "quiz", "photoReward", "reward"].includes(screen) && (
           <BottomNav current={screen} onNavigate={navigate} />
+        )}
+
+        {showCodexModal && (
+          <div className="codex-modal-overlay" onClick={() => setShowCodexModal(false)}>
+            <div className="codex-modal-card" onClick={(e) => e.stopPropagation()}>
+              <div className="codex-header">
+                <h2>📖 안전 캐릭터 도감</h2>
+                <button
+                  style={{ border: 0, background: "transparent", fontSize: 18, cursor: "pointer" }}
+                  onClick={() => setShowCodexModal(false)}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="codex-stats-banner">
+                <div className="codex-stats-top">
+                  <span>안전 파트너 도감</span>
+                  <strong style={{ color: "#ffd361" }}>24 / 24 수집 완료 (100%) 🎉</strong>
+                </div>
+                <div style={{ fontSize: 11, color: "rgba(255, 255, 255, 0.85)" }}>
+                  원하는 캐릭터를 선택하여 해당 원소 수호신의 장착 진화형을 변경하실 수 있습니다.
+                </div>
+              </div>
+
+              <div className="codex-tabs">
+                {[
+                  { id: "all", label: "전체 (24)" },
+                  { id: "fire", label: "🔥 불이" },
+                  { id: "water", label: "💧 물이" },
+                  { id: "wind", label: "🌬️ 바람이" },
+                  { id: "earth", label: "🪵 땅이" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    className={`codex-tab-btn ${codexCategory === tab.id ? "active" : ""}`}
+                    onClick={() => setCodexCategory(tab.id as any)}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="codex-grid">
+                {[
+                  {
+                    name: "불이 (씨앗)",
+                    level: "Lv. 1 불씨 물방울",
+                    attr: "💧 씨앗 불꽃 폼",
+                    desc: "물방울처럼 맑은 불씨 씨앗 형태의 순수한 아기 정령!",
+                    src: "/assets/fire-character-seed.png?v=10",
+                  },
+                  {
+                    name: "불이 (별 뱃지)",
+                    level: "Lv. 2 스타 수호자",
+                    attr: "⭐ 별 뱃지 폼",
+                    desc: "미션 완료 별 뱃지를 가슴에 달고 안전을 가이드하는 불꽃 수호자!",
+                    src: "/assets/fire-character-star.png?v=10",
+                  },
+                  {
+                    name: "불이 (방패 뱃지)",
+                    level: "Lv. 2 방재 수호자",
+                    attr: "🛡️ 방패 뱃지 폼",
+                    desc: "황금 방재 쉴드 뱃지를 착용하고 화재 예방을 책임지는 불꽃 정령!",
+                    src: "/assets/fire-character-shield.png?v=10",
+                  },
+                  {
+                    name: "불이 (기본)",
+                    level: "Lv. 2 불꽃 정령",
+                    attr: "🔥 화재·열파 전담",
+                    desc: "소화기 사용법과 화재 대피 신호를 알려주는 따뜻하고 용감한 불꽃 친구!",
+                    src: "/assets/fire-character.png?v=9",
+                  },
+                  {
+                    name: "불이 (적염 전사)",
+                    level: "Lv. 2 적염 전사",
+                    attr: "🥊 용맹한 적염 격투가",
+                    desc: "화재 현장에서 굳센 주먹을 쥐고 대피를 리드하는 용맹한 적염 전사!",
+                    src: "/assets/fire-character-red-fighter.png?v=9",
+                  },
+                  {
+                    name: "불이 (적염 망토)",
+                    level: "Lv. 3 적염 히어로",
+                    attr: "🦸‍♂️ 적염 망토 수호자",
+                    desc: "붉은 망토를 휘날리며 열파와 폭발 재난으로부터 생명을 구하는 적염 수호자!",
+                    src: "/assets/fire-character-red-hero.png?v=9",
+                  },
+                  {
+                    name: "불이 (청염 스파크)",
+                    level: "Lv. 3 청염 스파크",
+                    attr: "✨ 푸른 불꽃 각성",
+                    desc: "고온 청염 불씨 스파크를 튀기며 최첨단 가스 안전 감지를 선도하는 불꽃 폼!",
+                    src: "/assets/fire-character-blue-sparkle.png?v=9",
+                  },
+                  {
+                    name: "불이 (각성)",
+                    level: "Lv. 4 망토 대장",
+                    attr: "🦸‍♂️ 푸른 망토 불꽃 대장",
+                    desc: "영웅의 보석과 푸른 오라 망토를 두른 화재 안전 수호대장의 최종 진화 모습!",
+                    src: "/assets/fire-character-hero.png?v=9",
+                  },
+                  {
+                    name: "불이 (울먹)",
+                    level: "Special 감정 폼",
+                    attr: "💧 슬픈 불꽃 폼",
+                    desc: "화재 안전 대피 수칙을 어겼을 때 기운 없이 불씨가 사그라들며 울먹이는 불이!",
+                    src: "/assets/fire-character-sad.png?v=9",
+                  },
+                  {
+                    name: "물이 (기본)",
+                    level: "Lv. 1 맑은 물방울",
+                    attr: "💧 침수·태풍 전담",
+                    desc: "침수 위험 지역 대피와 안전 물자 준비를 상냥하게 안내해 주는 시원한 수호자!",
+                    src: "/assets/water-character.png?v=7",
+                  },
+                  {
+                    name: "물이 (성장)",
+                    level: "Lv. 2 도약하는 파도",
+                    attr: "🌊 도약하는 수룡 폼",
+                    desc: "침수 지역 방파제 보호 및 빠른 상륙 대피를 돕는 시원한 파도 폼!",
+                    src: "/assets/water-character-lv2.png?v=7",
+                  },
+                  {
+                    name: "물이 (각성)",
+                    level: "Lv. 3 워터 스피릿",
+                    attr: "🧜‍♂️ 웅장한 물의 정령",
+                    desc: "물줄기 쉴드를 두르고 대홍수 재난으로부터 사람들을 수호하는 물의 정령 최종 진화 모습!",
+                    src: "/assets/water-character-spirit.png?v=7",
+                  },
+                  {
+                    name: "물이 (울먹)",
+                    level: "Special 감정 폼",
+                    attr: "💧 슬픈 물방울 폼",
+                    desc: "침수 안전 대피 규칙을 잊었을 때 눈물을 퐁당 글썽이는 솔직한 물이!",
+                    src: "/assets/water-character-sad.png?v=7",
+                  },
+                  {
+                    name: "바람이 (기본)",
+                    level: "Lv. 1 신선한 바람",
+                    attr: "🌬️ 강풍·황사 전담",
+                    desc: "창문 고정 및 미세먼지 마스크 착용을 꼼꼼하게 챙겨주는 상쾌한 바람 파트너!",
+                    src: "/assets/wind-character.png?v=6",
+                  },
+                  {
+                    name: "바람이 (성장)",
+                    level: "Lv. 2 쾌속 돌풍",
+                    attr: "🌀 날카로운 쾌속 바람",
+                    desc: "강풍 재난 시 미세먼지와 황사를 날려버리는 강력한 쾌속 윈드 폼!",
+                    src: "/assets/wind-character-lv2.png?v=6",
+                  },
+                  {
+                    name: "바람이 (각성)",
+                    level: "Lv. 3 윈드 스피릿",
+                    attr: "🌪️ 웅장한 바람 정령",
+                    desc: "회오리바람 쉴드를 장착한 태풍 대비 전담 수호 정령의 최종 진화 모습!",
+                    src: "/assets/wind-character-spirit.png?v=6",
+                  },
+                  {
+                    name: "바람이 (울먹)",
+                    level: "Special 감정 폼",
+                    attr: "💧 슬픈 구름바람 폼",
+                    desc: "바람 안전 주의사항을 어겼을 때 기운 없이 눈물을 글썽이는 서운한 바람이!",
+                    src: "/assets/wind-character-sad.png?v=6",
+                  },
+                  {
+                    name: "땅이 (기본)",
+                    level: "Lv. 1 튼튼한 흙공",
+                    attr: "🪵 지진·산사태 전담",
+                    desc: "지진 발생 시 책상 아래로 몸을 숨기고 머리를 보호하도록 든든하게 지켜주는 대지 수호신!",
+                    src: "/assets/earth-character.png?v=5",
+                  },
+                  {
+                    name: "땅이 (성장)",
+                    level: "Lv. 2 바위 수호자",
+                    attr: "🗿 단단한 흙바위 폼",
+                    desc: "지진과 산사태 위험에서 흔들리지 않고 더 단단하게 몸을 보호하는 진화 폼!",
+                    src: "/assets/earth-character-lv2.png?v=5",
+                  },
+                  {
+                    name: "땅이 (각성)",
+                    level: "Lv. 3 대지 골렘",
+                    attr: "🌋 웅장한 대지 골렘",
+                    desc: "모든 지진 미션을 완수한 강력한 보석 결정과 이끼 갑옷의 최종 진화 모습!",
+                    src: "/assets/earth-character-golem.png?v=5",
+                  },
+                  {
+                    name: "땅이 (아기)",
+                    level: "Baby 아기 흙공",
+                    attr: "🌱 아기 흙방울 폼",
+                    desc: "새싹을 틔우며 귀엽게 웃고 있는 초보 안전 훈련생 시절의 땅이!",
+                    src: "/assets/earth-character-baby.png?v=5",
+                  },
+                  {
+                    name: "땅이 (울먹)",
+                    level: "Special 감정 폼",
+                    attr: "💧 슬픈 흙공 폼",
+                    desc: "안전 규칙을 지키지 않았을 때 눈물을 핑 글썽이는 솔직한 표정의 땅이!",
+                    src: "/assets/earth-character-sad.png?v=5",
+                  },
+                ].filter((char) => {
+                  if (codexCategory === "fire") return char.name.startsWith("불이");
+                  if (codexCategory === "water") return char.name.startsWith("물이");
+                  if (codexCategory === "wind") return char.name.startsWith("바람이");
+                  if (codexCategory === "earth") return char.name.startsWith("땅이");
+                  return true;
+                }).map((char) => {
+                  const isSelected = selectedCodexName === char.name;
+                  return (
+                    <div
+                      key={char.name}
+                      className={`codex-card ${isSelected ? "selected" : ""}`}
+                      onClick={() => setSelectedCodexName(char.name)}
+                    >
+                      <div className="codex-char-img-wrap">
+                        <img src={char.src} alt={char.name} />
+                      </div>
+                      <strong>{char.name}</strong>
+                      <small>{char.level}</small>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {(() => {
+                const codexList = [
+                  {
+                    name: "불이 (씨앗)",
+                    level: "Lv. 1 불씨 물방울",
+                    attr: "💧 씨앗 불꽃 폼",
+                    desc: "물방울처럼 맑은 불씨 씨앗 형태의 순수한 아기 정령!",
+                    skill: "안전 씨앗 발아 & 기초 가이드",
+                    src: "/assets/fire-character-seed.png?v=10",
+                  },
+                  {
+                    name: "불이 (별 뱃지)",
+                    level: "Lv. 2 스타 수호자",
+                    attr: "⭐ 별 뱃지 폼",
+                    desc: "미션 완료 별 뱃지를 가슴에 달고 안전을 가이드하는 불꽃 수호자!",
+                    skill: "미션 칭찬 별빛 & 안전 보상 수여",
+                    src: "/assets/fire-character-star.png?v=10",
+                  },
+                  {
+                    name: "불이 (방패 뱃지)",
+                    level: "Lv. 2 방재 수호자",
+                    attr: "🛡️ 방패 뱃지 폼",
+                    desc: "황금 방재 쉴드 뱃지를 착용하고 화재 예방을 책임지는 불꽃 정령!",
+                    skill: "황금 방재 방패 쉴드 & 안전 수칙 알림",
+                    src: "/assets/fire-character-shield.png?v=10",
+                  },
+                  {
+                    name: "불이 (기본)",
+                    level: "Lv. 2 불꽃 정령",
+                    attr: "🔥 화재·열파 전담",
+                    desc: "소화기 사용법과 화재 대피 신호를 알려주는 따뜻하고 용감한 불꽃 친구!",
+                    skill: "화재 안전 대피 지도 & 불씨 모으기",
+                    src: "/assets/fire-character.png?v=9",
+                  },
+                  {
+                    name: "불이 (적염 전사)",
+                    level: "Lv. 2 적염 전사",
+                    attr: "🥊 용맹한 적염 격투가",
+                    desc: "화재 현장에서 굳센 주먹을 쥐고 대피를 리드하는 용맹한 적염 전사!",
+                    skill: "비상문 개척 & 화재 통로 펀치",
+                    src: "/assets/fire-character-red-fighter.png?v=9",
+                  },
+                  {
+                    name: "불이 (적염 망토)",
+                    level: "Lv. 3 적염 히어로",
+                    attr: "🦸‍♂️ 적염 망토 수호자",
+                    desc: "붉은 망토를 휘날리며 열파와 폭발 재난으로부터 생명을 구하는 적염 수호자!",
+                    skill: "열파 돌풍 케이지 & 인명 구조 알림",
+                    src: "/assets/fire-character-red-hero.png?v=9",
+                  },
+                  {
+                    name: "불이 (청염 스파크)",
+                    level: "Lv. 3 청염 스파크",
+                    attr: "✨ 푸른 불꽃 각성",
+                    desc: "고온 청염 불씨 스파크를 튀기며 최첨단 가스 안전 감지를 선도하는 불꽃 폼!",
+                    skill: "청염 가스 누출 센서 & 고온 차단막",
+                    src: "/assets/fire-character-blue-sparkle.png?v=9",
+                  },
+                  {
+                    name: "불이 (각성)",
+                    level: "Lv. 4 망토 대장",
+                    attr: "🦸‍♂️ 푸른 망토 불꽃 대장",
+                    desc: "영웅의 보석과 푸른 오라 망토를 두른 화재 안전 수호대장의 최종 진화 모습!",
+                    skill: "광역 화재 차단막 & 소화제 세례",
+                    src: "/assets/fire-character-hero.png?v=9",
+                  },
+                  {
+                    name: "불이 (울먹)",
+                    level: "Special 감정 폼",
+                    attr: "💧 슬픈 불꽃 폼",
+                    desc: "화재 안전 대피 수칙을 어겼을 때 기운 없이 불씨가 사그라들며 울먹이는 불이!",
+                    skill: "화재 위험 알림 소환",
+                    src: "/assets/fire-character-sad.png?v=9",
+                  },
+                  {
+                    name: "물이 (기본)",
+                    level: "Lv. 1 맑은 물방울",
+                    attr: "💧 침수·태풍 전담",
+                    desc: "침수 위험 지역 대피와 안전 물자 준비를 상냥하게 안내해 주는 시원한 수호자!",
+                    skill: "침수 대비 높은 곳 대피 가이드",
+                    src: "/assets/water-character.png?v=7",
+                  },
+                  {
+                    name: "물이 (성장)",
+                    level: "Lv. 2 도약하는 파도",
+                    attr: "🌊 도약하는 수룡 폼",
+                    desc: "침수 지역 방파제 보호 및 빠른 상륙 대피를 돕는 시원한 파도 폼!",
+                    skill: "수위 감지 알림 & 빠른 상륙 대피",
+                    src: "/assets/water-character-lv2.png?v=7",
+                  },
+                  {
+                    name: "물이 (각성)",
+                    level: "Lv. 3 워터 스피릿",
+                    attr: "🧜‍♂️ 웅장한 물의 정령",
+                    desc: "물줄기 쉴드를 두르고 대홍수 재난으로부터 사람들을 수호하는 물의 정령 최종 진화 모습!",
+                    skill: "해일 방파 차단막 & 정수 쉴드",
+                    src: "/assets/water-character-spirit.png?v=7",
+                  },
+                  {
+                    name: "물이 (울먹)",
+                    level: "Special 감정 폼",
+                    attr: "💧 슬픈 물방울 폼",
+                    desc: "침수 안전 대피 규칙을 잊었을 때 눈물을 퐁당 글썽이는 솔직한 물이!",
+                    skill: "침수 위험 경보 발행",
+                    src: "/assets/water-character-sad.png?v=7",
+                  },
+                  {
+                    name: "바람이 (기본)",
+                    level: "Lv. 1 신선한 바람",
+                    attr: "🌬️ 강풍·황사 전담",
+                    desc: "창문 고정 및 미세먼지 마스크 착용을 꼼꼼하게 챙겨주는 상쾌한 바람 파트너!",
+                    skill: "강풍 방재 대비 및 실내 환기 조율",
+                    src: "/assets/wind-character.png?v=6",
+                  },
+                  {
+                    name: "바람이 (성장)",
+                    level: "Lv. 2 쾌속 돌풍",
+                    attr: "🌀 날카로운 쾌속 바람",
+                    desc: "강풍 재난 시 미세먼지와 황사를 날려버리는 강력한 쾌속 윈드 폼!",
+                    skill: "창문 강화 테이핑 & 대공 환기 쉴드",
+                    src: "/assets/wind-character-lv2.png?v=6",
+                  },
+                  {
+                    name: "바람이 (각성)",
+                    level: "Lv. 3 윈드 스피릿",
+                    attr: "🌪️ 웅장한 바람 정령",
+                    desc: "회오리바람 쉴드를 장착한 태풍 대비 전담 수호 정령의 최종 진화 모습!",
+                    skill: "태풍 충격 완화 윈드 케이지",
+                    src: "/assets/wind-character-spirit.png?v=6",
+                  },
+                  {
+                    name: "바람이 (울먹)",
+                    level: "Special 감정 폼",
+                    attr: "💧 슬픈 구름바람 폼",
+                    desc: "바람 안전 주의사항을 어겼을 때 기운 없이 눈물을 글썽이는 서운한 바람이!",
+                    skill: "미세먼지 주의보 경보 발행",
+                    src: "/assets/wind-character-sad.png?v=6",
+                  },
+                  {
+                    name: "땅이 (기본)",
+                    level: "Lv. 1 튼튼한 흙공",
+                    attr: "🪵 지진·산사태 전담",
+                    desc: "지진 발생 시 책상 아래로 몸을 숨기고 머리를 보호하도록 든든하게 지켜주는 대지 수호신!",
+                    skill: "지진 3단계 안전 자세(드롭, 커버, 홀드 온)",
+                    src: "/assets/earth-character.png?v=5",
+                  },
+                  {
+                    name: "땅이 (성장)",
+                    level: "Lv. 2 바위 수호자",
+                    attr: "🗿 단단한 흙바위 폼",
+                    desc: "지진과 산사태 위험에서 흔들리지 않고 더 단단하게 몸을 보호하는 진화 폼!",
+                    skill: "바위 방패 내진 보강 지식",
+                    src: "/assets/earth-character-lv2.png?v=5",
+                  },
+                  {
+                    name: "땅이 (각성)",
+                    level: "Lv. 3 대지 골렘",
+                    attr: "🌋 웅장한 대지 골렘",
+                    desc: "모든 지진 미션을 완수한 강력한 보석 결정과 이끼 갑옷의 최종 진화 모습!",
+                    skill: "대지 충격파 흡수 & 광역 수호 쉴드",
+                    src: "/assets/earth-character-golem.png?v=5",
+                  },
+                  {
+                    name: "땅이 (아기)",
+                    level: "Baby 아기 흙공",
+                    attr: "🌱 아기 흙방울 폼",
+                    desc: "새싹을 틔우며 귀엽게 웃고 있는 초보 안전 훈련생 시절의 땅이!",
+                    skill: "앙증맞은 안전 인사 & 기초 훈련",
+                    src: "/assets/earth-character-baby.png?v=5",
+                  },
+                  {
+                    name: "땅이 (울먹)",
+                    level: "Special 감정 폼",
+                    attr: "💧 슬픈 흙공 폼",
+                    desc: "안전 규칙을 지키지 않았을 때 눈물을 핑 글썽이는 솔직한 표정의 땅이!",
+                    skill: "안전 주의 경고 알림",
+                    src: "/assets/earth-character-sad.png?v=5",
+                  },
+                ].filter((char) => {
+                  if (codexCategory === "fire") return char.name.startsWith("불이");
+                  if (codexCategory === "water") return char.name.startsWith("물이");
+                  if (codexCategory === "wind") return char.name.startsWith("바람이");
+                  if (codexCategory === "earth") return char.name.startsWith("땅이");
+                  return true;
+                });
+                const activeChar = codexList.find((c) => c.name === selectedCodexName) || codexList[0] || {
+                  name: "불이",
+                  level: "Lv. 2",
+                  attr: "🔥 수호신",
+                  desc: "안전 수호자",
+                  skill: "안전 가이드",
+                  src: "/assets/fire-character.png?v=9",
+                };
+                return (
+                  <div className="codex-detail-box">
+                    <div className="codex-detail-title">
+                      <div>
+                        <strong style={{ fontSize: 16, color: "#1b4035", display: "block" }}>
+                          {activeChar.name} ({activeChar.level})
+                        </strong>
+                        <span style={{ fontSize: 12, color: "#ff8b4d", fontWeight: 700 }}>
+                          {activeChar.attr}
+                        </span>
+                      </div>
+                      <img src={activeChar.src} alt={activeChar.name} style={{ width: 48, height: 48, objectFit: "contain" }} />
+                    </div>
+                    <p style={{ margin: "0 0 10px", fontSize: 12, color: "#444", lineHeight: 1.4 }}>
+                      {activeChar.desc}
+                    </p>
+                    <div style={{ background: "#f5f9f7", padding: "8px 10px", borderRadius: 12, fontSize: 11, color: "#2d5a4c" }}>
+                      ⚡ <strong>보유 안전 기술:</strong> {activeChar.skill}
+                    </div>
+                    <button
+                      className="primary-button"
+                      style={{ width: "100%", marginTop: 12, padding: 10, fontSize: 13 }}
+                      onClick={() => {
+                        setProfileAvatarSrc(activeChar.src);
+                        if (activeChar.name.startsWith("불이")) {
+                          setFireForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
+                        } else if (activeChar.name.startsWith("물이")) {
+                          setWaterForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
+                        } else if (activeChar.name.startsWith("바람이")) {
+                          setWindForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
+                        } else if (activeChar.name.startsWith("땅이")) {
+                          setEarthForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
+                        }
+                        setShowCodexModal(false);
+                      }}
+                    >
+                      ★ {activeChar.name}(으)로 선택 및 진화 폼 장착하기
+                    </button>
+                  </div>
+                );
+              })()}
+
+              <button className="text-button" style={{ width: "100%" }} onClick={() => setShowCodexModal(false)}>
+                닫기
+              </button>
+            </div>
+          </div>
         )}
 
         {showKitModal && (
@@ -1640,10 +2154,28 @@ export default function Home() {
               </strong>
               <div className="avatar-character-grid">
                 {[
-                  { name: "불이", src: "/assets/fire-character.png?v=4" },
-                  { name: "물이", src: "/assets/water-character.png?v=4" },
-                  { name: "바람이", src: "/assets/wind-character.png?v=4" },
-                  { name: "땅이", src: "/assets/earth-character.png?v=4" },
+                  { name: "불이 (씨앗)", src: "/assets/fire-character-seed.png?v=10" },
+                  { name: "불이 (별 뱃지)", src: "/assets/fire-character-star.png?v=10" },
+                  { name: "불이 (방패 뱃지)", src: "/assets/fire-character-shield.png?v=10" },
+                  { name: "불이 (기본)", src: "/assets/fire-character.png?v=9" },
+                  { name: "불이 (적염 전사)", src: "/assets/fire-character-red-fighter.png?v=9" },
+                  { name: "불이 (적염 망토)", src: "/assets/fire-character-red-hero.png?v=9" },
+                  { name: "불이 (청염 스파크)", src: "/assets/fire-character-blue-sparkle.png?v=9" },
+                  { name: "불이 (각성)", src: "/assets/fire-character-hero.png?v=9" },
+                  { name: "불이 (울먹)", src: "/assets/fire-character-sad.png?v=9" },
+                  { name: "물이 (기본)", src: "/assets/water-character.png?v=7" },
+                  { name: "물이 (성장)", src: "/assets/water-character-lv2.png?v=7" },
+                  { name: "물이 (각성)", src: "/assets/water-character-spirit.png?v=7" },
+                  { name: "물이 (울먹)", src: "/assets/water-character-sad.png?v=7" },
+                  { name: "바람이 (기본)", src: "/assets/wind-character.png?v=7" },
+                  { name: "바람이 (성장)", src: "/assets/wind-character-lv2.png?v=7" },
+                  { name: "바람이 (각성)", src: "/assets/wind-character-spirit.png?v=7" },
+                  { name: "바람이 (울먹)", src: "/assets/wind-character-sad.png?v=7" },
+                  { name: "땅이 (기본)", src: "/assets/earth-character.png?v=7" },
+                  { name: "땅이 (성장)", src: "/assets/earth-character-lv2.png?v=7" },
+                  { name: "땅이 (각성)", src: "/assets/earth-character-golem.png?v=7" },
+                  { name: "땅이 (아기)", src: "/assets/earth-character-baby.png?v=7" },
+                  { name: "땅이 (울먹)", src: "/assets/earth-character-sad.png?v=7" },
                 ].map((char) => (
                   <button
                     key={char.name}

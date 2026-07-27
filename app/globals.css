@@ -5067,6 +5067,176 @@ textarea:focus-visible {
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
+/* 안전 캐릭터 도감 모달 스타일 */
+.codex-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 30, 25, 0.65);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.codex-modal-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f7faf8 100%);
+  border-radius: 28px;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.character-item {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.character-item:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+.codex-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.codex-tab-btn {
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid #d0ded8;
+  background: #f0f5f2;
+  color: #4a635a;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.codex-tab-btn:hover,
+.codex-tab-btn.active {
+  background: #1b4035;
+  color: white;
+  border-color: #1b4035;
+}
+
+.codex-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.codex-header h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  color: #1b4035;
+}
+
+.codex-stats-banner {
+  background: linear-gradient(135deg, #1b4035, #2d5a4c);
+  border-radius: 18px;
+  padding: 14px 16px;
+  color: white;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 20px rgba(27, 64, 53, 0.2);
+}
+
+.codex-stats-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.codex-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.codex-card {
+  background: white;
+  border: 2px solid #e2ece7;
+  border-radius: 20px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.codex-card:hover,
+.codex-card.selected {
+  border-color: #ff9800;
+  background: #fffbf2;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 152, 0, 0.18);
+}
+
+.codex-char-img-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #ffffff 30%, #f0f6f3 100%);
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+  border: 2px solid #e0eae5;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.1));
+}
+
+.codex-char-img-wrap img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.codex-card strong {
+  font-size: 14px;
+  color: #1b4035;
+  margin-bottom: 2px;
+}
+
+.codex-card small {
+  font-size: 11px;
+  color: #889993;
+  font-weight: 700;
+}
+
+.codex-detail-box {
+  background: white;
+  border: 1px solid #dce8e2;
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 16px;
+  text-align: left;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.codex-detail-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
 .quiz-action-button:active {
   transform: scale(0.98);
   background: #e05e00;
