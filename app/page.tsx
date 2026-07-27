@@ -90,7 +90,7 @@ function MascotImage({
   className?: string;
   alt?: string;
 }) {
-  return <img className={`mascot-image ${className}`} src="/assets/fire-character.webp" alt={alt} />;
+  return <img className={`mascot-image ${className}`} src="/assets/fire-character.png" alt={alt} />;
 }
 
 function BackHeader({
@@ -1197,20 +1197,29 @@ export default function Home() {
               </div>
               <div className="character-row">
                 <article className="character-item unlocked">
-                  <div className="character-orb fire"><MascotImage alt="" /></div>
+                  <div className="character-orb fire">
+                    <img src="/assets/fire-character.png" alt="불이" />
+                  </div>
                   <strong>불이</strong><small>Lv. 2</small>
                 </article>
-                <article className="character-item">
-                  <div className="character-orb water"><span>●</span><i>⌁</i></div>
-                  <strong>물이</strong><small>미션 2개</small>
+                <article className="character-item unlocked">
+                  <span className="character-badge-heart">❤️</span>
+                  <div className="character-orb water">
+                    <img src="/assets/water-character.png" alt="물이" />
+                  </div>
+                  <strong>물이</strong><small>Lv. 1</small>
                 </article>
-                <article className="character-item">
-                  <div className="character-orb wind"><span>≈</span></div>
-                  <strong>바람이</strong><small>잠김</small>
+                <article className="character-item unlocked">
+                  <div className="character-orb wind">
+                    <img src="/assets/wind-character.png" alt="바람이" />
+                  </div>
+                  <strong>바람이</strong><small>Lv. 1</small>
                 </article>
-                <article className="character-item">
-                  <div className="character-orb earth"><span>◆</span></div>
-                  <strong>땅이</strong><small>잠김</small>
+                <article className="character-item unlocked">
+                  <div className="character-orb earth">
+                    <img src="/assets/earth-character.png" alt="땅이" />
+                  </div>
+                  <strong>땅이</strong><small>Lv. 1</small>
                 </article>
               </div>
             </section>

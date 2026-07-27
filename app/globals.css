@@ -2318,7 +2318,7 @@ textarea:focus-visible {
 
 .profile-card {
   display: grid;
-  grid-template-columns: 48px 1fr 38px;
+  grid-template-columns: 48px 1fr auto;
   align-items: center;
   gap: 10px;
   padding: 14px;
@@ -2358,7 +2358,7 @@ textarea:focus-visible {
 }
 
 .profile-card button {
-  padding: 6px 7px;
+  padding: 6px 12px;
   border: 1px solid var(--line);
   border-radius: 9px;
   background: #f7f8f7;
@@ -2366,6 +2366,7 @@ textarea:focus-visible {
   font-size: var(--type-label-large-size);
   line-height: var(--type-label-large-line);
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .weekly-report {
@@ -4017,9 +4018,10 @@ textarea:focus-visible {
 .reward-gallery {
   margin-top: 12px;
   padding: 14px;
-  border: 1px solid var(--line);
+  border: none;
   border-radius: 21px;
   background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 .character-collection .section-heading,
@@ -4045,10 +4047,20 @@ textarea:focus-visible {
 }
 
 .character-item {
+  position: relative;
   display: flex;
   min-width: 0;
   align-items: center;
   flex-direction: column;
+}
+
+.character-badge-heart {
+  position: absolute;
+  top: -6px;
+  right: 4px;
+  font-size: 14px;
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
 }
 
 .character-orb {
@@ -4059,10 +4071,9 @@ textarea:focus-visible {
   place-items: center;
   overflow: hidden;
   margin-bottom: 6px;
-  border: 3px solid white;
-  border-radius: 21px;
-  color: white;
-  box-shadow: 0 6px 13px rgba(27, 64, 53, 0.13);
+  border: none;
+  background: #ffffff;
+  box-shadow: none;
   filter: grayscale(0.75);
   opacity: 0.62;
 }
@@ -4072,35 +4083,22 @@ textarea:focus-visible {
   opacity: 1;
 }
 
-.character-orb.fire img {
+.character-orb img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  transform: scale(1.72);
 }
 
-.character-orb.water {
-  background: linear-gradient(145deg, #a9e8ff, #418bd5);
+.character-orb.fire img,
+.character-orb.water img {
+  transform: scale(1.38);
 }
 
-.character-orb.water span {
-  font-size: 47px;
-  transform: translateY(8px);
-}
-
-.character-orb.water i {
-  position: absolute;
-  color: white;
-  font-size: 17px;
-  font-style: normal;
-}
-
-.character-orb.wind {
-  background: linear-gradient(145deg, #e1f1e9, #8dbba8);
-  font-size: 30px;
-}
-
+.character-orb.water,
+.character-orb.wind,
 .character-orb.earth {
-  background: linear-gradient(145deg, #d9b88e, #8f6a45);
-  font-size: 25px;
+  background: #ffffff;
 }
 
 .character-item strong {
