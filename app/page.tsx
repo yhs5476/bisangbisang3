@@ -79,7 +79,7 @@ function MascotImage({
   className?: string;
   alt?: string;
 }) {
-  return <img className={`mascot-image ${className}`} src="/assets/fire-character.png?v=3" alt={alt} />;
+  return <img className={`mascot-image ${className}`} src="/assets/fire-character.png?v=4" alt={alt} />;
 }
 
 function BackHeader({
@@ -133,6 +133,7 @@ export default function Home() {
   const [location, setLocation] = useState("home");
   const [withChild, setWithChild] = useState<"yes" | "no">("no");
   const [checks, setChecks] = useState([false, false, false, false]);
+  const [missionHeroImage, setMissionHeroImage] = useState<string | null>(null);
   const [sparks, setSparks] = useState(50);
   const [missionDone, setMissionDone] = useState(false);
   const [quizIndex, setQuizIndex] = useState(0);
@@ -177,6 +178,15 @@ export default function Home() {
   };
 
   const toggleCheck = (index: number) => {
+    if (index === 0) {
+      setMissionHeroImage("/assets/mission-desk-find.jpg");
+    } else if (index === 1) {
+      setMissionHeroImage("/assets/mission-crouch-enter.png");
+    } else if (index === 2) {
+      setMissionHeroImage("/assets/mission-photo-take.png");
+    } else if (index === 3) {
+      setMissionHeroImage("/assets/mission-protect-head.png");
+    }
     setChecks((current) =>
       current.map((checked, itemIndex) => (itemIndex === index ? !checked : checked)),
     );
@@ -736,10 +746,16 @@ export default function Home() {
 
             <section className="mission-hero">
               <div className="mission-hero-art" aria-hidden="true">
-                <span className="floor-line" />
-                <span className="shoe obstacle-one">◇</span>
-                <span className="box obstacle-two">□</span>
-                <FlameBuddy size="large" />
+                {missionHeroImage ? (
+                  <img src={missionHeroImage} alt="미션 히로 이미지" className="hero-banner-image" />
+                ) : (
+                  <>
+                    <span className="floor-line" />
+                    <span className="shoe obstacle-one">◇</span>
+                    <span className="box obstacle-two">□</span>
+                    <FlameBuddy size="large" />
+                  </>
+                )}
               </div>
               <span className="mission-tag">집에서 · 약 5분</span>
               <h1>책상 아래<br />안전 자세 연습</h1>
@@ -749,7 +765,7 @@ export default function Home() {
             <section className="mission-progress">
               <div>
                 <strong>미션 진행률</strong>
-                <span>{completedChecks} / 3 완료</span>
+                <span>{completedChecks} / {checks.length} 완료</span>
               </div>
               <div className="progress-track mission-track">
                 <span style={{ width: `${progress}%` }} />
@@ -1339,19 +1355,19 @@ export default function Home() {
                 <article className="character-item unlocked">
                   <span className="character-badge-heart">❤️</span>
                   <div className="character-orb water">
-                    <img src="/assets/water-character.png" alt="물이" />
+                    <img src="/assets/water-character.png?v=4" alt="물이" />
                   </div>
                   <strong>물이</strong><small>Lv. 1</small>
                 </article>
                 <article className="character-item unlocked">
                   <div className="character-orb wind">
-                    <img src="/assets/wind-character.png" alt="바람이" />
+                    <img src="/assets/wind-character.png?v=4" alt="바람이" />
                   </div>
                   <strong>바람이</strong><small>Lv. 1</small>
                 </article>
                 <article className="character-item unlocked">
                   <div className="character-orb earth">
-                    <img src="/assets/earth-character.png" alt="땅이" />
+                    <img src="/assets/earth-character.png?v=4" alt="땅이" />
                   </div>
                   <strong>땅이</strong><small>Lv. 1</small>
                 </article>

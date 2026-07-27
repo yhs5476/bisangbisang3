@@ -1603,6 +1603,13 @@ textarea:focus-visible {
     linear-gradient(180deg, #dff5ef 0 72%, #f3d9b7 72% 100%);
 }
 
+.hero-banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 27px;
+}
+
 .mission-hero-art .flame-buddy {
   position: absolute;
   right: 50%;
