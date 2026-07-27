@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import confetti from "canvas-confetti";
 import { supabase } from "./supabaseClient";
 
 type Screen =
@@ -134,6 +135,9 @@ export default function Home() {
   const [withChild, setWithChild] = useState<"yes" | "no">("no");
   const [checks, setChecks] = useState([false, false, false, false]);
   const [missionHeroImage, setMissionHeroImage] = useState<string | null>(null);
+  const [profileAvatarSrc, setProfileAvatarSrc] = useState<string | null>(null);
+  const [showAvatarModal, setShowAvatarModal] = useState(false);
+  const [showKitModal, setShowKitModal] = useState(false);
   const [sparks, setSparks] = useState(50);
   const [missionDone, setMissionDone] = useState(false);
   const [quizIndex, setQuizIndex] = useState(0);
@@ -161,6 +165,39 @@ export default function Home() {
   const navigate = (next: Screen) => {
     setScreen(next);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const triggerFireworks = () => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+
+    setTimeout(() => {
+      confetti({
+        particleCount: 60,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.7 },
+      });
+      confetti({
+        particleCount: 60,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.7 },
+      });
+    }, 250);
+
+    setTimeout(() => {
+      confetti({
+        particleCount: 80,
+        spread: 100,
+        decay: 0.92,
+        scalar: 1.2,
+        origin: { y: 0.5 },
+      });
+    }, 500);
   };
 
   const openCheckin = () => {
@@ -220,8 +257,8 @@ export default function Home() {
       <div className="ambient-shape ambient-two" />
       <section className={`phone-shell screen-${screen}`}>
         <div className="status-bar" aria-hidden="true">
-          <span>9:41</span>
           <span>● ◒ ▰</span>
+          <span>9:41</span>
         </div>
 
         {screen === "onboarding" && (
@@ -1014,9 +1051,40 @@ export default function Home() {
 
             <section className="reward-profile-hero">
               <div className="child-hero-avatar">
-                <span className="hero-avatar-circle">도</span>
-                <div>
-                  <strong>도도 어린이</strong>
+                <div className="profile-avatar-container">
+                  {profileAvatarSrc || userPhoto ? (
+                    <img
+                      src={profileAvatarSrc || userPhoto || ""}
+                      alt="도도 어린이 프로필"
+                      className="hero-avatar-img"
+                    />
+                  ) : (
+                    <span className="hero-avatar-circle">도</span>
+                  )}
+                  <label className="profile-edit-badge" title="프로필 사진 변경">
+                    📷
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onload = () => setProfileAvatarSrc(String(reader.result));
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <strong>도도 어린이</strong>
+                    <button className="profile-change-btn" onClick={() => setShowAvatarModal(true)}>
+                      프로필 변경
+                    </button>
+                  </div>
                   <small>성수동 · 안전 대장</small>
                 </div>
               </div>
@@ -1038,7 +1106,10 @@ export default function Home() {
                 </div>
                 <button
                   className="primary-button kit-shipment-btn"
-                  onClick={() => alert("도도 어린이의 맞춤형 안전 키트 배송 신청 및 조회가 진행됩니다!")}
+                  onClick={() => {
+                    triggerFireworks();
+                    setShowKitModal(true);
+                  }}
                 >
                   🚚 키트 배송 조회 및 신청
                 </button>
@@ -1467,6 +1538,134 @@ export default function Home() {
 
         {!["onboarding", "login", "alert", "situation", "actions", "checkin", "mission", "quiz", "photoReward", "reward"].includes(screen) && (
           <BottomNav current={screen} onNavigate={navigate} />
+        )}
+
+        {showKitModal && (
+          <div className="kit-celebration-modal" onClick={() => setShowKitModal(false)}>
+            <div className="kit-modal-card" onClick={(e) => e.stopPropagation()}>
+              <div className="kit-celebration-banner">🎉 📦 🚚</div>
+              <h2 style={{ margin: "0 0 6px", fontSize: 20, color: "#1b4035" }}>
+                배송 신청 완료!
+              </h2>
+              <p style={{ margin: "0 0 12px", fontSize: 13, color: "#555" }}>
+                <strong>도도 어린이</strong>를 위한 맞춤형 안전 키트 배송이 시작되었어요! 🎁
+              </p>
+
+              <div className="kit-items-preview">
+                <div className="kit-item-row">
+                  <span>🎒</span>
+                  <div>
+                    <div>도도의 맞춤형 안전 백팩</div>
+                    <small style={{ color: "#777" }}>도도 캐릭터 패치 및 방재 도구 내장</small>
+                  </div>
+                </div>
+                <div className="kit-item-row">
+                  <span>⛑️</span>
+                  <div>
+                    <div>어린이 안전 방재 모자</div>
+                    <small style={{ color: "#777" }}>충격 흡수 및 야간 반사 소재</small>
+                  </div>
+                </div>
+                <div className="kit-item-row">
+                  <span>📖</span>
+                  <div>
+                    <div>도도 주인공 3D 안전 팝업북</div>
+                    <small style={{ color: "#777" }}>도도 어린이가 직접 등장하는 재난 대응 만화</small>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ background: "#f0f6f4", borderRadius: 14, padding: "10px 12px", marginBottom: 16, fontSize: 12, textAlign: "left" }}>
+                <div>📍 <strong>배송지</strong>: 서울특별시 성동구 성수동</div>
+                <div>⏱️ <strong>예상 도착</strong>: 영업일 기준 2일 이내</div>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <button
+                  className="secondary-button"
+                  style={{ width: "100%", background: "#fff5d6", borderColor: "#f9d271", color: "#8d6600", fontWeight: 800 }}
+                  onClick={triggerFireworks}
+                >
+                  ✨ 빵빠레 폭죽 한 번 더 터뜨리기! 🎉
+                </button>
+                <button className="primary-button" style={{ width: "100%" }} onClick={() => setShowKitModal(false)}>
+                  확인 (닫기)
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showAvatarModal && (
+          <div className="avatar-selector-modal" onClick={() => setShowAvatarModal(false)}>
+            <div className="avatar-modal-card" onClick={(e) => e.stopPropagation()}>
+              <h3 style={{ margin: "0 0 8px" }}>도도 어린이 프로필 변경</h3>
+              <p style={{ margin: "0 0 16px", fontSize: 13, color: "var(--muted)" }}>
+                캐릭터 아바타를 선택하거나 직접 촬영/업로드한 사진을 적용해 보세요!
+              </p>
+
+              <label className="primary-button" style={{ display: "block", textAlign: "center", marginBottom: 12, cursor: "pointer" }}>
+                📷 새 사진/파일 업로드
+                <input
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        setProfileAvatarSrc(String(reader.result));
+                        setShowAvatarModal(false);
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                />
+              </label>
+
+              {userPhoto && (
+                <button
+                  className="secondary-button"
+                  style={{ width: "100%", marginBottom: 16 }}
+                  onClick={() => {
+                    setProfileAvatarSrc(userPhoto);
+                    setShowAvatarModal(false);
+                  }}
+                >
+                  📸 미션 중 촬영한 사진 적용하기
+                </button>
+              )}
+
+              <strong style={{ fontSize: 13, display: "block", marginBottom: 8 }}>
+                안전 캐릭터 선택
+              </strong>
+              <div className="avatar-character-grid">
+                {[
+                  { name: "불이", src: "/assets/fire-character.png?v=4" },
+                  { name: "물이", src: "/assets/water-character.png?v=4" },
+                  { name: "바람이", src: "/assets/wind-character.png?v=4" },
+                  { name: "땅이", src: "/assets/earth-character.png?v=4" },
+                ].map((char) => (
+                  <button
+                    key={char.name}
+                    className={`avatar-char-btn ${profileAvatarSrc === char.src ? "selected" : ""}`}
+                    onClick={() => {
+                      setProfileAvatarSrc(char.src);
+                      setShowAvatarModal(false);
+                    }}
+                  >
+                    <img src={char.src} alt={char.name} />
+                    <span style={{ fontSize: 11, fontWeight: 700 }}>{char.name}</span>
+                  </button>
+                ))}
+              </div>
+
+              <button className="text-button" style={{ width: "100%" }} onClick={() => setShowAvatarModal(false)}>
+                닫기
+              </button>
+            </div>
+          </div>
         )}
       </section>
     </main>

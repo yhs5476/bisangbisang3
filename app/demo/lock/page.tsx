@@ -80,11 +80,11 @@ function LockContent() {
       <section className="phone-shell lock-shell">
         {/* 상단 상태바 (프로토타입 통일) */}
         <div className="status-bar light-status">
-          <span>{currentTime || "09:41"}</span>
           <span className="status-icons">
             <i className="status-wifi">📶</i>
             <i className="status-battery">🔋</i>
           </span>
+          <span>{currentTime || "09:41"}</span>
         </div>
 
         <div className="lock-body">

@@ -127,11 +127,11 @@ function ChildAlertContent() {
       <section className="phone-shell alert-phone-shell">
         {/* 프로토타입 통일 상단 상태바 */}
         <div className="status-bar light-status">
-          <span>09:41</span>
           <span className="status-icons">
             <i className="status-wifi">📶</i>
             <i className="status-battery">🔋</i>
           </span>
+          <span>09:41</span>
         </div>
 
         <div className="child-alert-root">
