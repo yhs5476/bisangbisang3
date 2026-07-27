@@ -1037,66 +1037,61 @@ export default function Home() {
         )}
 
         {screen === "safety" && (
-          <div className="screen-content safety-map-screen">
-            <header className="safety-map-header">
+          <div className="screen-content safety-world-screen">
+            <header className="safety-world-header-card">
               <div>
-                <span className="eyebrow">성동구 안심지도</span>
-                <h1>도도 주변의 안전한 곳</h1>
+                <span className="eyebrow">성동구 안전 월드</span>
+                <h1>우리 동네를 밝혀요</h1>
               </div>
-              <button className="location-refresh"><span>⌖</span> 현 위치</button>
+              <div className="star-points-badge">
+                <span className="star-icon">✦</span>
+                <strong>50</strong>
+              </div>
             </header>
 
-            <section className="safety-map-canvas">
-              <span className="map-street street-one" />
-              <span className="map-street street-two" />
-              <span className="map-street street-three" />
-              <span className="route-line route-one" />
-              <span className="route-line route-two" />
-              <div className="route-start">
-                <span className="role-avatar child-avatar">도</span>
-                <small>도도</small>
+            <section className="safety-world-map">
+              <img className="map-bg-image" src="/assets/safety-world-exact-bg.png" alt="성동구 안전 월드 지도" />
+
+              <div className="map-node node-home" style={{ top: "27%", left: "30%" }}>
+                <div className="node-label-pill">우리 집</div>
+                <span className="node-sub">{missionDone ? "불이 켜졌어요!" : "미션 1개 남음"}</span>
               </div>
-              <div className="shelter-pin shelter-main">
-                <span>⌂</span>
-                <strong>성수초 체육관</strong>
-                <small>도보 4분</small>
+
+              <div className="map-node node-school" style={{ top: "42%", left: "71%" }}>
+                <div className="node-label-pill">학교 가는 길</div>
+                <span className="node-sub highlight">다음 지역</span>
               </div>
-              <div className="shelter-pin shelter-sub"><span>＋</span></div>
-              <div className="shelter-pin shelter-third"><span>⌂</span></div>
-              <span className="map-park-label">서울숲</span>
-              <span className="map-river-label">한강</span>
+
+              <div className="map-node node-forest" style={{ top: "64%", left: "28%" }}>
+                <div className="node-label-pill">서울숲</div>
+                <span className="node-sub">미션 3개 필요</span>
+              </div>
+
+              <div className="map-node node-station" style={{ top: "77%", left: "73%" }}>
+                <div className="node-label-pill">성수역</div>
+                <span className="node-sub">미션 5개 필요</span>
+              </div>
+
+              <span className="river-label">한강</span>
             </section>
 
-            <section className="ai-route-card">
-              <div className="ai-route-heading">
-                <span className="ai-badge">AI</span>
-                <div>
-                  <small>도도 위치에 맞춘 추천 경로</small>
-                  <strong>성수초등학교 체육관</strong>
-                </div>
-                <span className="distance-badge">280m</span>
+            <section className="next-adventure-card">
+              <div className="adventure-icon-box">
+                <span>📑</span>
               </div>
-              <div className="route-metrics">
-                <span><strong>4분</strong> 예상 도보</span>
-                <span><strong>2곳</strong> 횡단보도</span>
-                <span><strong>혼잡 낮음</strong> 현재 상태</span>
+              <div className="adventure-info">
+                <span className="eyebrow">다음 탐험</span>
+                <strong>학교 가는 길 안전 찾기</strong>
+                <p>횡단보도와 안전한 기다림 장소를 찾아봐요.</p>
               </div>
-              <button className="primary-button">안전 경로 보기 <span>→</span></button>
+              <button className="adventure-go-btn" onClick={() => navigate("mission")} aria-label="탐험 시작">
+                ›
+              </button>
             </section>
 
-            <section className="nearby-shelters">
-              <div className="section-heading">
-                <h2>주변 대피소</h2>
-                <button>목록 보기</button>
-              </div>
-              <article>
-                <span className="shelter-list-icon">⌂</span>
-                <div><strong>성수초등학교 체육관</strong><small>지진 옥외대피장소 · 280m</small></div>
-                <span className="open-badge">이용 가능</span>
-              </article>
-            </section>
-
-            <p className="map-disclaimer">경로와 대피소 정보는 MVP 예시예요. 실제 재난 시 관계기관의 최신 안내를 우선해주세요.</p>
+            <aside className="map-disclaimer">
+              이 지도는 안전 습관을 위한 게임형 지도예요. 실제 대피 경로는 공식 지도를 확인해주세요.
+            </aside>
           </div>
         )}
 

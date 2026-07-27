@@ -4340,3 +4340,180 @@ textarea:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Safety World Map Styles */
+.safety-world-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 14px 24px;
+  background: #cde2d5;
+}
+
+.safety-world-header-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.safety-world-header-card .eyebrow {
+  color: #3b6b55;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.safety-world-header-card h1 {
+  font-size: 22px;
+  font-weight: 900;
+  color: #111111;
+  margin: 3px 0 0;
+  letter-spacing: -0.02em;
+}
+
+.star-points-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fada7a, #f7b731);
+  color: #5a3900;
+  font-size: 15px;
+  font-weight: 900;
+  box-shadow: 0 4px 10px rgba(247, 183, 49, 0.4);
+}
+
+.safety-world-map {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(27, 64, 53, 0.12);
+}
+
+.map-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.map-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.node-label-pill {
+  padding: 5px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 13px;
+  font-weight: 900;
+  color: #222222;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+.node-sub {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #2e4d3c;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95);
+  white-space: nowrap;
+}
+
+.node-sub.highlight {
+  color: #1b4035;
+  font-weight: 900;
+}
+
+.river-label {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 800;
+  text-shadow: 0 1px 4px rgba(0, 40, 90, 0.6);
+  z-index: 2;
+}
+
+.next-adventure-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 18px rgba(27, 64, 53, 0.08);
+}
+
+.adventure-icon-box {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 16px;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.adventure-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.adventure-info strong {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1b4035;
+}
+
+.adventure-info p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.adventure-go-btn {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: #3e7b5e;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(62, 123, 94, 0.3);
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.adventure-go-btn:hover {
+  transform: scale(1.05);
+}
