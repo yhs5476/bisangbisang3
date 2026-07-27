@@ -143,7 +143,7 @@ export default function Home() {
   const [alertError, setAlertError] = useState(false);
   const [location, setLocation] = useState("home");
   const [withChild, setWithChild] = useState<"yes" | "no">("no");
-  const [checks, setChecks] = useState([false, false, false]);
+  const [checks, setChecks] = useState([false, false, false, false]);
   const [sparks, setSparks] = useState(50);
   const [missionDone, setMissionDone] = useState(false);
   const [quizIndex, setQuizIndex] = useState(0);
@@ -381,7 +381,7 @@ export default function Home() {
                   {role === "guardian" ? "김민지 보호자" : "도도 어린이"} · 성수동 <span>⌄</span>
                 </button>
               </div>
-              <button className="icon-button notification-button" aria-label="알림">
+              <button className="icon-button notification-button" aria-label="리워드 보상 센터" onClick={() => navigate("reward")}>
                 ♢
                 <span className="notification-dot" />
               </button>
@@ -761,24 +761,72 @@ export default function Home() {
                   icon: "↓",
                 },
                 {
+                  title: "미션 중인 내 사진 찍기",
+                  copy: "안전 자세를 취하는 내 모습을 사진으로 찰칵 남겨요.",
+                  icon: "📷",
+                  isPhoto: true,
+                },
+                {
                   title: "머리와 목 보호하기",
                   copy: "두 팔로 머리와 목을 감싸고 책상 다리를 잡아요.",
                   icon: "○",
                 },
               ].map((item, index) => (
-                <button
-                  key={item.title}
-                  className={`check-item ${checks[index] ? "checked" : ""}`}
-                  onClick={() => toggleCheck(index)}
-                  aria-pressed={checks[index]}
-                >
-                  <span className="check-illustration">{item.icon}</span>
-                  <span className="check-copy">
-                    <strong>{item.title}</strong>
-                    <small>{item.copy}</small>
-                  </span>
-                  <span className="checkbox">{checks[index] ? "✓" : ""}</span>
-                </button>
+                <div key={item.title} className="check-item-wrapper">
+                  <button
+                    className={`check-item ${checks[index] ? "checked" : ""}`}
+                    onClick={() => toggleCheck(index)}
+                    aria-pressed={checks[index]}
+                  >
+                    <span className="check-illustration">{item.icon}</span>
+                    <span className="check-copy">
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 6, width: "100%" }}>
+                        <strong>{item.title}</strong>
+                        {item.isPhoto && (
+                          <label
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 3,
+                              padding: "2px 8px",
+                              borderRadius: 8,
+                              background: "#e8f5e9",
+                              color: "#2e7d32",
+                              fontSize: 11,
+                              fontWeight: 800,
+                              cursor: "pointer",
+                              flexShrink: 0,
+                              whiteSpace: "nowrap"
+                            }}
+                          >
+                            📷 {userPhoto ? "사진 변경" : "사진 등록"}
+                            <input
+                              type="file"
+                              accept="image/*"
+                              style={{ display: "none" }}
+                              onChange={(event) => {
+                                const file = event.target.files?.[0];
+                                if (file) {
+                                  handlePhoto(file);
+                                  if (!checks[index]) toggleCheck(index);
+                                }
+                              }}
+                            />
+                          </label>
+                        )}
+                      </div>
+                      <small>{item.copy}</small>
+                    </span>
+                    {item.isPhoto && userPhoto ? (
+                      <span className="checkbox photo-preview-box">
+                        <img src={userPhoto} alt="촬영된 사진" style={{ width: 26, height: 26, borderRadius: 6, objectFit: "cover" }} />
+                      </span>
+                    ) : (
+                      <span className="checkbox">{checks[index] ? "✓" : ""}</span>
+                    )}
+                  </button>
+                </div>
               ))}
             </section>
 
@@ -881,9 +929,12 @@ export default function Home() {
                 src="/assets/reward-earthquake.webp"
                 alt="책상 아래 안전 자세를 연습하는 지진 안전 퍼즐 프레임"
               />
-              <label className={`photo-puzzle-piece ${userPhoto ? "has-photo" : ""}`}>
+              <label className={`photo-puzzle-piece ${userPhoto ? "has-photo composite-done" : ""}`}>
                 {userPhoto ? (
-                  <img src={userPhoto} alt="사용자가 선택한 안전 미션 사진" />
+                  <>
+                    <img src={userPhoto} alt="사용자가 선택한 안전 미션 사진" />
+                    <span className="composite-badge">내 사진 합성됨 ✦</span>
+                  </>
                 ) : (
                   <>
                     <span className="camera-symbol">＋</span>
@@ -933,48 +984,127 @@ export default function Home() {
         )}
 
         {screen === "reward" && (
-          <div className="screen-content reward-screen">
-            <div className="confetti" aria-hidden="true">
-              {Array.from({ length: 16 }).map((_, index) => (
-                <i key={index} />
-              ))}
-            </div>
-            <span className="reward-label">MISSION COMPLETE</span>
-            <h1>나의 안전 퍼즐이<br />완성됐어요!</h1>
-            <p>책상 아래 안전 자세를 기억할 특별한 한 장이 생겼어요.</p>
+          <div className="screen-content reward-center-screen">
+            <BackHeader title="보상 센터" onBack={() => navigate("home")} />
 
-            <div className="reward-character-stage">
-              <span className="reward-halo" />
-              <span className="spark-float spark-a">✦</span>
-              <span className="spark-float spark-b">✦</span>
-              <span className="spark-float spark-c">✦</span>
-              <MascotImage className="reward-mascot" />
-            </div>
-
-            <section className="reward-ticket">
-              <span className="spark-orb large">✦</span>
-              <div>
-                <small>미션 보상</small>
-                <strong>불씨 30개 획득!</strong>
+            <section className="reward-profile-hero">
+              <div className="child-hero-avatar">
+                <span className="hero-avatar-circle">도</span>
+                <div>
+                  <strong>도도 어린이</strong>
+                  <small>성수동 · 안전 대장</small>
+                </div>
               </div>
-              <span className="total-sparks">총 {sparks}개</span>
+
+              <div className="reward-tier-card">
+                <div className="tier-badge-row">
+                  <div>
+                    <span className="tier-tag">3단계 달성! 🔥</span>
+                    <h2>맞춤형 안전 키트 달성!</h2>
+                  </div>
+                  <span className="gold-check-seal">✔</span>
+                </div>
+                <div className="tier-pts-info">
+                  <span>현재 달성 포인트</span>
+                  <strong>20,000 / 20,000 Pts</strong>
+                </div>
+                <div className="progress-track reward-track">
+                  <span style={{ width: "100%" }} />
+                </div>
+                <button
+                  className="primary-button kit-shipment-btn"
+                  onClick={() => alert("도도 어린이의 맞춤형 안전 키트 배송 신청 및 조회가 진행됩니다!")}
+                >
+                  🚚 키트 배송 조회 및 신청
+                </button>
+              </div>
             </section>
 
-            <section className="unlock-card">
-              <div className="unlock-icon reward-thumb">
-                <img src="/assets/reward-earthquake.webp" alt="" />
+            <section className="reward-roadmap">
+              <div className="roadmap-step done">
+                <span className="step-num">1단계</span>
+                <strong>캐릭터 성장</strong>
+                <small>불이 Lv.2</small>
               </div>
-              <div>
-                <small>새로운 리워드</small>
-                <strong>‘지진에서 살아남기’ 퍼즐 획득</strong>
+              <span className="step-arrow">›</span>
+              <div className="roadmap-step done">
+                <span className="step-num">2단계</span>
+                <strong>맞춤형 만화책</strong>
+                <small>안전 퍼즐</small>
               </div>
-              <span>›</span>
+              <span className="step-arrow">›</span>
+              <div className="roadmap-step current">
+                <span className="step-num">3단계</span>
+                <strong>실생활 키트</strong>
+                <small>실물 보상</small>
+              </div>
             </section>
 
-            <button className="primary-button" onClick={() => navigate("guardian")}>
-              리워드 보관함 확인하기 <span>→</span>
+            <section className="kit-items-section">
+              <div className="section-heading">
+                <div>
+                  <span className="eyebrow">나만의 맞춤형 재난 대비 키트</span>
+                  <h2>실물 보상 + 실생활 연계 키트</h2>
+                </div>
+                <span className="kit-badge">실물 수령</span>
+              </div>
+
+              <div className="kit-grid">
+                <article className="kit-card">
+                  <span className="kit-icon">🎒</span>
+                  <div>
+                    <span className="kit-tag">백팩</span>
+                    <strong>도도의 맞춤형 안전 백팩</strong>
+                    <p>도도 캐릭터 패치와 진화 정보가 그대로 반영된 비상 가방</p>
+                  </div>
+                  <span className="status-earned">획득 완료</span>
+                </article>
+
+                <article className="kit-card">
+                  <span className="kit-icon">🔥</span>
+                  <div>
+                    <span className="kit-tag">소방 담요</span>
+                    <strong>맞춤형 불이 소방 담요</strong>
+                    <p>화재 발생 시 체온 유지 및 불길로부터 몸을 보호하는 담요</p>
+                  </div>
+                  <span className="status-earned">획득 완료</span>
+                </article>
+
+                <article className="kit-card">
+                  <span className="kit-icon">🔊</span>
+                  <div>
+                    <span className="kit-tag">호루라기 & 손전등</span>
+                    <strong>캐릭터 호루라기 & LED 랜턴</strong>
+                    <p>위급 상황 구조 신호를 위한 호루라기와 고성능 플래시</p>
+                  </div>
+                  <span className="status-earned">획득 완료</span>
+                </article>
+
+                <article className="kit-card">
+                  <span className="kit-icon">🍞</span>
+                  <div>
+                    <span className="kit-tag">비상식량</span>
+                    <strong>비상식량 3종 세트</strong>
+                    <p>재난 발생 시 긴급 체력 보충을 위한 안전 구호 식량</p>
+                  </div>
+                  <span className="status-earned">획득 완료</span>
+                </article>
+
+                <article className="kit-card">
+                  <span className="kit-icon">📖</span>
+                  <div>
+                    <span className="kit-tag">안전 가이드북</span>
+                    <strong>불이와 함께하는 안전 만화책</strong>
+                    <p>도도가 직접 주인공으로 등장하는 재난 대응 만화책</p>
+                  </div>
+                  <span className="status-earned">획득 완료</span>
+                </article>
+              </div>
+            </section>
+
+            <button className="outline-button wide" onClick={() => navigate("home")} style={{ marginTop: 16 }}>
+              홈으로 돌아가기
             </button>
-            <button className="text-button" onClick={() => navigate("home")}>홈으로 돌아가기</button>
           </div>
         )}
 
