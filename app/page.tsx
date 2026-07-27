@@ -30,12 +30,22 @@ const locationOptions = [
   { id: "underground", icon: "↓", label: "지하공간", sub: "지하철·주차장" },
 ];
 
-const navItems: Array<{ screen: Screen; icon: string; label: string }> = [
+const navItems: Array<{ screen: Screen; icon: React.ReactNode; label: string }> = [
   { screen: "home", icon: "⌂", label: "홈" },
   { screen: "mission", icon: "★", label: "미션" },
   { screen: "safety", icon: "⌖", label: "안심지도" },
   { screen: "family", icon: "♧", label: "가족" },
-  { screen: "guardian", icon: "•••", label: "더보기" },
+  {
+    screen: "guardian",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style={{ display: "block", margin: "auto" }}>
+        <circle cx="5.5" cy="12" r="2.2" />
+        <circle cx="12" cy="12" r="2.2" />
+        <circle cx="18.5" cy="12" r="2.2" />
+      </svg>
+    ),
+    label: "더보기",
+  },
 ];
 
 const quizQuestions = [
@@ -134,7 +144,7 @@ export default function Home() {
   const [location, setLocation] = useState("home");
   const [withChild, setWithChild] = useState<"yes" | "no">("no");
   const [checks, setChecks] = useState([false, false, false, false]);
-  const [missionHeroImage, setMissionHeroImage] = useState<string | null>(null);
+  const [missionHeroImage, setMissionHeroImage] = useState<string | null>("/assets/mission-initial-hero.jpg");
   const [profileAvatarSrc, setProfileAvatarSrc] = useState<string | null>(null);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [showKitModal, setShowKitModal] = useState(false);
@@ -1634,154 +1644,154 @@ export default function Home() {
                 {[
                   {
                     name: "불이 (씨앗)",
-                    level: "Lv. 1 불씨 물방울",
+                    level: "Lv. 1",
                     attr: "💧 씨앗 불꽃 폼",
                     desc: "물방울처럼 맑은 불씨 씨앗 형태의 순수한 아기 정령!",
                     src: "/assets/fire-character-seed.png?v=10",
                   },
                   {
                     name: "불이 (별 뱃지)",
-                    level: "Lv. 2 스타 수호자",
+                    level: "Lv. 2",
                     attr: "⭐ 별 뱃지 폼",
                     desc: "미션 완료 별 뱃지를 가슴에 달고 안전을 가이드하는 불꽃 수호자!",
                     src: "/assets/fire-character-star.png?v=10",
                   },
                   {
                     name: "불이 (방패 뱃지)",
-                    level: "Lv. 2 방재 수호자",
+                    level: "Lv. 2",
                     attr: "🛡️ 방패 뱃지 폼",
                     desc: "황금 방재 쉴드 뱃지를 착용하고 화재 예방을 책임지는 불꽃 정령!",
                     src: "/assets/fire-character-shield.png?v=10",
                   },
                   {
                     name: "불이 (기본)",
-                    level: "Lv. 2 불꽃 정령",
+                    level: "Lv. 2",
                     attr: "🔥 화재·열파 전담",
                     desc: "소화기 사용법과 화재 대피 신호를 알려주는 따뜻하고 용감한 불꽃 친구!",
                     src: "/assets/fire-character.png?v=9",
                   },
                   {
                     name: "불이 (적염 전사)",
-                    level: "Lv. 2 적염 전사",
+                    level: "Lv. 2",
                     attr: "🥊 용맹한 적염 격투가",
                     desc: "화재 현장에서 굳센 주먹을 쥐고 대피를 리드하는 용맹한 적염 전사!",
                     src: "/assets/fire-character-red-fighter.png?v=9",
                   },
                   {
                     name: "불이 (적염 망토)",
-                    level: "Lv. 3 적염 히어로",
+                    level: "Lv. 3",
                     attr: "🦸‍♂️ 적염 망토 수호자",
                     desc: "붉은 망토를 휘날리며 열파와 폭발 재난으로부터 생명을 구하는 적염 수호자!",
                     src: "/assets/fire-character-red-hero.png?v=9",
                   },
                   {
                     name: "불이 (청염 스파크)",
-                    level: "Lv. 3 청염 스파크",
+                    level: "Lv. 3",
                     attr: "✨ 푸른 불꽃 각성",
                     desc: "고온 청염 불씨 스파크를 튀기며 최첨단 가스 안전 감지를 선도하는 불꽃 폼!",
                     src: "/assets/fire-character-blue-sparkle.png?v=9",
                   },
                   {
                     name: "불이 (각성)",
-                    level: "Lv. 4 망토 대장",
+                    level: "Lv. 4",
                     attr: "🦸‍♂️ 푸른 망토 불꽃 대장",
                     desc: "영웅의 보석과 푸른 오라 망토를 두른 화재 안전 수호대장의 최종 진화 모습!",
                     src: "/assets/fire-character-hero.png?v=9",
                   },
                   {
                     name: "불이 (울먹)",
-                    level: "Special 감정 폼",
+                    level: "Special",
                     attr: "💧 슬픈 불꽃 폼",
                     desc: "화재 안전 대피 수칙을 어겼을 때 기운 없이 불씨가 사그라들며 울먹이는 불이!",
                     src: "/assets/fire-character-sad.png?v=9",
                   },
                   {
                     name: "물이 (기본)",
-                    level: "Lv. 1 맑은 물방울",
+                    level: "Lv. 1",
                     attr: "💧 침수·태풍 전담",
                     desc: "침수 위험 지역 대피와 안전 물자 준비를 상냥하게 안내해 주는 시원한 수호자!",
                     src: "/assets/water-character.png?v=7",
                   },
                   {
                     name: "물이 (성장)",
-                    level: "Lv. 2 도약하는 파도",
+                    level: "Lv. 2",
                     attr: "🌊 도약하는 수룡 폼",
                     desc: "침수 지역 방파제 보호 및 빠른 상륙 대피를 돕는 시원한 파도 폼!",
                     src: "/assets/water-character-lv2.png?v=7",
                   },
                   {
                     name: "물이 (각성)",
-                    level: "Lv. 3 워터 스피릿",
+                    level: "Lv. 3",
                     attr: "🧜‍♂️ 웅장한 물의 정령",
                     desc: "물줄기 쉴드를 두르고 대홍수 재난으로부터 사람들을 수호하는 물의 정령 최종 진화 모습!",
                     src: "/assets/water-character-spirit.png?v=7",
                   },
                   {
                     name: "물이 (울먹)",
-                    level: "Special 감정 폼",
+                    level: "Special",
                     attr: "💧 슬픈 물방울 폼",
                     desc: "침수 안전 대피 규칙을 잊었을 때 눈물을 퐁당 글썽이는 솔직한 물이!",
                     src: "/assets/water-character-sad.png?v=7",
                   },
                   {
                     name: "바람이 (기본)",
-                    level: "Lv. 1 신선한 바람",
+                    level: "Lv. 1",
                     attr: "🌬️ 강풍·황사 전담",
                     desc: "창문 고정 및 미세먼지 마스크 착용을 꼼꼼하게 챙겨주는 상쾌한 바람 파트너!",
                     src: "/assets/wind-character.png?v=6",
                   },
                   {
                     name: "바람이 (성장)",
-                    level: "Lv. 2 쾌속 돌풍",
+                    level: "Lv. 2",
                     attr: "🌀 날카로운 쾌속 바람",
                     desc: "강풍 재난 시 미세먼지와 황사를 날려버리는 강력한 쾌속 윈드 폼!",
                     src: "/assets/wind-character-lv2.png?v=6",
                   },
                   {
                     name: "바람이 (각성)",
-                    level: "Lv. 3 윈드 스피릿",
+                    level: "Lv. 3",
                     attr: "🌪️ 웅장한 바람 정령",
                     desc: "회오리바람 쉴드를 장착한 태풍 대비 전담 수호 정령의 최종 진화 모습!",
                     src: "/assets/wind-character-spirit.png?v=6",
                   },
                   {
                     name: "바람이 (울먹)",
-                    level: "Special 감정 폼",
+                    level: "Special",
                     attr: "💧 슬픈 구름바람 폼",
                     desc: "바람 안전 주의사항을 어겼을 때 기운 없이 눈물을 글썽이는 서운한 바람이!",
                     src: "/assets/wind-character-sad.png?v=6",
                   },
                   {
                     name: "땅이 (기본)",
-                    level: "Lv. 1 튼튼한 흙공",
+                    level: "Lv. 1",
                     attr: "🪵 지진·산사태 전담",
                     desc: "지진 발생 시 책상 아래로 몸을 숨기고 머리를 보호하도록 든든하게 지켜주는 대지 수호신!",
                     src: "/assets/earth-character.png?v=5",
                   },
                   {
                     name: "땅이 (성장)",
-                    level: "Lv. 2 바위 수호자",
+                    level: "Lv. 2",
                     attr: "🗿 단단한 흙바위 폼",
                     desc: "지진과 산사태 위험에서 흔들리지 않고 더 단단하게 몸을 보호하는 진화 폼!",
                     src: "/assets/earth-character-lv2.png?v=5",
                   },
                   {
                     name: "땅이 (각성)",
-                    level: "Lv. 3 대지 골렘",
+                    level: "Lv. 3",
                     attr: "🌋 웅장한 대지 골렘",
                     desc: "모든 지진 미션을 완수한 강력한 보석 결정과 이끼 갑옷의 최종 진화 모습!",
                     src: "/assets/earth-character-golem.png?v=5",
                   },
                   {
                     name: "땅이 (아기)",
-                    level: "Baby 아기 흙공",
+                    level: "Baby",
                     attr: "🌱 아기 흙방울 폼",
                     desc: "새싹을 틔우며 귀엽게 웃고 있는 초보 안전 훈련생 시절의 땅이!",
                     src: "/assets/earth-character-baby.png?v=5",
                   },
                   {
                     name: "땅이 (울먹)",
-                    level: "Special 감정 폼",
+                    level: "Special",
                     attr: "💧 슬픈 흙공 폼",
                     desc: "안전 규칙을 지키지 않았을 때 눈물을 핑 글썽이는 솔직한 표정의 땅이!",
                     src: "/assets/earth-character-sad.png?v=5",
@@ -1804,7 +1814,7 @@ export default function Home() {
                         <img src={char.src} alt={char.name} />
                       </div>
                       <strong>{char.name}</strong>
-                      <small>{char.level}</small>
+                      <small>{char.level} · {char.attr}</small>
                     </div>
                   );
                 })}
@@ -1814,7 +1824,7 @@ export default function Home() {
                 const codexList = [
                   {
                     name: "불이 (씨앗)",
-                    level: "Lv. 1 불씨 물방울",
+                    level: "Lv. 1",
                     attr: "💧 씨앗 불꽃 폼",
                     desc: "물방울처럼 맑은 불씨 씨앗 형태의 순수한 아기 정령!",
                     skill: "안전 씨앗 발아 & 기초 가이드",
@@ -1822,7 +1832,7 @@ export default function Home() {
                   },
                   {
                     name: "불이 (별 뱃지)",
-                    level: "Lv. 2 스타 수호자",
+                    level: "Lv. 2",
                     attr: "⭐ 별 뱃지 폼",
                     desc: "미션 완료 별 뱃지를 가슴에 달고 안전을 가이드하는 불꽃 수호자!",
                     skill: "미션 칭찬 별빛 & 안전 보상 수여",
@@ -1830,7 +1840,7 @@ export default function Home() {
                   },
                   {
                     name: "불이 (방패 뱃지)",
-                    level: "Lv. 2 방재 수호자",
+                    level: "Lv. 2",
                     attr: "🛡️ 방패 뱃지 폼",
                     desc: "황금 방재 쉴드 뱃지를 착용하고 화재 예방을 책임지는 불꽃 정령!",
                     skill: "황금 방재 방패 쉴드 & 안전 수칙 알림",
@@ -1838,7 +1848,7 @@ export default function Home() {
                   },
                   {
                     name: "불이 (기본)",
-                    level: "Lv. 2 불꽃 정령",
+                    level: "Lv. 2",
                     attr: "🔥 화재·열파 전담",
                     desc: "소화기 사용법과 화재 대피 신호를 알려주는 따뜻하고 용감한 불꽃 친구!",
                     skill: "화재 안전 대피 지도 & 불씨 모으기",
@@ -1846,7 +1856,7 @@ export default function Home() {
                   },
                   {
                     name: "불이 (적염 전사)",
-                    level: "Lv. 2 적염 전사",
+                    level: "Lv. 2",
                     attr: "🥊 용맹한 적염 격투가",
                     desc: "화재 현장에서 굳센 주먹을 쥐고 대피를 리드하는 용맹한 적염 전사!",
                     skill: "비상문 개척 & 화재 통로 펀치",
@@ -1854,7 +1864,7 @@ export default function Home() {
                   },
                   {
                     name: "불이 (적염 망토)",
-                    level: "Lv. 3 적염 히어로",
+                    level: "Lv. 3",
                     attr: "🦸‍♂️ 적염 망토 수호자",
                     desc: "붉은 망토를 휘날리며 열파와 폭발 재난으로부터 생명을 구하는 적염 수호자!",
                     skill: "열파 돌풍 케이지 & 인명 구조 알림",
@@ -1862,7 +1872,7 @@ export default function Home() {
                   },
                   {
                     name: "불이 (청염 스파크)",
-                    level: "Lv. 3 청염 스파크",
+                    level: "Lv. 3",
                     attr: "✨ 푸른 불꽃 각성",
                     desc: "고온 청염 불씨 스파크를 튀기며 최첨단 가스 안전 감지를 선도하는 불꽃 폼!",
                     skill: "청염 가스 누출 센서 & 고온 차단막",
@@ -1870,7 +1880,7 @@ export default function Home() {
                   },
                   {
                     name: "불이 (각성)",
-                    level: "Lv. 4 망토 대장",
+                    level: "Lv. 4",
                     attr: "🦸‍♂️ 푸른 망토 불꽃 대장",
                     desc: "영웅의 보석과 푸른 오라 망토를 두른 화재 안전 수호대장의 최종 진화 모습!",
                     skill: "광역 화재 차단막 & 소화제 세례",
@@ -1878,7 +1888,7 @@ export default function Home() {
                   },
                   {
                     name: "불이 (울먹)",
-                    level: "Special 감정 폼",
+                    level: "Special",
                     attr: "💧 슬픈 불꽃 폼",
                     desc: "화재 안전 대피 수칙을 어겼을 때 기운 없이 불씨가 사그라들며 울먹이는 불이!",
                     skill: "화재 위험 알림 소환",
@@ -1886,7 +1896,7 @@ export default function Home() {
                   },
                   {
                     name: "물이 (기본)",
-                    level: "Lv. 1 맑은 물방울",
+                    level: "Lv. 1",
                     attr: "💧 침수·태풍 전담",
                     desc: "침수 위험 지역 대피와 안전 물자 준비를 상냥하게 안내해 주는 시원한 수호자!",
                     skill: "침수 대비 높은 곳 대피 가이드",
@@ -1894,7 +1904,7 @@ export default function Home() {
                   },
                   {
                     name: "물이 (성장)",
-                    level: "Lv. 2 도약하는 파도",
+                    level: "Lv. 2",
                     attr: "🌊 도약하는 수룡 폼",
                     desc: "침수 지역 방파제 보호 및 빠른 상륙 대피를 돕는 시원한 파도 폼!",
                     skill: "수위 감지 알림 & 빠른 상륙 대피",
@@ -1902,7 +1912,7 @@ export default function Home() {
                   },
                   {
                     name: "물이 (각성)",
-                    level: "Lv. 3 워터 스피릿",
+                    level: "Lv. 3",
                     attr: "🧜‍♂️ 웅장한 물의 정령",
                     desc: "물줄기 쉴드를 두르고 대홍수 재난으로부터 사람들을 수호하는 물의 정령 최종 진화 모습!",
                     skill: "해일 방파 차단막 & 정수 쉴드",
@@ -1910,7 +1920,7 @@ export default function Home() {
                   },
                   {
                     name: "물이 (울먹)",
-                    level: "Special 감정 폼",
+                    level: "Special",
                     attr: "💧 슬픈 물방울 폼",
                     desc: "침수 안전 대피 규칙을 잊었을 때 눈물을 퐁당 글썽이는 솔직한 물이!",
                     skill: "침수 위험 경보 발행",
@@ -1918,7 +1928,7 @@ export default function Home() {
                   },
                   {
                     name: "바람이 (기본)",
-                    level: "Lv. 1 신선한 바람",
+                    level: "Lv. 1",
                     attr: "🌬️ 강풍·황사 전담",
                     desc: "창문 고정 및 미세먼지 마스크 착용을 꼼꼼하게 챙겨주는 상쾌한 바람 파트너!",
                     skill: "강풍 방재 대비 및 실내 환기 조율",
@@ -1926,7 +1936,7 @@ export default function Home() {
                   },
                   {
                     name: "바람이 (성장)",
-                    level: "Lv. 2 쾌속 돌풍",
+                    level: "Lv. 2",
                     attr: "🌀 날카로운 쾌속 바람",
                     desc: "강풍 재난 시 미세먼지와 황사를 날려버리는 강력한 쾌속 윈드 폼!",
                     skill: "창문 강화 테이핑 & 대공 환기 쉴드",
@@ -1934,7 +1944,7 @@ export default function Home() {
                   },
                   {
                     name: "바람이 (각성)",
-                    level: "Lv. 3 윈드 스피릿",
+                    level: "Lv. 3",
                     attr: "🌪️ 웅장한 바람 정령",
                     desc: "회오리바람 쉴드를 장착한 태풍 대비 전담 수호 정령의 최종 진화 모습!",
                     skill: "태풍 충격 완화 윈드 케이지",
@@ -1942,7 +1952,7 @@ export default function Home() {
                   },
                   {
                     name: "바람이 (울먹)",
-                    level: "Special 감정 폼",
+                    level: "Special",
                     attr: "💧 슬픈 구름바람 폼",
                     desc: "바람 안전 주의사항을 어겼을 때 기운 없이 눈물을 글썽이는 서운한 바람이!",
                     skill: "미세먼지 주의보 경보 발행",
@@ -1950,7 +1960,7 @@ export default function Home() {
                   },
                   {
                     name: "땅이 (기본)",
-                    level: "Lv. 1 튼튼한 흙공",
+                    level: "Lv. 1",
                     attr: "🪵 지진·산사태 전담",
                     desc: "지진 발생 시 책상 아래로 몸을 숨기고 머리를 보호하도록 든든하게 지켜주는 대지 수호신!",
                     skill: "지진 3단계 안전 자세(드롭, 커버, 홀드 온)",
@@ -1958,7 +1968,7 @@ export default function Home() {
                   },
                   {
                     name: "땅이 (성장)",
-                    level: "Lv. 2 바위 수호자",
+                    level: "Lv. 2",
                     attr: "🗿 단단한 흙바위 폼",
                     desc: "지진과 산사태 위험에서 흔들리지 않고 더 단단하게 몸을 보호하는 진화 폼!",
                     skill: "바위 방패 내진 보강 지식",
@@ -1966,7 +1976,7 @@ export default function Home() {
                   },
                   {
                     name: "땅이 (각성)",
-                    level: "Lv. 3 대지 골렘",
+                    level: "Lv. 3",
                     attr: "🌋 웅장한 대지 골렘",
                     desc: "모든 지진 미션을 완수한 강력한 보석 결정과 이끼 갑옷의 최종 진화 모습!",
                     skill: "대지 충격파 흡수 & 광역 수호 쉴드",
@@ -1974,7 +1984,7 @@ export default function Home() {
                   },
                   {
                     name: "땅이 (아기)",
-                    level: "Baby 아기 흙공",
+                    level: "Baby",
                     attr: "🌱 아기 흙방울 폼",
                     desc: "새싹을 틔우며 귀엽게 웃고 있는 초보 안전 훈련생 시절의 땅이!",
                     skill: "앙증맞은 안전 인사 & 기초 훈련",
@@ -1982,7 +1992,7 @@ export default function Home() {
                   },
                   {
                     name: "땅이 (울먹)",
-                    level: "Special 감정 폼",
+                    level: "Special",
                     attr: "💧 슬픈 흙공 폼",
                     desc: "안전 규칙을 지키지 않았을 때 눈물을 핑 글썽이는 솔직한 표정의 땅이!",
                     skill: "안전 주의 경고 알림",
@@ -2016,10 +2026,10 @@ export default function Home() {
                       </div>
                       <img src={activeChar.src} alt={activeChar.name} style={{ width: 48, height: 48, objectFit: "contain" }} />
                     </div>
-                    <p style={{ margin: "0 0 10px", fontSize: 12, color: "#444", lineHeight: 1.4 }}>
-                      {activeChar.desc}
+                    <p style={{ margin: "10px 0", fontSize: 13, color: "#2c3e35", lineHeight: 1.5, background: "#fff", padding: "10px 12px", borderRadius: 14, border: "1px solid #e1ebe6" }}>
+                      📖 <strong>캐릭터 설명:</strong> {activeChar.desc}
                     </p>
-                    <div style={{ background: "#f5f9f7", padding: "8px 10px", borderRadius: 12, fontSize: 11, color: "#2d5a4c" }}>
+                    <div style={{ background: "#f0f7f3", padding: "10px 12px", borderRadius: 14, fontSize: 12, color: "#1b4035" }}>
                       ⚡ <strong>보유 안전 기술:</strong> {activeChar.skill}
                     </div>
                     <button

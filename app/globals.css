@@ -874,6 +874,7 @@ textarea:focus-visible {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
   gap: 4px;
   border: 0;
   border-radius: 16px;
@@ -883,6 +884,7 @@ textarea:focus-visible {
   font-size: var(--type-label-large-size);
   line-height: var(--type-label-large-line);
   font-weight: 750;
+  width: 100%;
 }
 
 .bottom-nav button.active {
@@ -890,13 +892,16 @@ textarea:focus-visible {
 }
 
 .nav-icon {
-  display: grid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 28px;
   height: 28px;
-  place-items: center;
+  margin: 0 auto;
   border-radius: 10px;
   font-size: 18px;
   font-weight: 900;
+  line-height: 1;
 }
 
 .bottom-nav button.active .nav-icon {
