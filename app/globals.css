@@ -2591,11 +2591,11 @@ textarea:focus-visible {
 .home-mascot {
   width: 88px;
   height: 88px;
-  border: 3px solid rgba(255, 255, 255, 0.9);
+  border: 3px solid #ffffff;
   border-radius: 50%;
-  background: radial-gradient(circle at center, #ffffff 30%, #fff6e5 100%);
-  box-shadow: 0 8px 20px rgba(32, 81, 65, 0.14);
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+  background: radial-gradient(circle at center, #ffe5be 0%, #ff8b4d 75%, #f26622 100%);
+  box-shadow: 0 8px 20px rgba(242, 102, 34, 0.35);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
 }
 
 .onboarding-screen {
@@ -4126,7 +4126,7 @@ textarea:focus-visible {
 }
 
 .character-orb.fire {
-  background: radial-gradient(circle at center, #fff5f0 20%, #ffe4d6 80%);
+  background: radial-gradient(circle at center, #ffe0b2 10%, #ff9800 70%, #f57c00 100%);
 }
 
 .character-orb.water {
