@@ -265,8 +265,7 @@ export default function Home() {
           <div className="screen-content onboarding-screen">
             <header className="onboarding-brand">
               <div className="brand-lockup">
-                <span className="brand-mark">!</span>
-                <strong>비상비상</strong>
+                <img src="/assets/logo-bisang.png" alt="비상비상" className="brand-logo-img" />
               </div>
               <span>성동구 맞춤 가족 안전 앱</span>
             </header>
@@ -410,8 +409,7 @@ export default function Home() {
             <header className="home-header">
               <div>
                 <div className="brand-lockup">
-                  <span className="brand-mark">!</span>
-                  <strong>비상비상</strong>
+                  <img src="/assets/logo-bisang.png" alt="비상비상" className="brand-logo-img" />
                 </div>
                 <button className="location-pill" aria-label="생활 지역 설정">
                   {role === "guardian" ? "김민지 보호자" : "도도 어린이"} · 성수동 <span>⌄</span>
@@ -903,7 +901,7 @@ export default function Home() {
                 disabled={completedChecks !== checks.length}
                 onClick={completeMission}
               >
-                {completedChecks === checks.length ? "3단계 퀴즈 시작하기" : `${3 - completedChecks}개 더 완료해주세요`}
+                {completedChecks === checks.length ? "3단계 퀴즈 시작하기" : `${checks.length - completedChecks}개 더 완료해주세요`}
                 <span>→</span>
               </button>
             </div>

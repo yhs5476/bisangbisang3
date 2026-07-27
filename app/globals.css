@@ -208,6 +208,13 @@ textarea:focus-visible {
   letter-spacing: -0.06em;
 }
 
+.brand-logo-img {
+  height: 26px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
 .brand-mark {
   display: grid;
   width: 27px;
