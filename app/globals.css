@@ -4826,3 +4826,85 @@ textarea:focus-visible {
   white-space: nowrap;
   flex-shrink: 0;
 }
+
+/* 오늘의 1분 안전 퀴즈 카드 스타일 */
+.quiz-preview-section {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.quiz-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.quiz-section-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #18332d;
+  letter-spacing: -0.02em;
+}
+
+.see-all-btn {
+  border: 0;
+  background: transparent;
+  color: #8e9b97;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.quiz-preview-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 20px;
+  border: 1px solid #eef2ef;
+  box-shadow: 0 8px 24px rgba(24, 51, 45, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.quiz-badge {
+  display: inline-block;
+  background: #f1f5f3;
+  color: #687a75;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.quiz-question-text {
+  margin: 0 0 18px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d2f2a;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.quiz-action-button {
+  width: 100%;
+  padding: 14px;
+  background: #ff6b00;
+  color: #ffffff;
+  border: 0;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(255, 107, 0, 0.28);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.quiz-action-button:active {
+  transform: scale(0.98);
+  background: #e05e00;
+}

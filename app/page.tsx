@@ -376,29 +376,7 @@ export default function Home() {
               </button>
             </header>
 
-            <section className="alert-hero">
-              <div className="alert-copy">
-                <span className="eyebrow emergency-eyebrow">
-                  <span className="pulse-dot" />
-                  재난문자를 받았나요?
-                </span>
-                <h1>
-                  당황하지 말고,
-                  <br />
-                  지금 할 일부터 확인해요
-                </h1>
-                <p>문자를 붙여넣으면 우리 가족 상황에 맞춰 3가지로 정리해드려요.</p>
-              </div>
-              <button className="primary-button emergency-button" onClick={() => navigate("alert")}>
-                재난문자 확인하기 <span>→</span>
-              </button>
-              <div className="alert-visual" aria-hidden="true">
-                <div className="alert-wave wave-one" />
-                <div className="alert-wave wave-two" />
-                <div className="phone-alert-icon">!</div>
-              </div>
-            </section>
-
+            {/* 1-Click 안부 보내기 */}
             <button
               className={`one-click-checkin ${checkinSent ? "sent" : ""}`}
               onClick={openCheckin}
@@ -410,6 +388,25 @@ export default function Home() {
               </span>
               <span>›</span>
             </button>
+
+            {/* 오늘의 1분 안전 퀴즈 섹션 */}
+            <section className="quiz-preview-section">
+              <div className="quiz-section-header">
+                <h2>오늘의 1분 안전 퀴즈</h2>
+                <button className="see-all-btn" onClick={() => navigate("quiz")}>
+                  전체보기
+                </button>
+              </div>
+              <div className="quiz-preview-card">
+                <span className="quiz-badge">상황 퀴즈</span>
+                <p className="quiz-question-text">
+                  호우경보가 내려졌을 때, 지하주차장에 차를 두었다면 가장 먼저 할 행동은?
+                </p>
+                <button className="quiz-action-button" onClick={() => navigate("quiz")}>
+                  퀴즈 풀고 불씨 키우기
+                </button>
+              </div>
+            </section>
 
             <div className="section-heading">
               <div>
@@ -464,11 +461,11 @@ export default function Home() {
               </div>
             </button>
 
-            {/* 신규: 재난상황 시뮬레이션 이동 버튼 */}
+            {/* 재난상황 시뮬레이션 이동 버튼 */}
             <button
               className="primary-button wide"
               style={{
-                marginTop: "12px",
+                marginTop: "16px",
                 backgroundColor: "#e95042",
                 color: "#ffffff",
                 display: "flex",
