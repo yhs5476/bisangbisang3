@@ -264,9 +264,7 @@ export default function Home() {
 
   const completeMission = () => {
     if (completedChecks !== checks.length) return;
-    setQuizIndex(0);
-    setQuizSelected(null);
-    navigate("quiz");
+    navigate("photoReward");
   };
 
   const finishReward = () => {
@@ -934,7 +932,7 @@ export default function Home() {
                 disabled={completedChecks !== checks.length}
                 onClick={completeMission}
               >
-                {completedChecks === checks.length ? "3단계 퀴즈 시작하기" : `${checks.length - completedChecks}개 더 완료해주세요`}
+                {completedChecks === checks.length ? "나의 사진 퍼즐 만들기" : `${checks.length - completedChecks}개 더 완료해주세요`}
                 <span>→</span>
               </button>
             </div>
@@ -943,7 +941,7 @@ export default function Home() {
 
         {screen === "quiz" && (
           <div className="screen-content quiz-screen">
-            <BackHeader title="안전 퀴즈" onBack={() => navigate("mission")} />
+            <BackHeader title="안전 퀴즈" onBack={() => navigate("home")} />
             <div className="quiz-progress-dots" aria-label={`퀴즈 ${quizIndex + 1}단계`}>
               {quizQuestions.map((_, index) => (
                 <span key={index} className={index <= quizIndex ? "active" : ""}>
@@ -996,11 +994,11 @@ export default function Home() {
                     setQuizIndex((current) => current + 1);
                     setQuizSelected(null);
                   } else {
-                    navigate("photoReward");
+                    finishReward();
                   }
                 }}
               >
-                {quizIndex === quizQuestions.length - 1 ? "나의 퍼즐 만들기" : "다음 문제"}
+                {quizIndex === quizQuestions.length - 1 ? "퀴즈 완료하고 보상 받기" : "다음 문제"}
                 <span>→</span>
               </button>
             </div>
@@ -1009,7 +1007,7 @@ export default function Home() {
 
         {screen === "photoReward" && (
           <div className="screen-content photo-reward-screen">
-            <BackHeader title="나의 안전 퍼즐" onBack={() => navigate("quiz")} />
+            <BackHeader title="나의 안전 퍼즐" onBack={() => navigate("mission")} />
             <section className="photo-reward-intro">
               <span className="reward-label">SPECIAL REWARD</span>
               <h1>미션 속 주인공이<br />되어볼까요?</h1>
