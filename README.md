@@ -2,6 +2,9 @@
 
 보호자와 초등 저학년 자녀가 함께 사용하는 재난안전 게이미피케이션 MVP다.
 
+- **Vercel 배포 주소**: [https://bisangbisang3-q21r.vercel.app](https://bisangbisang3-q21r.vercel.app)
+
+
 ## Prerequisites
 
 - Node.js `24.x`
