@@ -3131,9 +3131,12 @@ textarea:focus-visible {
 .quiz-character img {
   width: 78px;
   height: 78px;
-  border: 4px solid #fff5d5;
-  border-radius: 32%;
-  box-shadow: 0 7px 16px rgba(75, 90, 55, 0.14);
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  object-fit: contain;
+  background: radial-gradient(circle at center, #ffffff 40%, #fff7dc 100%);
+  box-shadow: 0 6px 14px rgba(75, 90, 55, 0.15);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .quiz-character span {
@@ -4095,9 +4098,10 @@ textarea:focus-visible {
   place-items: center;
   overflow: hidden;
   margin-bottom: 6px;
-  border: none;
-  background: #ffffff;
-  box-shadow: none;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.95) 0%, rgba(240, 246, 240, 0.6) 70%, transparent 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   filter: grayscale(0.75);
   opacity: 0.62;
 }
@@ -4110,19 +4114,30 @@ textarea:focus-visible {
 .character-orb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transform: scale(1.72);
+  object-fit: contain;
+  transform: scale(1.15);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
 }
 
 .character-orb.fire img,
 .character-orb.water img {
-  transform: scale(1.38);
+  transform: scale(1.1);
 }
 
-.character-orb.water,
-.character-orb.wind,
+.character-orb.fire {
+  background: radial-gradient(circle at center, #fff5f0 20%, #ffe4d6 80%);
+}
+
+.character-orb.water {
+  background: radial-gradient(circle at center, #f0f8ff 20%, #d8eeff 80%);
+}
+
+.character-orb.wind {
+  background: radial-gradient(circle at center, #f2fff9 20%, #d4f7e7 80%);
+}
+
 .character-orb.earth {
-  background: #ffffff;
+  background: radial-gradient(circle at center, #fffdf2 20%, #f7f0d0 80%);
 }
 
 .character-item strong {
