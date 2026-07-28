@@ -137,6 +137,31 @@ function BottomNav({
   );
 }
 
+export const ALL_CHARACTERS = [
+  { name: "불이 (씨앗)", level: "Lv. 1", attr: "💧 씨앗 불꽃 폼", category: "fire", rarity: "R", src: "/assets/fire-character-seed.png?v=10", desc: "물방울처럼 맑은 불씨 씨앗 형태의 순수한 아기 정령!", skill: "안전 씨앗 발아 & 기초 가이드" },
+  { name: "불이 (별 뱃지)", level: "Lv. 2", attr: "⭐ 별 뱃지 폼", category: "fire", rarity: "R", src: "/assets/fire-character-star.png?v=10", desc: "미션 완료 별 뱃지를 가슴에 달고 안전을 가이드하는 불꽃 수호자!", skill: "미션 칭찬 별빛 & 안전 보상 수여" },
+  { name: "불이 (방패 뱃지)", level: "Lv. 2", attr: "🛡️ 방패 뱃지 폼", category: "fire", rarity: "R", src: "/assets/fire-character-shield.png?v=10", desc: "황금 방재 쉴드 뱃지를 착용하고 화재 예방을 책임지는 불꽃 정령!", skill: "황금 방재 방패 쉴드 & 안전 수칙 알림" },
+  { name: "불이 (기본)", level: "Lv. 2", attr: "🔥 화재·열파 전담", category: "fire", rarity: "N", src: "/assets/fire-character.png?v=9", desc: "소화기 사용법과 화재 대피 신호를 알려주는 따뜻하고 용감한 불꽃 친구!", skill: "화재 안전 대피 지도 & 불씨 모으기" },
+  { name: "불이 (적염 전사)", level: "Lv. 2", attr: "🥊 용맹한 적염 격투가", category: "fire", rarity: "SR", src: "/assets/fire-character-red-fighter.png?v=9", desc: "화재 현장에서 굳센 주먹을 쥐고 대피를 리드하는 용맹한 적염 전사!", skill: "비상문 개척 & 화재 통로 펀치" },
+  { name: "불이 (적염 망토)", level: "Lv. 3", attr: "🦸‍♂️ 적염 망토 수호자", category: "fire", rarity: "SR", src: "/assets/fire-character-red-hero.png?v=9", desc: "붉은 망토를 휘날리며 열파와 폭발 재난으로부터 생명을 구하는 적염 수호자!", skill: "열파 돌풍 케이지 & 인명 구조 알림" },
+  { name: "불이 (청염 스파크)", level: "Lv. 3", attr: "✨ 푸른 불꽃 각성", category: "fire", rarity: "SR", src: "/assets/fire-character-blue-sparkle.png?v=9", desc: "고온 청염 불씨 스파크를 튀기며 최첨단 가스 안전 감지를 선도하는 불꽃 폼!", skill: "청염 가스 누출 센서 & 고온 차단막" },
+  { name: "불이 (각성)", level: "Lv. 4", attr: "🦸‍♂️ 푸른 망토 불꽃 대장", category: "fire", rarity: "SSR", src: "/assets/fire-character-hero.png?v=9", desc: "영웅의 보석과 푸른 오라 망토를 두른 화재 안전 수호대장의 최종 진화 모습!", skill: "광역 화재 차단막 & 소화제 세례" },
+  { name: "불이 (울먹)", level: "Special", attr: "💧 슬픈 불꽃 폼", category: "fire", rarity: "N", src: "/assets/fire-character-sad.png?v=9", desc: "화재 안전 대피 수칙을 어겼을 때 기운 없이 불씨가 사그라들며 울먹이는 불이!", skill: "화재 위험 알림 소환" },
+  { name: "물이 (기본)", level: "Lv. 1", attr: "💧 침수·태풍 전담", category: "water", rarity: "N", src: "/assets/water-character.png?v=7", desc: "침수 위험 지역 대피와 안전 물자 준비를 상냥하게 안내해 주는 시원한 수호자!", skill: "침수 대비 높은 곳 대피 가이드" },
+  { name: "물이 (성장)", level: "Lv. 2", attr: "🌊 도약하는 수룡 폼", category: "water", rarity: "SR", src: "/assets/water-character-lv2.png?v=7", desc: "침수 지역 방파제 보호 및 빠른 상륙 대피를 돕는 시원한 파도 폼!", skill: "수위 감지 알림 & 빠른 상륙 대피" },
+  { name: "물이 (각성)", level: "Lv. 3", attr: "🧜‍♂️ 웅장한 물의 정령", category: "water", rarity: "SSR", src: "/assets/water-character-spirit.png?v=7", desc: "물줄기 쉴드를 두르고 대홍수 재난으로부터 사람들을 수호하는 물의 정령 최종 진화 모습!", skill: "해일 방파 차단막 & 정수 쉴드" },
+  { name: "물이 (울먹)", level: "Special", attr: "💧 슬픈 물방울 폼", category: "water", rarity: "N", src: "/assets/water-character-sad.png?v=7", desc: "침수 안전 대피 규칙을 잊었을 때 눈물을 퐁당 글썽이는 솔직한 물이!", skill: "침수 위험 경보 발행" },
+  { name: "바람이 (기본)", level: "Lv. 1", attr: "🌬️ 강풍·황사 전담", category: "wind", rarity: "N", src: "/assets/wind-character.png?v=6", desc: "창문 고정 및 미세먼지 마스크 착용을 꼼꼼하게 챙겨주는 상쾌한 바람 파트너!", skill: "강풍 방재 대비 및 실내 환기 조율" },
+  { name: "바람이 (성장)", level: "Lv. 2", attr: "🌀 날카로운 쾌속 바람", category: "wind", rarity: "SR", src: "/assets/wind-character-lv2.png?v=6", desc: "강풍 재난 시 미세먼지와 황사를 날려버리는 강력한 쾌속 윈드 폼!", skill: "창문 강화 테이핑 & 대공 환기 쉴드" },
+  { name: "바람이 (각성)", level: "Lv. 3", attr: "🌪️ 웅장한 바람 정령", category: "wind", rarity: "SSR", src: "/assets/wind-character-spirit.png?v=6", desc: "회오리바람 쉴드를 장착한 태풍 대비 전담 수호 정령의 최종 진화 모습!", skill: "태풍 충격 완화 윈드 케이지" },
+  { name: "바람이 (울먹)", level: "Special", attr: "💧 슬픈 구름바람 폼", category: "wind", rarity: "N", src: "/assets/wind-character-sad.png?v=6", desc: "바람 안전 주의사항을 어겼을 때 기운 없이 눈물을 글썽이는 서운한 바람이!", skill: "미세먼지 주의보 경보 발행" },
+  { name: "땅이 (기본)", level: "Lv. 1", attr: "🪵 지진·산사태 전담", category: "earth", rarity: "N", src: "/assets/earth-character.png?v=5", desc: "지진 발생 시 책상 아래로 몸을 숨기고 머리를 보호하도록 든든하게 지켜주는 대지 수호신!", skill: "지진 3단계 안전 자세(드롭, 커버, 홀드 온)" },
+  { name: "땅이 (성장)", level: "Lv. 2", attr: "🗿 단단한 흙바위 폼", category: "earth", rarity: "SR", src: "/assets/earth-character-lv2.png?v=5", desc: "지진과 산사태 위험에서 흔들리지 않고 더 단단하게 몸을 보호하는 진화 폼!", skill: "바위 방패 내진 보강 지식" },
+  { name: "땅이 (각성)", level: "Lv. 3", attr: "🌋 웅장한 대지 골렘", category: "earth", rarity: "SSR", src: "/assets/earth-character-golem.png?v=5", desc: "모든 지진 미션을 완수한 강력한 보석 결정과 이끼 갑옷의 최종 진화 모습!", skill: "대지 충격파 흡수 & 광역 수호 쉴드" },
+  { name: "땅이 (아기)", level: "Baby", attr: "🌱 아기 흙방울 폼", category: "earth", rarity: "R", src: "/assets/earth-character-baby.png?v=5", desc: "새싹을 틔우며 귀엽게 웃고 있는 초보 안전 훈련생 시절의 땅이!", skill: "앙증맞은 안전 인사 & 기초 훈련" },
+  { name: "땅이 (울먹)", level: "Special", attr: "💧 슬픈 흙공 폼", category: "earth", rarity: "N", src: "/assets/earth-character-sad.png?v=5", desc: "안전 규칙을 지키지 않았을 때 눈물을 핑 글썽이는 솔직한 표정의 땅이!", skill: "안전 주의 경고 알림" },
+];
+
 export default function Home() {
   const [screen, setScreen] = useState<Screen>("login");
   const [alertText, setAlertText] = useState("");
@@ -186,6 +211,90 @@ export default function Home() {
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState("");
   const [authSuccess, setAuthSuccess] = useState("");
+
+  // Revamped Gacha & Reward states
+  const [gachaTickets, setGachaTickets] = useState(55);
+  const [rewardPoints, setRewardPoints] = useState(1200);
+  const [unlockedCharacters, setUnlockedCharacters] = useState<string[]>([
+    "불이 (기본)",
+    "물이 (기본)",
+    "바람이 (기본)",
+    "땅이 (기본)",
+  ]);
+  const [claimedCodexRewards, setClaimedCodexRewards] = useState<string[]>([]);
+  const [rewardSubTab, setRewardSubTab] = useState<"gacha" | "codex" | "points" | "shop">("gacha");
+  const [gachaResult, setGachaResult] = useState<{
+    characters: Array<(typeof ALL_CHARACTERS)[0] & { isNew: boolean }>;
+    isTen: boolean;
+  } | null>(null);
+  const [isGachaAnimating, setIsGachaAnimating] = useState(false);
+  const [rewardNotice, setRewardNotice] = useState<string | null>(null);
+
+  const handleDrawGacha = (count: 1 | 10) => {
+    if (gachaTickets < count) {
+      alert(`뽑기 티켓이 부족합니다! (필요: 🎟️ ${count}장, 보유: 🎟️ ${gachaTickets}장)\n불씨 상점에서 티켓을 먼저 교환해 보세요.`);
+      return;
+    }
+    setGachaTickets((prev) => prev - count);
+    setIsGachaAnimating(true);
+    setGachaResult(null);
+
+    setTimeout(() => {
+      const drawnList: Array<(typeof ALL_CHARACTERS)[0] & { isNew: boolean }> = [];
+      const currentUnlocked = [...unlockedCharacters];
+      let gainedSparksFromDupes = 0;
+
+      for (let i = 0; i < count; i++) {
+        const rand = Math.random() * 100;
+        let targetRarity = "N";
+        if (rand < 5) targetRarity = "SSR";
+        else if (rand < 25) targetRarity = "SR";
+        else if (rand < 60) targetRarity = "R";
+        else targetRarity = "N";
+
+        const pool = ALL_CHARACTERS.filter((c) => c.rarity === targetRarity);
+        const picked = pool[Math.floor(Math.random() * pool.length)] || ALL_CHARACTERS[0];
+
+        const isNew = !currentUnlocked.includes(picked.name);
+        if (isNew) {
+          currentUnlocked.push(picked.name);
+        } else {
+          gainedSparksFromDupes += 20;
+        }
+        drawnList.push({ ...picked, isNew });
+      }
+
+      setUnlockedCharacters(currentUnlocked);
+      if (gainedSparksFromDupes > 0) {
+        setSparks((prev) => prev + gainedSparksFromDupes);
+      }
+      setGachaResult({ characters: drawnList, isTen: count === 10 });
+      setIsGachaAnimating(false);
+      triggerFireworks();
+    }, 1000);
+  };
+
+  const handleBuyTickets = (count: 1 | 10) => {
+    const cost = count === 1 ? 100 : 900;
+    if (sparks < cost) {
+      alert(`불씨가 부족합니다! (필요: 🔥 ${cost}개, 보유: 🔥 ${sparks}개)\n미션과 퀴즈를 풀고 불씨를 모아보세요.`);
+      return;
+    }
+    setSparks((prev) => prev - cost);
+    setGachaTickets((prev) => prev + count);
+    triggerFireworks();
+    setRewardNotice(`🎟️ 뽑기 티켓 ${count}장을 성공적으로 구매했습니다!`);
+    setTimeout(() => setRewardNotice(null), 3000);
+  };
+
+  const handleClaimCodexReward = (rewardId: string, pts: number, title: string) => {
+    if (claimedCodexRewards.includes(rewardId)) return;
+    setClaimedCodexRewards((prev) => [...prev, rewardId]);
+    setRewardPoints((prev) => prev + pts);
+    triggerFireworks();
+    setRewardNotice(`🎉 '${title}' 수집 보상으로 ${pts.toLocaleString()} Pts를 획득했습니다!`);
+    setTimeout(() => setRewardNotice(null), 3500);
+  };
 
   const completedChecks = checks.filter(Boolean).length;
   const progress = Math.round((completedChecks / checks.length) * 100);
@@ -1076,156 +1185,451 @@ export default function Home() {
 
         {screen === "reward" && (
           <div className="screen-content reward-center-screen">
-            <BackHeader title="보상 센터" onBack={() => navigate("home")} />
+            <BackHeader title="보상 센터 & 포인트 개편" onBack={() => navigate("home")} />
 
-            <section className="reward-profile-hero">
-              <div className="child-hero-avatar">
-                <div className="profile-avatar-container">
-                  {profileAvatarSrc || userPhoto ? (
-                    <img
-                      src={profileAvatarSrc || userPhoto || ""}
-                      alt="도도 어린이 프로필"
-                      className="hero-avatar-img"
-                    />
-                  ) : (
-                    <span className="hero-avatar-circle">도</span>
-                  )}
-                  <label className="profile-edit-badge" title="프로필 사진 변경">
-                    📷
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          const reader = new FileReader();
-                          reader.onload = () => setProfileAvatarSrc(String(reader.result));
-                          reader.readAsDataURL(file);
-                        }
-                      }}
-                    />
-                  </label>
+            {rewardNotice && <div className="reward-notice-toast">{rewardNotice}</div>}
+
+            {/* 통합 재화 지갑 바 */}
+            <section className="reward-wallet-bar">
+              <div className="wallet-chip">
+                <span className="chip-icon">🔥</span>
+                <div className="wallet-chip-info">
+                  <label>보유 불씨</label>
+                  <strong>{sparks}개</strong>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <strong>도도 어린이</strong>
-                    <button className="profile-change-btn" onClick={() => setShowAvatarModal(true)}>
-                      프로필 변경
+              </div>
+              <div className="wallet-divider" />
+              <div className="wallet-chip">
+                <span className="chip-icon">🎟️</span>
+                <div className="wallet-chip-info">
+                  <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                    <label>뽑기 티켓</label>
+                    <button
+                      style={{
+                        background: "#ff9800",
+                        color: "white",
+                        border: "none",
+                        fontSize: 9,
+                        fontWeight: 900,
+                        padding: "1px 5px",
+                        borderRadius: 6,
+                        cursor: "pointer"
+                      }}
+                      onClick={() => {
+                        setGachaTickets((prev) => prev + 50);
+                        triggerFireworks();
+                        setRewardNotice("🎟️ 보너스 뽑기 티켓 50장이 즉시 지급되었습니다!");
+                        setTimeout(() => setRewardNotice(null), 3000);
+                      }}
+                    >
+                      +50장
                     </button>
                   </div>
-                  <small>성수동 · 안전 대장</small>
+                  <strong>{gachaTickets}장</strong>
                 </div>
               </div>
-
-              <div className="reward-tier-card">
-                <div className="tier-badge-row">
-                  <div>
-                    <span className="tier-tag">3단계 달성! 🔥</span>
-                    <h2>맞춤형 안전 키트 달성!</h2>
-                  </div>
-                  <span className="gold-check-seal">✔</span>
+              <div className="wallet-divider" />
+              <div className="wallet-chip">
+                <span className="chip-icon">💰</span>
+                <div className="wallet-chip-info">
+                  <label>보상 포인트</label>
+                  <strong>{rewardPoints.toLocaleString()} P</strong>
                 </div>
-                <div className="tier-pts-info">
-                  <span>현재 달성 포인트</span>
-                  <strong>20,000 / 20,000 Pts</strong>
-                </div>
-                <div className="progress-track reward-track">
-                  <span style={{ width: "100%" }} />
-                </div>
-                <button
-                  className="primary-button kit-shipment-btn"
-                  onClick={() => {
-                    triggerFireworks();
-                    setShowKitModal(true);
-                  }}
-                >
-                  🚚 키트 배송 조회 및 신청
-                </button>
               </div>
             </section>
 
-            <section className="reward-roadmap">
-              <div className="roadmap-step done">
-                <span className="step-num">1단계</span>
-                <strong>캐릭터 성장</strong>
-                <small>불이 Lv.2</small>
-              </div>
-              <span className="step-arrow">›</span>
-              <div className="roadmap-step done">
-                <span className="step-num">2단계</span>
-                <strong>맞춤형 만화책</strong>
-                <small>안전 퍼즐</small>
-              </div>
-              <span className="step-arrow">›</span>
-              <div className="roadmap-step current">
-                <span className="step-num">3단계</span>
-                <strong>실생활 키트</strong>
-                <small>실물 보상</small>
-              </div>
-            </section>
+            {/* 메인 서브 탭 서브 네비게이션 */}
+            <nav className="reward-nav-tabs">
+              <button
+                className={`reward-nav-tab ${rewardSubTab === "gacha" ? "active" : ""}`}
+                onClick={() => setRewardSubTab("gacha")}
+              >
+                🎰 캐릭터 뽑기
+              </button>
+              <button
+                className={`reward-nav-tab ${rewardSubTab === "codex" ? "active" : ""}`}
+                onClick={() => setRewardSubTab("codex")}
+              >
+                📖 캐릭터 도감
+              </button>
+              <button
+                className={`reward-nav-tab ${rewardSubTab === "shop" ? "active" : ""}`}
+                onClick={() => setRewardSubTab("shop")}
+              >
+                🛍️ 불씨 상점
+              </button>
+              <button
+                className={`reward-nav-tab ${rewardSubTab === "points" ? "active" : ""}`}
+                onClick={() => setRewardSubTab("points")}
+              >
+                🎁 포인트 보상
+              </button>
+            </nav>
 
-            <section className="kit-items-section">
-              <div className="section-heading">
-                <div>
-                  <span className="eyebrow">나만의 맞춤형 재난 대비 키트</span>
-                  <h2>실물 보상 + 실생활 연계 키트</h2>
+            {/* 1. 🎰 캐릭터 뽑기 탭 */}
+            {rewardSubTab === "gacha" && (
+              <section className="gacha-machine-card">
+                <div className="gacha-sparkle-bg" />
+                <span className="eyebrow" style={{ color: "#ff7832", fontWeight: 800 }}>
+                  SEASON 1 :: 안전 수호 정령 뽑기
+                </span>
+                <h2 style={{ margin: "4px 0 12px", fontSize: 20, color: "#1b4035" }}>
+                  불씨로 티켓을 사서 캐릭터를 뽑아보세요!
+                </h2>
+
+                <div className="gacha-stage-visual">
+                  <img
+                    src="/assets/fire-character-hero.png?v=9"
+                    alt="뽑기 머신 마스코트"
+                    className={`gacha-machine-img ${isGachaAnimating ? "animating" : ""}`}
+                  />
                 </div>
-                <span className="kit-badge">실물 수령</span>
+
+                <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 14 }}>
+                  <span className="rarity-badge rarity-SSR">SSR 5%</span>
+                  <span className="rarity-badge rarity-SR">SR 25%</span>
+                  <span className="rarity-badge rarity-R">R 35%</span>
+                  <span className="rarity-badge rarity-N">N 35%</span>
+                </div>
+
+                <p style={{ fontSize: 12, color: "#5d756c", margin: "0 0 16px" }}>
+                  💡 이미 수집한 캐릭터가 나오면 <strong>+20 불씨</strong>로 자동 환산됩니다.
+                </p>
+
+                <div className="gacha-btn-group">
+                  <button
+                    className="gacha-draw-btn single"
+                    onClick={() => handleDrawGacha(1)}
+                    disabled={isGachaAnimating}
+                  >
+                    <span>🎲 1회 뽑기</span>
+                    <small>🎟️ 티켓 1장 소모</small>
+                  </button>
+                  <button
+                    className="gacha-draw-btn ten"
+                    onClick={() => handleDrawGacha(10)}
+                    disabled={isGachaAnimating}
+                  >
+                    <span>✨ 10회 연속 뽑기</span>
+                    <small>🎟️ 티켓 10장 소모</small>
+                  </button>
+                </div>
+              </section>
+            )}
+
+            {/* 2. 📖 캐릭터 도감 탭 */}
+            {rewardSubTab === "codex" && (
+              <div>
+                {/* 전체 수집 달성도 마일스톤 */}
+                <section className="reward-tier-card" style={{ marginBottom: 16 }}>
+                  <div className="tier-badge-row">
+                    <div>
+                      <span className="tier-tag">도감 수집률 🏆</span>
+                      <h2>
+                        {unlockedCharacters.length} / {ALL_CHARACTERS.length} 종 수집 (
+                        {Math.round((unlockedCharacters.length / ALL_CHARACTERS.length) * 100)}%)
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="progress-track reward-track" style={{ marginTop: 8 }}>
+                    <span
+                      style={{
+                        width: `${Math.round((unlockedCharacters.length / ALL_CHARACTERS.length) * 100)}%`,
+                      }}
+                    />
+                  </div>
+                </section>
+
+                {/* 테마 세트 보상 수령 영역 */}
+                <section style={{ marginBottom: 18 }}>
+                  <h3 style={{ fontSize: 15, color: "#1b4035", margin: "0 0 10px" }}>🎯 도감 완성 포인트 보상</h3>
+                  
+                  {/* 🔥 불이 세트 보상 */}
+                  {(() => {
+                    const fireChars = ALL_CHARACTERS.filter((c) => c.category === "fire");
+                    const unlockedCount = fireChars.filter((c) => unlockedCharacters.includes(c.name)).length;
+                    const isComplete = unlockedCount === fireChars.length;
+                    const isClaimed = claimedCodexRewards.includes("fire_set");
+                    return (
+                      <div className="set-reward-banner">
+                        <div>
+                          <strong>🔥 불이 정령 세트 수집 ({unlockedCount}/{fireChars.length})</strong>
+                          <small>전체 9종 수집 완료 시 5,000 Pts 지급</small>
+                        </div>
+                        <button
+                          className={`reward-claim-btn ${isClaimed ? "claimed" : ""}`}
+                          disabled={!isComplete || isClaimed}
+                          onClick={() => handleClaimCodexReward("fire_set", 5000, "불이 정령 세트")}
+                        >
+                          {isClaimed ? "수령 완료 ✔" : isComplete ? "5,000 P 받기 🎁" : "수집 진행 중"}
+                        </button>
+                      </div>
+                    );
+                  })()}
+
+                  {/* 💧 물이 세트 보상 */}
+                  {(() => {
+                    const waterChars = ALL_CHARACTERS.filter((c) => c.category === "water");
+                    const unlockedCount = waterChars.filter((c) => unlockedCharacters.includes(c.name)).length;
+                    const isComplete = unlockedCount === waterChars.length;
+                    const isClaimed = claimedCodexRewards.includes("water_set");
+                    return (
+                      <div className="set-reward-banner">
+                        <div>
+                          <strong>💧 물이 정령 세트 수집 ({unlockedCount}/{waterChars.length})</strong>
+                          <small>전체 4종 수집 완료 시 2,500 Pts 지급</small>
+                        </div>
+                        <button
+                          className={`reward-claim-btn ${isClaimed ? "claimed" : ""}`}
+                          disabled={!isComplete || isClaimed}
+                          onClick={() => handleClaimCodexReward("water_set", 2500, "물이 정령 세트")}
+                        >
+                          {isClaimed ? "수령 완료 ✔" : isComplete ? "2,500 P 받기 🎁" : "수집 진행 중"}
+                        </button>
+                      </div>
+                    );
+                  })()}
+
+                  {/* 🌬️ 바람이 세트 보상 */}
+                  {(() => {
+                    const windChars = ALL_CHARACTERS.filter((c) => c.category === "wind");
+                    const unlockedCount = windChars.filter((c) => unlockedCharacters.includes(c.name)).length;
+                    const isComplete = unlockedCount === windChars.length;
+                    const isClaimed = claimedCodexRewards.includes("wind_set");
+                    return (
+                      <div className="set-reward-banner">
+                        <div>
+                          <strong>🌬️ 바람이 정령 세트 수집 ({unlockedCount}/{windChars.length})</strong>
+                          <small>전체 4종 수집 완료 시 2,500 Pts 지급</small>
+                        </div>
+                        <button
+                          className={`reward-claim-btn ${isClaimed ? "claimed" : ""}`}
+                          disabled={!isComplete || isClaimed}
+                          onClick={() => handleClaimCodexReward("wind_set", 2500, "바람이 정령 세트")}
+                        >
+                          {isClaimed ? "수령 완료 ✔" : isComplete ? "2,500 P 받기 🎁" : "수집 진행 중"}
+                        </button>
+                      </div>
+                    );
+                  })()}
+
+                  {/* 🪵 땅이 세트 보상 */}
+                  {(() => {
+                    const earthChars = ALL_CHARACTERS.filter((c) => c.category === "earth");
+                    const unlockedCount = earthChars.filter((c) => unlockedCharacters.includes(c.name)).length;
+                    const isComplete = unlockedCount === earthChars.length;
+                    const isClaimed = claimedCodexRewards.includes("earth_set");
+                    return (
+                      <div className="set-reward-banner">
+                        <div>
+                          <strong>🪵 땅이 정령 세트 수집 ({unlockedCount}/{earthChars.length})</strong>
+                          <small>전체 5종 수집 완료 시 3,000 Pts 지급</small>
+                        </div>
+                        <button
+                          className={`reward-claim-btn ${isClaimed ? "claimed" : ""}`}
+                          disabled={!isComplete || isClaimed}
+                          onClick={() => handleClaimCodexReward("earth_set", 3000, "땅이 정령 세트")}
+                        >
+                          {isClaimed ? "수령 완료 ✔" : isComplete ? "3,000 P 받기 🎁" : "수집 진행 중"}
+                        </button>
+                      </div>
+                    );
+                  })()}
+                </section>
+
+                {/* 캐릭터 카탈로그 그리드 */}
+                <div className="codex-section-title">
+                  <h3>전체 캐릭터 도감 ({unlockedCharacters.length}/{ALL_CHARACTERS.length})</h3>
+                  <button className="text-button" onClick={() => setShowCodexModal(true)}>
+                    🔍 크게 보기
+                  </button>
+                </div>
+
+                <div className="codex-grid-v2">
+                  {ALL_CHARACTERS.map((char) => {
+                    const isUnlocked = unlockedCharacters.includes(char.name);
+                    return (
+                      <div
+                        key={char.name}
+                        className={`codex-item-card ${isUnlocked ? "unlocked" : "locked"}`}
+                        onClick={() => {
+                          setSelectedCodexName(char.name);
+                          setShowCodexModal(true);
+                        }}
+                      >
+                        <span className={`rarity-badge rarity-${char.rarity}`} style={{ position: "absolute", top: 6, left: 6 }}>
+                          {char.rarity}
+                        </span>
+                        <img src={char.src} alt={char.name} style={{ width: 50, height: 50, objectFit: "contain", marginTop: 12 }} />
+                        <strong>{isUnlocked ? char.name : "미획득"}</strong>
+                        <small>{isUnlocked ? char.level : "🔒 뽑기 전용"}</small>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
+            )}
 
-              <div className="kit-grid">
-                <article className="kit-card">
-                  <span className="kit-icon">🎒</span>
-                  <div>
-                    <span className="kit-tag">백팩</span>
-                    <strong>도도의 맞춤형 안전 백팩</strong>
-                    <p>도도 캐릭터 패치와 진화 정보가 그대로 반영된 비상 가방</p>
-                  </div>
-                  <span className="status-earned">획득 완료</span>
-                </article>
+            {/* 3. 🛍️ 불씨 상점 탭 */}
+            {rewardSubTab === "shop" && (
+              <section>
+                <div style={{ background: "white", padding: 16, borderRadius: 20, border: "1px solid #e1ebe6", marginBottom: 16 }}>
+                  <h3 style={{ margin: "0 0 6px", fontSize: 16, color: "#1b4035" }}>🔥 불씨 → 🎟️ 뽑기 티켓 교환소</h3>
+                  <p style={{ margin: "0 0 14px", fontSize: 12, color: "#5d756c" }}>
+                    미션과 퀴즈를 풀고 모은 불씨로 뽑기 티켓을 교환하세요.
+                  </p>
 
-                <article className="kit-card">
-                  <span className="kit-icon">🔥</span>
-                  <div>
-                    <span className="kit-tag">소방 담요</span>
-                    <strong>맞춤형 불이 소방 담요</strong>
-                    <p>화재 발생 시 체온 유지 및 불길로부터 몸을 보호하는 담요</p>
-                  </div>
-                  <span className="status-earned">획득 완료</span>
-                </article>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#f7faf8", padding: "12px 14px", borderRadius: 14 }}>
+                      <div>
+                        <strong>뽑기 티켓 1장</strong>
+                        <small style={{ display: "block", color: "#777" }}>불씨 🔥 100개 소모</small>
+                      </div>
+                      <button
+                        className="primary-button"
+                        style={{ padding: "8px 14px", fontSize: 12 }}
+                        onClick={() => handleBuyTickets(1)}
+                      >
+                        1장 구매
+                      </button>
+                    </div>
 
-                <article className="kit-card">
-                  <span className="kit-icon">🔊</span>
-                  <div>
-                    <span className="kit-tag">호루라기 & 손전등</span>
-                    <strong>캐릭터 호루라기 & LED 랜턴</strong>
-                    <p>위급 상황 구조 신호를 위한 호루라기와 고성능 플래시</p>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff8f0", border: "1px solid #ffe0b2", padding: "12px 14px", borderRadius: 14 }}>
+                      <div>
+                        <strong>뽑기 티켓 10장 묶음 🔥 10% 할인</strong>
+                        <small style={{ display: "block", color: "#e65100" }}>불씨 🔥 900개 소모 (100개 절약)</small>
+                      </div>
+                      <button
+                        className="primary-button"
+                        style={{ padding: "8px 14px", fontSize: 12, background: "linear-gradient(135deg, #ff9800, #f57c00)" }}
+                        onClick={() => handleBuyTickets(10)}
+                      >
+                        10장 구매
+                      </button>
+                    </div>
                   </div>
-                  <span className="status-earned">획득 완료</span>
-                </article>
+                </div>
 
-                <article className="kit-card">
-                  <span className="kit-icon">🍞</span>
-                  <div>
-                    <span className="kit-tag">비상식량</span>
-                    <strong>비상식량 3종 세트</strong>
-                    <p>재난 발생 시 긴급 체력 보충을 위한 안전 구호 식량</p>
-                  </div>
-                  <span className="status-earned">획득 완료</span>
-                </article>
+                <div style={{ background: "#f0f7f3", padding: 16, borderRadius: 20, textAlign: "center" }}>
+                  <strong style={{ display: "block", fontSize: 14, color: "#1b4035", marginBottom: 4 }}>
+                    불씨가 부족하신가요?
+                  </strong>
+                  <p style={{ fontSize: 12, color: "#5d756c", margin: "0 0 12px" }}>
+                    일일 미션 수행과 재난 안전 퀴즈를 풀면 매일 불씨를 수급할 수 있습니다!
+                  </p>
+                  <button
+                    className="secondary-button"
+                    style={{ width: "100%", padding: 10 }}
+                    onClick={() => navigate("mission")}
+                  >
+                    🎯 미션 & 퀴즈 풀러 가기
+                  </button>
+                </div>
+              </section>
+            )}
 
-                <article className="kit-card">
-                  <span className="kit-icon">📖</span>
-                  <div>
-                    <span className="kit-tag">안전 가이드북</span>
-                    <strong>불이와 함께하는 안전 만화책</strong>
-                    <p>도도가 직접 주인공으로 등장하는 재난 대응 만화책</p>
+            {/* 4. 🎁 포인트 보상 탭 */}
+            {rewardSubTab === "points" && (
+              <section>
+                <div style={{ background: "white", padding: 16, borderRadius: 20, border: "1px solid #e1ebe6", marginBottom: 16 }}>
+                  <h3 style={{ margin: "0 0 4px", fontSize: 16, color: "#1b4035" }}>💰 보상센터 포인트 연동 실물 교환소</h3>
+                  <p style={{ margin: "0 0 12px", fontSize: 12, color: "#5d756c" }}>
+                    캐릭터 도감을 완성하여 얻은 포인트로 맞춤형 안심 키트 및 혜택을 수령하세요!
+                  </p>
+
+                  <div className="point-exchange-grid">
+                    <article className="point-item-card">
+                      <span className="point-item-icon">🎒</span>
+                      <div className="point-item-details">
+                        <strong>도도의 맞춤형 안전 백팩 키트</strong>
+                        <p>도도 캐릭터 패치와 진화 정보가 그대로 반영된 비상 가방</p>
+                        <span className="point-cost-tag">20,000 Pts</span>
+                      </div>
+                      <button
+                        className="primary-button"
+                        style={{ padding: "8px 12px", fontSize: 12 }}
+                        onClick={() => {
+                          triggerFireworks();
+                          setShowKitModal(true);
+                        }}
+                      >
+                        신청하기
+                      </button>
+                    </article>
+
+                    <article className="point-item-card">
+                      <span className="point-item-icon">⛑️</span>
+                      <div className="point-item-details">
+                        <strong>어린이 안전 방재모 & 플래시</strong>
+                        <p>충격 흡수 야간 반사 모자 및 LED 랜턴</p>
+                        <span className="point-cost-tag">10,000 Pts</span>
+                      </div>
+                      <button
+                        className="primary-button"
+                        style={{ padding: "8px 12px", fontSize: 12 }}
+                        onClick={() => {
+                          triggerFireworks();
+                          setShowKitModal(true);
+                        }}
+                      >
+                        신청하기
+                      </button>
+                    </article>
+
+                    <article className="point-item-card">
+                      <span className="point-item-icon">📖</span>
+                      <div className="point-item-details">
+                        <strong>도도 주인공 3D 안전 팝업북</strong>
+                        <p>도도가 직접 주인공으로 등장하는 재난 대응 만화책</p>
+                        <span className="point-cost-tag">5,000 Pts</span>
+                      </div>
+                      <button
+                        className="primary-button"
+                        style={{ padding: "8px 12px", fontSize: 12 }}
+                        onClick={() => {
+                          triggerFireworks();
+                          setShowKitModal(true);
+                        }}
+                      >
+                        신청하기
+                      </button>
+                    </article>
                   </div>
-                  <span className="status-earned">획득 완료</span>
-                </article>
+                </div>
+              </section>
+            )}
+
+            {/* 뽑기 결과 팝업 모달 */}
+            {gachaResult && (
+              <div className="gacha-result-overlay" onClick={() => setGachaResult(null)}>
+                <div className="gacha-result-card" onClick={(e) => e.stopPropagation()}>
+                  <h2 style={{ margin: "0 0 4px", fontSize: 20, color: "#1b4035" }}>
+                    🎉 {gachaResult.isTen ? "10회 연속" : "1회"} 뽑기 결과!
+                  </h2>
+                  <p style={{ fontSize: 13, color: "#555", margin: "0 0 14px" }}>
+                    수집한 캐릭터는 도감에서 확인하고 포인트를 획득할 수 있습니다.
+                  </p>
+
+                  <div className="gacha-card-grid">
+                    {gachaResult.characters.map((char, index) => (
+                      <div key={index} className="gacha-card-item">
+                        {char.isNew && <span className="new-tag">NEW!</span>}
+                        <span className={`rarity-badge rarity-${char.rarity}`}>{char.rarity}</span>
+                        <img src={char.src} alt={char.name} />
+                        <strong style={{ fontSize: 11, color: "#1b4035" }}>{char.name}</strong>
+                        {!char.isNew && (
+                          <small style={{ fontSize: 9, color: "#ff5722", fontWeight: 800 }}>+20 불씨 환산</small>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  <button className="primary-button" style={{ width: "100%" }} onClick={() => setGachaResult(null)}>
+                    확인
+                  </button>
+                </div>
               </div>
-            </section>
+            )}
 
             <button className="outline-button wide" onClick={() => navigate("home")} style={{ marginTop: 16 }}>
               홈으로 돌아가기
@@ -1371,7 +1775,7 @@ export default function Home() {
               <div className="family-person guardian-location">
                 <span className="role-avatar guardian-avatar">민</span>
                 <strong>엄마</strong>
-                <small>성수동 회사</small>
+                        <small>성수동 회사</small>
               </div>
               <span className="family-map-label">성수초등학교</span>
             </section>
@@ -1612,8 +2016,10 @@ export default function Home() {
 
               <div className="codex-stats-banner">
                 <div className="codex-stats-top">
-                  <span>안전 파트너 도감</span>
-                  <strong style={{ color: "#ffd361" }}>24 / 24 수집 완료 (100%) 🎉</strong>
+                  <span>안전 파트너 수집 현황</span>
+                  <strong style={{ color: "#ffd361" }}>
+                    {unlockedCharacters.length} / {ALL_CHARACTERS.length} 종 수집 ({Math.round((unlockedCharacters.length / ALL_CHARACTERS.length) * 100)}%) 🎉
+                  </strong>
                 </div>
                 <div style={{ fontSize: 11, color: "rgba(255, 255, 255, 0.85)" }}>
                   원하는 캐릭터를 선택하여 해당 원소 수호신의 장착 진화형을 변경하실 수 있습니다.
@@ -1622,11 +2028,23 @@ export default function Home() {
 
               <div className="codex-tabs">
                 {[
-                  { id: "all", label: "전체 (24)" },
-                  { id: "fire", label: "🔥 불이" },
-                  { id: "water", label: "💧 물이" },
-                  { id: "wind", label: "🌬️ 바람이" },
-                  { id: "earth", label: "🪵 땅이" },
+                  { id: "all", label: `전체 (${unlockedCharacters.length}/${ALL_CHARACTERS.length})` },
+                  {
+                    id: "fire",
+                    label: `🔥 불이 (${ALL_CHARACTERS.filter((c) => c.category === "fire" && unlockedCharacters.includes(c.name)).length}/${ALL_CHARACTERS.filter((c) => c.category === "fire").length})`,
+                  },
+                  {
+                    id: "water",
+                    label: `💧 물이 (${ALL_CHARACTERS.filter((c) => c.category === "water" && unlockedCharacters.includes(c.name)).length}/${ALL_CHARACTERS.filter((c) => c.category === "water").length})`,
+                  },
+                  {
+                    id: "wind",
+                    label: `🌬️ 바람이 (${ALL_CHARACTERS.filter((c) => c.category === "wind" && unlockedCharacters.includes(c.name)).length}/${ALL_CHARACTERS.filter((c) => c.category === "wind").length})`,
+                  },
+                  {
+                    id: "earth",
+                    label: `🪵 땅이 (${ALL_CHARACTERS.filter((c) => c.category === "earth" && unlockedCharacters.includes(c.name)).length}/${ALL_CHARACTERS.filter((c) => c.category === "earth").length})`,
+                  },
                 ].map((tab) => (
                   <button
                     key={tab.id}
@@ -1639,378 +2057,62 @@ export default function Home() {
               </div>
 
               <div className="codex-grid">
-                {[
-                  {
-                    name: "불이 (씨앗)",
-                    level: "Lv. 1",
-                    attr: "💧 씨앗 불꽃 폼",
-                    desc: "물방울처럼 맑은 불씨 씨앗 형태의 순수한 아기 정령!",
-                    src: "/assets/fire-character-seed.png?v=10",
-                  },
-                  {
-                    name: "불이 (별 뱃지)",
-                    level: "Lv. 2",
-                    attr: "⭐ 별 뱃지 폼",
-                    desc: "미션 완료 별 뱃지를 가슴에 달고 안전을 가이드하는 불꽃 수호자!",
-                    src: "/assets/fire-character-star.png?v=10",
-                  },
-                  {
-                    name: "불이 (방패 뱃지)",
-                    level: "Lv. 2",
-                    attr: "🛡️ 방패 뱃지 폼",
-                    desc: "황금 방재 쉴드 뱃지를 착용하고 화재 예방을 책임지는 불꽃 정령!",
-                    src: "/assets/fire-character-shield.png?v=10",
-                  },
-                  {
-                    name: "불이 (기본)",
-                    level: "Lv. 2",
-                    attr: "🔥 화재·열파 전담",
-                    desc: "소화기 사용법과 화재 대피 신호를 알려주는 따뜻하고 용감한 불꽃 친구!",
-                    src: "/assets/fire-character.png?v=9",
-                  },
-                  {
-                    name: "불이 (적염 전사)",
-                    level: "Lv. 2",
-                    attr: "🥊 용맹한 적염 격투가",
-                    desc: "화재 현장에서 굳센 주먹을 쥐고 대피를 리드하는 용맹한 적염 전사!",
-                    src: "/assets/fire-character-red-fighter.png?v=9",
-                  },
-                  {
-                    name: "불이 (적염 망토)",
-                    level: "Lv. 3",
-                    attr: "🦸‍♂️ 적염 망토 수호자",
-                    desc: "붉은 망토를 휘날리며 열파와 폭발 재난으로부터 생명을 구하는 적염 수호자!",
-                    src: "/assets/fire-character-red-hero.png?v=9",
-                  },
-                  {
-                    name: "불이 (청염 스파크)",
-                    level: "Lv. 3",
-                    attr: "✨ 푸른 불꽃 각성",
-                    desc: "고온 청염 불씨 스파크를 튀기며 최첨단 가스 안전 감지를 선도하는 불꽃 폼!",
-                    src: "/assets/fire-character-blue-sparkle.png?v=9",
-                  },
-                  {
-                    name: "불이 (각성)",
-                    level: "Lv. 4",
-                    attr: "🦸‍♂️ 푸른 망토 불꽃 대장",
-                    desc: "영웅의 보석과 푸른 오라 망토를 두른 화재 안전 수호대장의 최종 진화 모습!",
-                    src: "/assets/fire-character-hero.png?v=9",
-                  },
-                  {
-                    name: "불이 (울먹)",
-                    level: "Special",
-                    attr: "💧 슬픈 불꽃 폼",
-                    desc: "화재 안전 대피 수칙을 어겼을 때 기운 없이 불씨가 사그라들며 울먹이는 불이!",
-                    src: "/assets/fire-character-sad.png?v=9",
-                  },
-                  {
-                    name: "물이 (기본)",
-                    level: "Lv. 1",
-                    attr: "💧 침수·태풍 전담",
-                    desc: "침수 위험 지역 대피와 안전 물자 준비를 상냥하게 안내해 주는 시원한 수호자!",
-                    src: "/assets/water-character.png?v=7",
-                  },
-                  {
-                    name: "물이 (성장)",
-                    level: "Lv. 2",
-                    attr: "🌊 도약하는 수룡 폼",
-                    desc: "침수 지역 방파제 보호 및 빠른 상륙 대피를 돕는 시원한 파도 폼!",
-                    src: "/assets/water-character-lv2.png?v=7",
-                  },
-                  {
-                    name: "물이 (각성)",
-                    level: "Lv. 3",
-                    attr: "🧜‍♂️ 웅장한 물의 정령",
-                    desc: "물줄기 쉴드를 두르고 대홍수 재난으로부터 사람들을 수호하는 물의 정령 최종 진화 모습!",
-                    src: "/assets/water-character-spirit.png?v=7",
-                  },
-                  {
-                    name: "물이 (울먹)",
-                    level: "Special",
-                    attr: "💧 슬픈 물방울 폼",
-                    desc: "침수 안전 대피 규칙을 잊었을 때 눈물을 퐁당 글썽이는 솔직한 물이!",
-                    src: "/assets/water-character-sad.png?v=7",
-                  },
-                  {
-                    name: "바람이 (기본)",
-                    level: "Lv. 1",
-                    attr: "🌬️ 강풍·황사 전담",
-                    desc: "창문 고정 및 미세먼지 마스크 착용을 꼼꼼하게 챙겨주는 상쾌한 바람 파트너!",
-                    src: "/assets/wind-character.png?v=6",
-                  },
-                  {
-                    name: "바람이 (성장)",
-                    level: "Lv. 2",
-                    attr: "🌀 날카로운 쾌속 바람",
-                    desc: "강풍 재난 시 미세먼지와 황사를 날려버리는 강력한 쾌속 윈드 폼!",
-                    src: "/assets/wind-character-lv2.png?v=6",
-                  },
-                  {
-                    name: "바람이 (각성)",
-                    level: "Lv. 3",
-                    attr: "🌪️ 웅장한 바람 정령",
-                    desc: "회오리바람 쉴드를 장착한 태풍 대비 전담 수호 정령의 최종 진화 모습!",
-                    src: "/assets/wind-character-spirit.png?v=6",
-                  },
-                  {
-                    name: "바람이 (울먹)",
-                    level: "Special",
-                    attr: "💧 슬픈 구름바람 폼",
-                    desc: "바람 안전 주의사항을 어겼을 때 기운 없이 눈물을 글썽이는 서운한 바람이!",
-                    src: "/assets/wind-character-sad.png?v=6",
-                  },
-                  {
-                    name: "땅이 (기본)",
-                    level: "Lv. 1",
-                    attr: "🪵 지진·산사태 전담",
-                    desc: "지진 발생 시 책상 아래로 몸을 숨기고 머리를 보호하도록 든든하게 지켜주는 대지 수호신!",
-                    src: "/assets/earth-character.png?v=5",
-                  },
-                  {
-                    name: "땅이 (성장)",
-                    level: "Lv. 2",
-                    attr: "🗿 단단한 흙바위 폼",
-                    desc: "지진과 산사태 위험에서 흔들리지 않고 더 단단하게 몸을 보호하는 진화 폼!",
-                    src: "/assets/earth-character-lv2.png?v=5",
-                  },
-                  {
-                    name: "땅이 (각성)",
-                    level: "Lv. 3",
-                    attr: "🌋 웅장한 대지 골렘",
-                    desc: "모든 지진 미션을 완수한 강력한 보석 결정과 이끼 갑옷의 최종 진화 모습!",
-                    src: "/assets/earth-character-golem.png?v=5",
-                  },
-                  {
-                    name: "땅이 (아기)",
-                    level: "Baby",
-                    attr: "🌱 아기 흙방울 폼",
-                    desc: "새싹을 틔우며 귀엽게 웃고 있는 초보 안전 훈련생 시절의 땅이!",
-                    src: "/assets/earth-character-baby.png?v=5",
-                  },
-                  {
-                    name: "땅이 (울먹)",
-                    level: "Special",
-                    attr: "💧 슬픈 흙공 폼",
-                    desc: "안전 규칙을 지키지 않았을 때 눈물을 핑 글썽이는 솔직한 표정의 땅이!",
-                    src: "/assets/earth-character-sad.png?v=5",
-                  },
-                ].filter((char) => {
-                  if (codexCategory === "fire") return char.name.startsWith("불이");
-                  if (codexCategory === "water") return char.name.startsWith("물이");
-                  if (codexCategory === "wind") return char.name.startsWith("바람이");
-                  if (codexCategory === "earth") return char.name.startsWith("땅이");
+                {ALL_CHARACTERS.filter((char) => {
+                  if (codexCategory === "fire") return char.category === "fire";
+                  if (codexCategory === "water") return char.category === "water";
+                  if (codexCategory === "wind") return char.category === "wind";
+                  if (codexCategory === "earth") return char.category === "earth";
                   return true;
                 }).map((char) => {
+                  const isUnlocked = unlockedCharacters.includes(char.name);
                   const isSelected = selectedCodexName === char.name;
                   return (
                     <div
                       key={char.name}
-                      className={`codex-card ${isSelected ? "selected" : ""}`}
+                      className={`codex-card ${isSelected ? "selected" : ""} ${isUnlocked ? "unlocked" : "locked"}`}
                       onClick={() => setSelectedCodexName(char.name)}
+                      style={{ position: "relative" }}
                     >
+                      {!isUnlocked && (
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: 6,
+                            right: 6,
+                            fontSize: 9,
+                            background: "rgba(90, 105, 98, 0.75)",
+                            color: "white",
+                            padding: "2px 6px",
+                            borderRadius: 8,
+                            fontWeight: 800,
+                            zIndex: 2,
+                          }}
+                        >
+                          🔒 미획득
+                        </span>
+                      )}
                       <div className="codex-char-img-wrap">
-                        <img src={char.src} alt={char.name} />
+                        <img
+                          src={char.src}
+                          alt={char.name}
+                          style={{
+                            filter: isUnlocked ? "none" : "grayscale(100%) contrast(80%) opacity(0.35)",
+                          }}
+                        />
                       </div>
-                      <strong>{char.name}</strong>
-                      <small>{char.level} · {char.attr}</small>
+                      <strong>{isUnlocked ? char.name : char.name}</strong>
+                      <small style={{ color: isUnlocked ? "#889993" : "#92a49d" }}>
+                        {isUnlocked ? `${char.level} · ${char.attr}` : "🔒 뽑기 전용"}
+                      </small>
                     </div>
                   );
                 })}
               </div>
 
               {(() => {
-                const codexList = [
-                  {
-                    name: "불이 (씨앗)",
-                    level: "Lv. 1",
-                    attr: "💧 씨앗 불꽃 폼",
-                    desc: "물방울처럼 맑은 불씨 씨앗 형태의 순수한 아기 정령!",
-                    skill: "안전 씨앗 발아 & 기초 가이드",
-                    src: "/assets/fire-character-seed.png?v=10",
-                  },
-                  {
-                    name: "불이 (별 뱃지)",
-                    level: "Lv. 2",
-                    attr: "⭐ 별 뱃지 폼",
-                    desc: "미션 완료 별 뱃지를 가슴에 달고 안전을 가이드하는 불꽃 수호자!",
-                    skill: "미션 칭찬 별빛 & 안전 보상 수여",
-                    src: "/assets/fire-character-star.png?v=10",
-                  },
-                  {
-                    name: "불이 (방패 뱃지)",
-                    level: "Lv. 2",
-                    attr: "🛡️ 방패 뱃지 폼",
-                    desc: "황금 방재 쉴드 뱃지를 착용하고 화재 예방을 책임지는 불꽃 정령!",
-                    skill: "황금 방재 방패 쉴드 & 안전 수칙 알림",
-                    src: "/assets/fire-character-shield.png?v=10",
-                  },
-                  {
-                    name: "불이 (기본)",
-                    level: "Lv. 2",
-                    attr: "🔥 화재·열파 전담",
-                    desc: "소화기 사용법과 화재 대피 신호를 알려주는 따뜻하고 용감한 불꽃 친구!",
-                    skill: "화재 안전 대피 지도 & 불씨 모으기",
-                    src: "/assets/fire-character.png?v=9",
-                  },
-                  {
-                    name: "불이 (적염 전사)",
-                    level: "Lv. 2",
-                    attr: "🥊 용맹한 적염 격투가",
-                    desc: "화재 현장에서 굳센 주먹을 쥐고 대피를 리드하는 용맹한 적염 전사!",
-                    skill: "비상문 개척 & 화재 통로 펀치",
-                    src: "/assets/fire-character-red-fighter.png?v=9",
-                  },
-                  {
-                    name: "불이 (적염 망토)",
-                    level: "Lv. 3",
-                    attr: "🦸‍♂️ 적염 망토 수호자",
-                    desc: "붉은 망토를 휘날리며 열파와 폭발 재난으로부터 생명을 구하는 적염 수호자!",
-                    skill: "열파 돌풍 케이지 & 인명 구조 알림",
-                    src: "/assets/fire-character-red-hero.png?v=9",
-                  },
-                  {
-                    name: "불이 (청염 스파크)",
-                    level: "Lv. 3",
-                    attr: "✨ 푸른 불꽃 각성",
-                    desc: "고온 청염 불씨 스파크를 튀기며 최첨단 가스 안전 감지를 선도하는 불꽃 폼!",
-                    skill: "청염 가스 누출 센서 & 고온 차단막",
-                    src: "/assets/fire-character-blue-sparkle.png?v=9",
-                  },
-                  {
-                    name: "불이 (각성)",
-                    level: "Lv. 4",
-                    attr: "🦸‍♂️ 푸른 망토 불꽃 대장",
-                    desc: "영웅의 보석과 푸른 오라 망토를 두른 화재 안전 수호대장의 최종 진화 모습!",
-                    skill: "광역 화재 차단막 & 소화제 세례",
-                    src: "/assets/fire-character-hero.png?v=9",
-                  },
-                  {
-                    name: "불이 (울먹)",
-                    level: "Special",
-                    attr: "💧 슬픈 불꽃 폼",
-                    desc: "화재 안전 대피 수칙을 어겼을 때 기운 없이 불씨가 사그라들며 울먹이는 불이!",
-                    skill: "화재 위험 알림 소환",
-                    src: "/assets/fire-character-sad.png?v=9",
-                  },
-                  {
-                    name: "물이 (기본)",
-                    level: "Lv. 1",
-                    attr: "💧 침수·태풍 전담",
-                    desc: "침수 위험 지역 대피와 안전 물자 준비를 상냥하게 안내해 주는 시원한 수호자!",
-                    skill: "침수 대비 높은 곳 대피 가이드",
-                    src: "/assets/water-character.png?v=7",
-                  },
-                  {
-                    name: "물이 (성장)",
-                    level: "Lv. 2",
-                    attr: "🌊 도약하는 수룡 폼",
-                    desc: "침수 지역 방파제 보호 및 빠른 상륙 대피를 돕는 시원한 파도 폼!",
-                    skill: "수위 감지 알림 & 빠른 상륙 대피",
-                    src: "/assets/water-character-lv2.png?v=7",
-                  },
-                  {
-                    name: "물이 (각성)",
-                    level: "Lv. 3",
-                    attr: "🧜‍♂️ 웅장한 물의 정령",
-                    desc: "물줄기 쉴드를 두르고 대홍수 재난으로부터 사람들을 수호하는 물의 정령 최종 진화 모습!",
-                    skill: "해일 방파 차단막 & 정수 쉴드",
-                    src: "/assets/water-character-spirit.png?v=7",
-                  },
-                  {
-                    name: "물이 (울먹)",
-                    level: "Special",
-                    attr: "💧 슬픈 물방울 폼",
-                    desc: "침수 안전 대피 규칙을 잊었을 때 눈물을 퐁당 글썽이는 솔직한 물이!",
-                    skill: "침수 위험 경보 발행",
-                    src: "/assets/water-character-sad.png?v=7",
-                  },
-                  {
-                    name: "바람이 (기본)",
-                    level: "Lv. 1",
-                    attr: "🌬️ 강풍·황사 전담",
-                    desc: "창문 고정 및 미세먼지 마스크 착용을 꼼꼼하게 챙겨주는 상쾌한 바람 파트너!",
-                    skill: "강풍 방재 대비 및 실내 환기 조율",
-                    src: "/assets/wind-character.png?v=6",
-                  },
-                  {
-                    name: "바람이 (성장)",
-                    level: "Lv. 2",
-                    attr: "🌀 날카로운 쾌속 바람",
-                    desc: "강풍 재난 시 미세먼지와 황사를 날려버리는 강력한 쾌속 윈드 폼!",
-                    skill: "창문 강화 테이핑 & 대공 환기 쉴드",
-                    src: "/assets/wind-character-lv2.png?v=6",
-                  },
-                  {
-                    name: "바람이 (각성)",
-                    level: "Lv. 3",
-                    attr: "🌪️ 웅장한 바람 정령",
-                    desc: "회오리바람 쉴드를 장착한 태풍 대비 전담 수호 정령의 최종 진화 모습!",
-                    skill: "태풍 충격 완화 윈드 케이지",
-                    src: "/assets/wind-character-spirit.png?v=6",
-                  },
-                  {
-                    name: "바람이 (울먹)",
-                    level: "Special",
-                    attr: "💧 슬픈 구름바람 폼",
-                    desc: "바람 안전 주의사항을 어겼을 때 기운 없이 눈물을 글썽이는 서운한 바람이!",
-                    skill: "미세먼지 주의보 경보 발행",
-                    src: "/assets/wind-character-sad.png?v=6",
-                  },
-                  {
-                    name: "땅이 (기본)",
-                    level: "Lv. 1",
-                    attr: "🪵 지진·산사태 전담",
-                    desc: "지진 발생 시 책상 아래로 몸을 숨기고 머리를 보호하도록 든든하게 지켜주는 대지 수호신!",
-                    skill: "지진 3단계 안전 자세(드롭, 커버, 홀드 온)",
-                    src: "/assets/earth-character.png?v=5",
-                  },
-                  {
-                    name: "땅이 (성장)",
-                    level: "Lv. 2",
-                    attr: "🗿 단단한 흙바위 폼",
-                    desc: "지진과 산사태 위험에서 흔들리지 않고 더 단단하게 몸을 보호하는 진화 폼!",
-                    skill: "바위 방패 내진 보강 지식",
-                    src: "/assets/earth-character-lv2.png?v=5",
-                  },
-                  {
-                    name: "땅이 (각성)",
-                    level: "Lv. 3",
-                    attr: "🌋 웅장한 대지 골렘",
-                    desc: "모든 지진 미션을 완수한 강력한 보석 결정과 이끼 갑옷의 최종 진화 모습!",
-                    skill: "대지 충격파 흡수 & 광역 수호 쉴드",
-                    src: "/assets/earth-character-golem.png?v=5",
-                  },
-                  {
-                    name: "땅이 (아기)",
-                    level: "Baby",
-                    attr: "🌱 아기 흙방울 폼",
-                    desc: "새싹을 틔우며 귀엽게 웃고 있는 초보 안전 훈련생 시절의 땅이!",
-                    skill: "앙증맞은 안전 인사 & 기초 훈련",
-                    src: "/assets/earth-character-baby.png?v=5",
-                  },
-                  {
-                    name: "땅이 (울먹)",
-                    level: "Special",
-                    attr: "💧 슬픈 흙공 폼",
-                    desc: "안전 규칙을 지키지 않았을 때 눈물을 핑 글썽이는 솔직한 표정의 땅이!",
-                    skill: "안전 주의 경고 알림",
-                    src: "/assets/earth-character-sad.png?v=5",
-                  },
-                ].filter((char) => {
-                  if (codexCategory === "fire") return char.name.startsWith("불이");
-                  if (codexCategory === "water") return char.name.startsWith("물이");
-                  if (codexCategory === "wind") return char.name.startsWith("바람이");
-                  if (codexCategory === "earth") return char.name.startsWith("땅이");
-                  return true;
-                });
-                const activeChar = codexList.find((c) => c.name === selectedCodexName) || codexList[0] || {
-                  name: "불이",
-                  level: "Lv. 2",
-                  attr: "🔥 수호신",
-                  desc: "안전 수호자",
-                  skill: "안전 가이드",
-                  src: "/assets/fire-character.png?v=9",
-                };
+                const activeChar = ALL_CHARACTERS.find((c) => c.name === selectedCodexName) || ALL_CHARACTERS[0];
+                const isUnlocked = unlockedCharacters.includes(activeChar.name);
+
                 return (
                   <div className="codex-detail-box">
                     <div className="codex-detail-title">
@@ -2018,11 +2120,20 @@ export default function Home() {
                         <strong style={{ fontSize: 16, color: "#1b4035", display: "block" }}>
                           {activeChar.name} ({activeChar.level})
                         </strong>
-                        <span style={{ fontSize: 12, color: "#ff8b4d", fontWeight: 700 }}>
-                          {activeChar.attr}
+                        <span style={{ fontSize: 12, color: isUnlocked ? "#ff8b4d" : "#999", fontWeight: 700 }}>
+                          {activeChar.attr} {isUnlocked ? "✔ 보유 중" : "🔒 미획득 (장착 불가)"}
                         </span>
                       </div>
-                      <img src={activeChar.src} alt={activeChar.name} style={{ width: 48, height: 48, objectFit: "contain" }} />
+                      <img
+                        src={activeChar.src}
+                        alt={activeChar.name}
+                        style={{
+                          width: 48,
+                          height: 48,
+                          objectFit: "contain",
+                          filter: isUnlocked ? "none" : "brightness(0.2) opacity(0.5)",
+                        }}
+                      />
                     </div>
                     <p style={{ margin: "10px 0", fontSize: 13, color: "#2c3e35", lineHeight: 1.5, background: "#fff", padding: "10px 12px", borderRadius: 14, border: "1px solid #e1ebe6" }}>
                       📖 <strong>캐릭터 설명:</strong> {activeChar.desc}
@@ -2030,25 +2141,63 @@ export default function Home() {
                     <div style={{ background: "#f0f7f3", padding: "10px 12px", borderRadius: 14, fontSize: 12, color: "#1b4035" }}>
                       ⚡ <strong>보유 안전 기술:</strong> {activeChar.skill}
                     </div>
-                    <button
-                      className="primary-button"
-                      style={{ width: "100%", marginTop: 12, padding: 10, fontSize: 13 }}
-                      onClick={() => {
-                        setProfileAvatarSrc(activeChar.src);
-                        if (activeChar.name.startsWith("불이")) {
-                          setFireForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
-                        } else if (activeChar.name.startsWith("물이")) {
-                          setWaterForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
-                        } else if (activeChar.name.startsWith("바람이")) {
-                          setWindForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
-                        } else if (activeChar.name.startsWith("땅이")) {
-                          setEarthForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
-                        }
-                        setShowCodexModal(false);
-                      }}
-                    >
-                      ★ {activeChar.name}(으)로 선택 및 진화 폼 장착하기
-                    </button>
+
+                    {isUnlocked ? (
+                      <button
+                        className="primary-button"
+                        style={{ width: "100%", marginTop: 12, padding: 10, fontSize: 13 }}
+                        onClick={() => {
+                          setProfileAvatarSrc(activeChar.src);
+                          if (activeChar.category === "fire") {
+                            setFireForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
+                          } else if (activeChar.category === "water") {
+                            setWaterForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
+                          } else if (activeChar.category === "wind") {
+                            setWindForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
+                          } else if (activeChar.category === "earth") {
+                            setEarthForm({ name: activeChar.name, src: activeChar.src, level: activeChar.level });
+                          }
+                          setShowCodexModal(false);
+                        }}
+                      >
+                        ★ {activeChar.name}(으)로 선택 및 진화 폼 장착하기
+                      </button>
+                    ) : (
+                      <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 6 }}>
+                        <button
+                          className="outline-button"
+                          disabled={true}
+                          style={{
+                            width: "100%",
+                            padding: 10,
+                            fontSize: 13,
+                            background: "#f5f5f5",
+                            color: "#999",
+                            borderColor: "#ddd",
+                            cursor: "not-allowed",
+                            fontWeight: 700,
+                          }}
+                        >
+                          🔒 선택 불가 (뽑기 미획득 캐릭터)
+                        </button>
+                        <button
+                          className="primary-button"
+                          style={{
+                            width: "100%",
+                            padding: 10,
+                            fontSize: 13,
+                            background: "linear-gradient(135deg, #ff9800, #f57c00)",
+                          }}
+                          onClick={() => {
+                            setShowCodexModal(false);
+                            setRewardSubTab("gacha");
+                            navigate("reward");
+                          }}
+                        >
+                          🎲 불씨 상점에서 뽑기 티켓으로 획득하기 →
+                        </button>
+                      </div>
+                    )}
                   </div>
                 );
               })()}
@@ -2161,42 +2310,39 @@ export default function Home() {
                 안전 캐릭터 선택
               </strong>
               <div className="avatar-character-grid">
-                {[
-                  { name: "불이 (씨앗)", src: "/assets/fire-character-seed.png?v=10" },
-                  { name: "불이 (별 뱃지)", src: "/assets/fire-character-star.png?v=10" },
-                  { name: "불이 (방패 뱃지)", src: "/assets/fire-character-shield.png?v=10" },
-                  { name: "불이 (기본)", src: "/assets/fire-character.png?v=9" },
-                  { name: "불이 (적염 전사)", src: "/assets/fire-character-red-fighter.png?v=9" },
-                  { name: "불이 (적염 망토)", src: "/assets/fire-character-red-hero.png?v=9" },
-                  { name: "불이 (청염 스파크)", src: "/assets/fire-character-blue-sparkle.png?v=9" },
-                  { name: "불이 (각성)", src: "/assets/fire-character-hero.png?v=9" },
-                  { name: "불이 (울먹)", src: "/assets/fire-character-sad.png?v=9" },
-                  { name: "물이 (기본)", src: "/assets/water-character.png?v=7" },
-                  { name: "물이 (성장)", src: "/assets/water-character-lv2.png?v=7" },
-                  { name: "물이 (각성)", src: "/assets/water-character-spirit.png?v=7" },
-                  { name: "물이 (울먹)", src: "/assets/water-character-sad.png?v=7" },
-                  { name: "바람이 (기본)", src: "/assets/wind-character.png?v=7" },
-                  { name: "바람이 (성장)", src: "/assets/wind-character-lv2.png?v=7" },
-                  { name: "바람이 (각성)", src: "/assets/wind-character-spirit.png?v=7" },
-                  { name: "바람이 (울먹)", src: "/assets/wind-character-sad.png?v=7" },
-                  { name: "땅이 (기본)", src: "/assets/earth-character.png?v=7" },
-                  { name: "땅이 (성장)", src: "/assets/earth-character-lv2.png?v=7" },
-                  { name: "땅이 (각성)", src: "/assets/earth-character-golem.png?v=7" },
-                  { name: "땅이 (아기)", src: "/assets/earth-character-baby.png?v=7" },
-                  { name: "땅이 (울먹)", src: "/assets/earth-character-sad.png?v=7" },
-                ].map((char) => (
-                  <button
-                    key={char.name}
-                    className={`avatar-char-btn ${profileAvatarSrc === char.src ? "selected" : ""}`}
-                    onClick={() => {
-                      setProfileAvatarSrc(char.src);
-                      setShowAvatarModal(false);
-                    }}
-                  >
-                    <img src={char.src} alt={char.name} />
-                    <span style={{ fontSize: 11, fontWeight: 700 }}>{char.name}</span>
-                  </button>
-                ))}
+                {ALL_CHARACTERS.map((char) => {
+                  const isUnlocked = unlockedCharacters.includes(char.name);
+                  const isSelected = profileAvatarSrc === char.src;
+                  return (
+                    <button
+                      key={char.name}
+                      className={`avatar-char-btn ${isSelected ? "selected" : ""} ${isUnlocked ? "" : "locked"}`}
+                      disabled={!isUnlocked}
+                      onClick={() => {
+                        if (!isUnlocked) return;
+                        setProfileAvatarSrc(char.src);
+                        setShowAvatarModal(false);
+                      }}
+                      style={{
+                        opacity: isUnlocked ? 1 : 0.45,
+                        cursor: isUnlocked ? "pointer" : "not-allowed",
+                        position: "relative",
+                      }}
+                    >
+                      {!isUnlocked && (
+                        <span style={{ position: "absolute", top: 2, right: 4, fontSize: 10 }}>🔒</span>
+                      )}
+                      <img
+                        src={char.src}
+                        alt={char.name}
+                        style={{ filter: isUnlocked ? "none" : "brightness(0.2) opacity(0.5)" }}
+                      />
+                      <span style={{ fontSize: 11, fontWeight: 700 }}>
+                        {isUnlocked ? char.name : "미획득"}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
 
               <button className="text-button" style={{ width: "100%" }} onClick={() => setShowAvatarModal(false)}>

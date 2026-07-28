@@ -5225,6 +5225,29 @@ textarea:focus-visible {
   font-weight: 700;
 }
 
+.codex-card.locked {
+  background: #f2f6f4;
+  border-color: #dce6e1;
+  opacity: 0.65;
+}
+
+.codex-card.locked .codex-char-img-wrap {
+  background: #e4ece8;
+  border-color: #cdd9d3;
+}
+
+.codex-card.locked .codex-char-img-wrap img {
+  filter: grayscale(100%) contrast(85%) opacity(0.4);
+}
+
+.codex-card.locked strong {
+  color: #6b8077;
+}
+
+.codex-card.locked small {
+  color: #92a49d;
+}
+
 .codex-detail-box {
   background: white;
   border: 1px solid #dce8e2;
@@ -5246,3 +5269,426 @@ textarea:focus-visible {
   transform: scale(0.98);
   background: #e05e00;
 }
+
+/* ==========================================================================
+   Revamped Reward Center, Gacha, Codex & Point System Styles
+   ========================================================================== */
+
+.reward-wallet-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1b382e, #2d5446);
+  padding: 12px 14px;
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(27, 56, 46, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.wallet-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wallet-chip .chip-icon {
+  font-size: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.wallet-chip-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.wallet-chip-info label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.wallet-chip-info strong {
+  font-size: 15px;
+  font-weight: 900;
+  color: #ffe082;
+}
+
+.wallet-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.reward-nav-tabs {
+  display: flex;
+  gap: 6px;
+  background: #eaf2ee;
+  padding: 5px;
+  border-radius: 16px;
+  margin-bottom: 18px;
+}
+
+.reward-nav-tab {
+  flex: 1;
+  padding: 10px 4px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #5d756c;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.reward-nav-tab.active {
+  background: white;
+  color: #1b4035;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.gacha-machine-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f6faf8 100%);
+  border: 1.5px solid #dbe6e0;
+  border-radius: 24px;
+  padding: 20px 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  margin-bottom: 18px;
+}
+
+.gacha-stage-visual {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gacha-machine-img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(255, 120, 50, 0.3));
+  animation: floatBounce 3s ease-in-out infinite;
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.gacha-sparkle-bg {
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(circle, rgba(255, 200, 80, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.gacha-btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.gacha-draw-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 10px;
+  border-radius: 18px;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gacha-draw-btn:active {
+  transform: scale(0.96);
+}
+
+.gacha-draw-btn.single {
+  background: linear-gradient(135deg, #ff8038, #ff5722);
+  color: white;
+  box-shadow: 0 6px 16px rgba(255, 87, 34, 0.35);
+}
+
+.gacha-draw-btn.ten {
+  background: linear-gradient(135deg, #7c4dff, #651fff);
+  color: white;
+  box-shadow: 0 6px 16px rgba(101, 31, 255, 0.35);
+}
+
+.gacha-draw-btn small {
+  font-size: 11px;
+  opacity: 0.9;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.rarity-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.rarity-SSR {
+  background: linear-gradient(135deg, #ffd700, #ff9800);
+  color: #3e2723;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.5);
+}
+
+.rarity-SR {
+  background: linear-gradient(135deg, #e040fb, #7c4dff);
+  color: white;
+}
+
+.rarity-R {
+  background: linear-gradient(135deg, #29b6f6, #0288d1);
+  color: white;
+}
+
+.rarity-N {
+  background: #cfd8dc;
+  color: #37474f;
+}
+
+.gacha-result-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 20, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.gacha-result-card {
+  background: white;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 28px;
+  padding: 24px 20px;
+  text-align: center;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.gacha-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.gacha-card-item {
+  background: #f7faf8;
+  border: 1px solid #e1ebe6;
+  border-radius: 16px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.gacha-card-item img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
+
+.gacha-card-item .new-tag {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  background: #ff1744;
+  color: white;
+  font-size: 9px;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(255, 23, 68, 0.4);
+}
+
+.codex-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.codex-section-title h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+  color: #1b4035;
+}
+
+.codex-grid-v2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.codex-item-card {
+  background: white;
+  border: 1.5px solid #e1ebe6;
+  border-radius: 18px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.codex-item-card.locked {
+  background: #f5f8f6;
+  opacity: 0.65;
+}
+
+.codex-item-card.locked img {
+  filter: brightness(0.2) opacity(0.5);
+}
+
+.codex-item-card strong {
+  font-size: 12px;
+  color: #1b4035;
+  margin-top: 4px;
+}
+
+.codex-item-card small {
+  font-size: 10px;
+  color: #889993;
+}
+
+.set-reward-banner {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  border: 1px solid #ffcc80;
+  border-radius: 18px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.set-reward-banner strong {
+  font-size: 13px;
+  color: #e65100;
+}
+
+.set-reward-banner small {
+  font-size: 11px;
+  color: #ef6c00;
+  display: block;
+}
+
+.reward-claim-btn {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+}
+
+.reward-claim-btn.claimed {
+  background: #c8e6c9;
+  color: #2e7d32;
+  box-shadow: none;
+  cursor: default;
+}
+
+.point-exchange-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.point-item-card {
+  background: white;
+  border: 1px solid #e1ebe6;
+  border-radius: 20px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.point-item-icon {
+  font-size: 32px;
+  width: 52px;
+  height: 52px;
+  background: #f0f7f3;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.point-item-details {
+  flex: 1;
+}
+
+.point-item-details strong {
+  font-size: 14px;
+  color: #1b4035;
+  display: block;
+}
+
+.point-item-details p {
+  font-size: 11px;
+  color: #6a8278;
+  margin: 2px 0 6px;
+}
+
+.point-cost-tag {
+  font-size: 12px;
+  font-weight: 900;
+  color: #ff8b4d;
+}
+
+.reward-notice-toast {
+  background: #2e7d32;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
