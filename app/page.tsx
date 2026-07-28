@@ -231,6 +231,10 @@ export default function Home() {
   const [isGachaAnimating, setIsGachaAnimating] = useState(false);
   const [rewardNotice, setRewardNotice] = useState<string | null>(null);
 
+  // Daily 1-time reward limit states (1일 1회 불씨 수급 제한)
+  const [dailyMissionRewarded, setDailyMissionRewarded] = useState(false);
+  const [dailyQuizRewarded, setDailyQuizRewarded] = useState(false);
+
   const handleDrawGacha = (count: 1 | 10) => {
     if (gachaTickets < count) {
       alert(`뽑기 티켓이 부족합니다! (필요: 🎟️ ${count}장, 보유: 🎟️ ${gachaTickets}장)\n불씨 상점에서 티켓을 먼저 교환해 보세요.`);
@@ -377,11 +381,35 @@ export default function Home() {
     navigate("photoReward");
   };
 
-  const finishReward = () => {
-    if (!missionDone) {
-      setSparks((current) => current + 30);
-      setMissionDone(true);
+  const finishMissionReward = () => {
+    if (dailyMissionRewarded) {
+      setRewardNotice("ℹ️ 오늘 미션 완료 불씨 보상은 이미 수령하셨습니다. (내일 다시 도전해 주세요!)");
+    } else {
+      const earnedSparks = 30;
+      setSparks((current) => current + earnedSparks);
+      setDailyMissionRewarded(true);
+      setRewardNotice(`🎉 축하합니다! 오늘 미션 완수 보상으로 불씨 🔥 +${earnedSparks}개를 획득했습니다!`);
+      triggerFireworks();
     }
+    setTimeout(() => {
+      setRewardNotice(null);
+    }, 4500);
+    navigate("reward");
+  };
+
+  const finishQuizReward = () => {
+    if (dailyQuizRewarded) {
+      setRewardNotice("ℹ️ 오늘 퀴즈 완료 불씨 보상은 이미 수령하셨습니다. (내일 새로운 퀴즈로 도전해 주세요!)");
+    } else {
+      const earnedSparks = 30;
+      setSparks((current) => current + earnedSparks);
+      setDailyQuizRewarded(true);
+      setRewardNotice(`🎉 축하합니다! 오늘 안전 퀴즈 완수 보상으로 불씨 🔥 +${earnedSparks}개를 획득했습니다!`);
+      triggerFireworks();
+    }
+    setTimeout(() => {
+      setRewardNotice(null);
+    }, 4500);
     navigate("reward");
   };
 
@@ -591,8 +619,12 @@ export default function Home() {
                 <p className="quiz-question-text">
                   호우경보가 내려졌을 때, 지하주차장에 차를 두었다면 가장 먼저 할 행동은?
                 </p>
-                <button className="quiz-action-button" onClick={() => navigate("quiz")}>
-                  퀴즈 풀고 불씨 키우기
+                <button
+                  className="quiz-action-button"
+                  style={dailyQuizRewarded ? { background: "#e8f2ee", color: "#1b4035", borderColor: "#b8d5c8" } : {}}
+                  onClick={() => navigate("quiz")}
+                >
+                  {dailyQuizRewarded ? "✓ 오늘 퀴즈 완료 (보상 획득됨)" : "퀴즈 풀고 불씨 키우기"}
                 </button>
               </div>
             </section>
@@ -611,8 +643,8 @@ export default function Home() {
                 <h3>책상 아래 안전 자세 연습</h3>
                 <p>지진이 나면 머리를 보호하고 책상 아래로 숨는 자세를 연습해요.</p>
                 <div className="reward-row">
-                  <span className="spark-token">✦</span>
-                  <strong>불씨 30개</strong>
+                  <span className="spark-token">{dailyMissionRewarded ? "✓" : "✦"}</span>
+                  <strong>{dailyMissionRewarded ? "오늘 미션 보상 완료" : "불씨 30개"}</strong>
                   <span className="mission-arrow">›</span>
                 </div>
               </div>
@@ -1107,7 +1139,7 @@ export default function Home() {
                     setQuizIndex((current) => current + 1);
                     setQuizSelected(null);
                   } else {
-                    finishReward();
+                    finishQuizReward();
                   }
                 }}
               >
@@ -1178,11 +1210,11 @@ export default function Home() {
               <p><strong>사진은 안전하게</strong><br />이 MVP에서는 선택한 사진이 서버로 전송되지 않고 현재 기기 화면에만 표시돼요.</p>
             </aside>
 
-            <button className="primary-button" onClick={finishReward}>
+            <button className="primary-button" onClick={finishMissionReward}>
               퍼즐 완성하고 보상 받기 <span>→</span>
             </button>
             {!userPhoto && (
-              <button className="text-button" onClick={finishReward}>사진 없이 기본 퍼즐로 완성하기</button>
+              <button className="text-button" onClick={finishMissionReward}>사진 없이 기본 퍼즐로 완성하기</button>
             )}
           </div>
         )}
@@ -1198,7 +1230,29 @@ export default function Home() {
               <div className="wallet-chip">
                 <span className="chip-icon">🔥</span>
                 <div className="wallet-chip-info">
-                  <label>보유 불씨</label>
+                  <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                    <label>보유 불씨</label>
+                    <button
+                      style={{
+                        background: "#ff5722",
+                        color: "white",
+                        border: "none",
+                        fontSize: 9,
+                        fontWeight: 900,
+                        padding: "1px 5px",
+                        borderRadius: 6,
+                        cursor: "pointer"
+                      }}
+                      onClick={() => {
+                        setSparks((prev) => prev + 50);
+                        triggerFireworks();
+                        setRewardNotice("🔥 테스트 보너스 불씨 50개가 즉시 충전되었습니다!");
+                        setTimeout(() => setRewardNotice(null), 3000);
+                      }}
+                    >
+                      +50개
+                    </button>
+                  </div>
                   <strong>{sparks}개</strong>
                 </div>
               </div>
