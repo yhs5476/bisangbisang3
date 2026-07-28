@@ -28,6 +28,39 @@ function ChildAlertContent() {
   const [activeModal, setActiveModal] = useState<"none" | "call_mom" | "119_confirm" | "119_call" | "send_location">("none");
   const [momCallConnected, setMomCallConnected] = useState(false);
 
+  // 최근 재난문자 목록 모달 상태
+  const [recentAlertsList, setRecentAlertsList] = useState<Array<{ msg: string; date: string; region: string; type: string }>>([]);
+  const [showRecentModal, setShowRecentModal] = useState(false);
+
+  // 0. 실시간 공공 긴급재난문자 목록 불러오기 (실종 제외)
+  useEffect(() => {
+    async function fetchRecentAlerts() {
+      try {
+        const res = await fetch("/api/disaster-alert?numOfRows=20");
+        if (res.ok) {
+          const data = await res.json();
+          const list = Array.isArray(data) ? data : data?.body || data?.data || data?.result || [];
+          if (list && list.length > 0) {
+            const formattedList = list.map((item: any) => {
+              let msg = item.MSG_CN || item.MSG || item.msg_cn || item.CRT_DT_MSG || item.SJ || "";
+              msg = msg.replace(/https?:\/\/vo\.la\/\S+|vo\.la\/\S+/gi, "").replace(/\s*\/\s*$/g, "").trim();
+              return {
+                msg,
+                date: item.CRT_DT || item.REG_YMD || "최근",
+                region: item.RCPTN_RGN_NM?.trim() || "전국",
+                type: item.DST_SE_NM || "안전안내",
+              };
+            });
+            setRecentAlertsList(formattedList);
+          }
+        }
+      } catch (err) {
+        console.error("최근 재난문자 불러오기 실패:", err);
+      }
+    }
+    fetchRecentAlerts();
+  }, []);
+
   // 1. Geolocation 3초 타임아웃 위치 획득 (에러 시 성동구 폴백)
   useEffect(() => {
     if (typeof window !== "undefined" && "geolocation" in navigator) {
@@ -141,11 +174,20 @@ function ChildAlertContent() {
           <div className="child-alert-container">
             {/* 상단 Header */}
             <header className="alert-header">
-              <div className="disaster-badge">
-                <span className="material-symbols-rounded disaster-badge-icon">
-                  {disasterHeader.icon}
-                </span>
-                <span className="disaster-badge-label">{disasterHeader.label}</span>
+              <div className="header-top-row">
+                <div className="disaster-badge">
+                  <span className="material-symbols-rounded disaster-badge-icon">
+                    {disasterHeader.icon}
+                  </span>
+                  <span className="disaster-badge-label">{disasterHeader.label}</span>
+                </div>
+                <button
+                  className="recent-alerts-header-btn"
+                  onClick={() => setShowRecentModal(true)}
+                >
+                  <span className="material-symbols-rounded" style={{ fontSize: 15 }}>list_alt</span>
+                  <span>최근 재난문자</span>
+                </button>
               </div>
               <h1 className="disaster-headline">{disasterHeader.headline}</h1>
             </header>
@@ -291,6 +333,39 @@ function ChildAlertContent() {
         </div>
       )}
 
+      {/* 4. 최근 긴급재난문자 목록 모달 (실종신고 제외) */}
+      {showRecentModal && (
+        <div className="alert-modal-overlay" onClick={() => setShowRecentModal(false)}>
+          <div className="recent-modal-card" onClick={(e) => e.stopPropagation()}>
+            <header className="recent-modal-header">
+              <div>
+                <h3>최근 긴급재난문자</h3>
+                <small>실종 알림 제외 · 순수 재난/방재 문자</small>
+              </div>
+              <button className="recent-modal-close" onClick={() => setShowRecentModal(false)}>
+                ✕
+              </button>
+            </header>
+            <div className="recent-modal-body">
+              {recentAlertsList.length === 0 ? (
+                <div className="recent-empty">불러온 재난문자가 없습니다.</div>
+              ) : (
+                recentAlertsList.map((item, idx) => (
+                  <div key={idx} className="recent-item">
+                    <div className="recent-item-meta">
+                      <span className="recent-tag">{item.type}</span>
+                      <span className="recent-region">{item.region}</span>
+                      <span className="recent-date">{item.date}</span>
+                    </div>
+                    <p className="recent-item-msg">{item.msg}</p>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 개발용 토글 */}
       <AlertDemoToggle />
 
@@ -382,6 +457,34 @@ function ChildAlertContent() {
           align-items: center;
           text-align: center;
           margin-top: 8px;
+        }
+
+        .header-top-row {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 8px;
+        }
+
+        .recent-alerts-header-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          background: rgba(0, 0, 0, 0.45);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          color: #f4f4f5;
+          padding: 6px 12px;
+          border-radius: 9999px;
+          font-size: 13px;
+          font-weight: 700;
+          cursor: pointer;
+          backdrop-filter: blur(8px);
+        }
+
+        .recent-alerts-header-btn:hover {
+          background: rgba(255, 255, 255, 0.2);
+          color: #ffffff;
         }
 
         .disaster-badge {
@@ -677,6 +780,145 @@ function ChildAlertContent() {
           font-size: 16px;
           font-weight: 700;
           cursor: pointer;
+        }
+
+        .recent-modal-card {
+          width: 100%;
+          max-width: 430px;
+          max-height: 75vh;
+          background: rgba(18, 18, 20, 0.94);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-top-left-radius: 28px;
+          border-top-right-radius: 28px;
+          border-top: 1px solid rgba(255, 255, 255, 0.12);
+          display: flex;
+          flex-direction: column;
+          padding: 22px 20px 28px 20px;
+          box-sizing: border-box;
+          color: #ffffff;
+          margin-top: auto;
+          margin-bottom: 0;
+          box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .recent-modal-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 14px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          margin-bottom: 14px;
+          text-align: left;
+        }
+
+        .recent-modal-header h3 {
+          margin: 0;
+          font-size: 17px;
+          font-weight: 800;
+          color: #f4f4f5;
+          letter-spacing: -0.3px;
+        }
+
+        .recent-modal-header small {
+          color: #71717a;
+          font-size: 11px;
+          font-weight: 500;
+          display: block;
+          margin-top: 2px;
+        }
+
+        .recent-modal-close {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #a1a1aa;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          cursor: pointer;
+          font-size: 13px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+        }
+
+        .recent-modal-close:hover {
+          background: rgba(255, 255, 255, 0.2);
+          color: #ffffff;
+        }
+
+        .recent-modal-body {
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          padding-right: 2px;
+          max-height: 55vh;
+        }
+
+        .recent-item {
+          background: rgba(255, 255, 255, 0.04);
+          padding: 14px 16px;
+          border-radius: 18px;
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          text-align: left;
+          transition: background 0.15s ease;
+        }
+
+        .recent-item:hover {
+          background: rgba(255, 255, 255, 0.07);
+        }
+
+        .recent-item-meta {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 8px;
+          font-size: 12px;
+        }
+
+        .recent-tag {
+          background: rgba(225, 29, 72, 0.15);
+          color: #fb7185;
+          border: 1px solid rgba(225, 29, 72, 0.3);
+          padding: 2px 8px;
+          border-radius: 8px;
+          font-weight: 700;
+          font-size: 11px;
+          letter-spacing: -0.2px;
+        }
+
+        .recent-region {
+          color: #f4f4f5;
+          font-weight: 700;
+          font-size: 12px;
+          letter-spacing: -0.2px;
+          line-height: 1.3;
+        }
+
+        .recent-date {
+          margin-left: auto;
+          color: #52525b;
+          font-size: 11px;
+          font-weight: 500;
+          white-space: nowrap;
+        }
+
+        .recent-item-msg {
+          margin: 0;
+          font-size: 13px;
+          line-height: 1.5;
+          color: #d4d4d8;
+          word-break: keep-all;
+          font-weight: 400;
+        }
+
+        .recent-empty {
+          text-align: center;
+          padding: 40px 0;
+          color: #71717a;
+          font-size: 13px;
         }
       `}</style>
     </main>

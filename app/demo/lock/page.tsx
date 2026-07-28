@@ -45,21 +45,97 @@ function LockContent() {
     return () => clearInterval(interval);
   }, []);
 
-  // 3초 후 슬라이드인 배너, 1.5초 후 자동 이동
+  const [realAlertText, setRealAlertText] = useState<string | null>(null);
+  const [loadingRealAlert, setLoadingRealAlert] = useState(false);
+
+  const [detectedType, setDetectedType] = useState<string>(typeParam);
+
+  const [recentAlertsList, setRecentAlertsList] = useState<Array<{ msg: string; date: string; region: string; type: string }>>([]);
+  const [showRecentModal, setShowRecentModal] = useState(false);
+
+  // 실시간 공공 긴급재난문자 API 불러오기
+  useEffect(() => {
+    async function fetchRealAlert() {
+      setLoadingRealAlert(true);
+      try {
+        const res = await fetch("/api/disaster-alert?numOfRows=20");
+        if (res.ok) {
+          const data = await res.json();
+          // API 응답 구조 추출
+          const list = Array.isArray(data) ? data : data?.body || data?.data || data?.result || [];
+          if (list && list.length > 0) {
+            // 실종 제외된 목록 정제해서 저장
+            const formattedList = list.map((item: any) => {
+              let msg = item.MSG_CN || item.MSG || item.msg_cn || item.CRT_DT_MSG || item.SJ || "";
+              msg = msg.replace(/https?:\/\/vo\.la\/\S+|vo\.la\/\S+/gi, "").replace(/\s*\/\s*$/g, "").trim();
+              return {
+                msg,
+                date: item.CRT_DT || item.REG_YMD || "최근",
+                region: item.RCPTN_RGN_NM?.trim() || "전국",
+                type: item.DST_SE_NM || "안전안내",
+              };
+            });
+            setRecentAlertsList(formattedList);
+
+            // URL 파라미터가 명시된 경우 우선 탐색
+            const keywordMap: Record<string, string[]> = {
+              earthquake: ["지진", "진도", "여진"],
+              flood: ["호우", "비", "침수", "태풍", "하천", "폭염", "무더위", "물놀이", "싱크홀", "교통통제"],
+              fire: ["화재", "산불", "불"],
+              missing: ["실종", "찾습니다", "배회"],
+            };
+            const searchKeywords = keywordMap[typeParam] || [];
+
+            const matchedAlert = list.find((item: any) => {
+              const msgContent = item.MSG_CN || item.MSG || "";
+              const categoryName = item.DST_SE_NM || "";
+              return searchKeywords.some(kw => msgContent.includes(kw) || categoryName.includes(kw));
+            }) || list[0];
+
+            let msg = matchedAlert.MSG_CN || matchedAlert.MSG || matchedAlert.msg_cn || matchedAlert.CRT_DT_MSG || matchedAlert.SJ;
+            if (typeof msg === "string") {
+              msg = msg.replace(/https?:\/\/vo\.la\/\S+|vo\.la\/\S+/gi, "").replace(/\s*\/\s*$/g, "").trim();
+              setRealAlertText(msg);
+
+              // 문자 내용 분석 후 재난 유형 자동으로 감지
+              let typeFound = "flood";
+              if (msg.includes("지진") || msg.includes("진도") || msg.includes("여진")) {
+                typeFound = "earthquake";
+              } else if (msg.includes("화재") || msg.includes("산불") || msg.includes("불연기")) {
+                typeFound = "fire";
+              } else if (msg.includes("실종") || msg.includes("찾습니다")) {
+                typeFound = "missing";
+              } else {
+                typeFound = "flood";
+              }
+              setDetectedType(typeFound);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("긴급재난문자 API 불러오기 실패:", err);
+      } finally {
+        setLoadingRealAlert(false);
+      }
+    }
+    fetchRealAlert();
+  }, [typeParam]);
+
+  // 3초 후 슬라이드인 배너, 1.5초 후 재난 문자에 맞는 행동 지침 화면으로 이동
   useEffect(() => {
     const bannerTimer = setTimeout(() => {
       setShowBanner(true);
     }, 3000);
 
     const redirectTimer = setTimeout(() => {
-      router.push(`/alert/child?type=${typeParam}`);
+      router.push(`/alert/child?type=${detectedType}`);
     }, 4500);
 
     return () => {
       clearTimeout(bannerTimer);
       clearTimeout(redirectTimer);
     };
-  }, [router, typeParam]);
+  }, [router, detectedType]);
 
   // 모더레이터 3회 탭 리셋
   const handleResetTap = () => {
@@ -93,8 +169,13 @@ function LockContent() {
             <div className="banner-header">
               <span className="material-symbols-rounded banner-icon">warning</span>
               <strong>긴급 재난 문자</strong>
+              <span className="live-api-tag">
+                {realAlertText ? "실시간 연동" : "시뮬레이션"}
+              </span>
             </div>
-            <p className="banner-text">{disasterInfo.alertText}</p>
+            <p className="banner-text">
+              {realAlertText ? realAlertText : disasterInfo.alertText}
+            </p>
           </div>
 
           {/* 잠금화면 시계 영역 */}
@@ -104,10 +185,52 @@ function LockContent() {
             <div className="lock-time">{currentTime}</div>
           </div>
 
-          {/* 잠금화면 중앙 설명 */}
-          <div className="lock-desc">
-            안전 알림 수신 시 위기 모드가 자동으로 실행됩니다
+          {/* 잠금화면 중앙 설명 및 최근 재난문자 확인 버튼 */}
+          <div className="lock-center-actions">
+            <div className="lock-desc">
+              안전 알림 수신 시 위기 모드가 자동으로 실행됩니다
+            </div>
+            <button
+              className="recent-alerts-btn"
+              onClick={() => setShowRecentModal(true)}
+            >
+              <span className="material-symbols-rounded" style={{ fontSize: 16 }}>list_alt</span>
+              <span>최근 긴급재난문자 목록 ({recentAlertsList.length})</span>
+            </button>
           </div>
+
+          {/* 최근 긴급재난문자 모달 (실종신고 제외) */}
+          {showRecentModal && (
+            <div className="recent-modal-overlay" onClick={() => setShowRecentModal(false)}>
+              <div className="recent-modal-card" onClick={(e) => e.stopPropagation()}>
+                <header className="recent-modal-header">
+                  <div>
+                    <h3>최근 긴급재난문자</h3>
+                    <small>실종 알림 제외 · 순수 재난/방재 문자</small>
+                  </div>
+                  <button className="recent-modal-close" onClick={() => setShowRecentModal(false)}>
+                    ✕
+                  </button>
+                </header>
+                <div className="recent-modal-body">
+                  {recentAlertsList.length === 0 ? (
+                    <div className="recent-empty">불러온 재난문자가 없습니다.</div>
+                  ) : (
+                    recentAlertsList.map((item, idx) => (
+                      <div key={idx} className="recent-item">
+                        <div className="recent-item-meta">
+                          <span className="recent-tag">{item.type}</span>
+                          <span className="recent-region">{item.region}</span>
+                          <span className="recent-date">{item.date}</span>
+                        </div>
+                        <p className="recent-item-msg">{item.msg}</p>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* 잠금화면 하단 안내 */}
           <div className="lock-swipe-hint">
@@ -181,6 +304,16 @@ function LockContent() {
           margin-bottom: 6px;
         }
 
+        .live-api-tag {
+          margin-left: auto;
+          font-size: 10px;
+          background: rgba(255, 255, 255, 0.25);
+          padding: 2px 7px;
+          border-radius: 10px;
+          font-weight: 700;
+          letter-spacing: -0.3px;
+        }
+
         .banner-icon {
           font-size: 20px;
           color: #fef08a;
@@ -221,6 +354,179 @@ function LockContent() {
 
         .lock-desc {
           text-align: center;
+          color: #71717a;
+          font-size: 13px;
+        }
+
+        .lock-center-actions {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          z-index: 10;
+        }
+
+        .recent-alerts-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 14px;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.12);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #e4e4e7;
+          font-size: 12px;
+          font-weight: 700;
+          cursor: pointer;
+          backdrop-filter: blur(8px);
+          transition: all 0.2s ease;
+        }
+
+        .recent-alerts-btn:hover {
+          background: rgba(255, 255, 255, 0.22);
+          color: #ffffff;
+        }
+
+        .recent-modal-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.7);
+          backdrop-filter: blur(10px);
+          z-index: 200;
+          display: flex;
+          align-items: flex-end;
+          animation: fadeIn 0.2s ease;
+        }
+
+        .recent-modal-card {
+          width: 100%;
+          max-height: 75vh;
+          background: rgba(18, 18, 20, 0.92);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-top-left-radius: 28px;
+          border-top-right-radius: 28px;
+          border-top: 1px solid rgba(255, 255, 255, 0.12);
+          display: flex;
+          flex-direction: column;
+          padding: 22px 20px 28px 20px;
+          box-sizing: border-box;
+          color: #ffffff;
+          box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .recent-modal-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 14px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          margin-bottom: 14px;
+        }
+
+        .recent-modal-header h3 {
+          margin: 0;
+          font-size: 17px;
+          font-weight: 800;
+          color: #f4f4f5;
+          letter-spacing: -0.3px;
+        }
+
+        .recent-modal-header small {
+          color: #71717a;
+          font-size: 11px;
+          font-weight: 500;
+          display: block;
+          margin-top: 2px;
+        }
+
+        .recent-modal-close {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #a1a1aa;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          cursor: pointer;
+          font-size: 13px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+        }
+
+        .recent-modal-close:hover {
+          background: rgba(255, 255, 255, 0.2);
+          color: #ffffff;
+        }
+
+        .recent-modal-body {
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          padding-right: 2px;
+        }
+
+        .recent-item {
+          background: rgba(255, 255, 255, 0.04);
+          padding: 14px 16px;
+          border-radius: 18px;
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          transition: transform 0.15s ease, background 0.15s ease;
+        }
+
+        .recent-item:hover {
+          background: rgba(255, 255, 255, 0.07);
+        }
+
+        .recent-item-meta {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 8px;
+          font-size: 12px;
+        }
+
+        .recent-tag {
+          background: rgba(225, 29, 72, 0.15);
+          color: #fb7185;
+          border: 1px solid rgba(225, 29, 72, 0.3);
+          padding: 2px 8px;
+          border-radius: 8px;
+          font-weight: 700;
+          font-size: 11px;
+          letter-spacing: -0.2px;
+        }
+
+        .recent-region {
+          color: #f4f4f5;
+          font-weight: 700;
+          font-size: 12px;
+          letter-spacing: -0.2px;
+          line-height: 1.3;
+        }
+
+        .recent-date {
+          margin-left: auto;
+          color: #52525b;
+          font-size: 11px;
+          font-weight: 500;
+          white-space: nowrap;
+        }
+
+        .recent-item-msg {
+          margin: 0;
+          font-size: 13px;
+          line-height: 1.5;
+          color: #d4d4d8;
+          word-break: keep-all;
+          font-weight: 400;
+        }
+
+        .recent-empty {
+          text-align: center;
+          padding: 40px 0;
           color: #71717a;
           font-size: 13px;
         }

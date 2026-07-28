@@ -203,6 +203,10 @@ export default function Home() {
   const [role, setRole] = useState<"guardian" | "child">("guardian");
   const [checkinSent, setCheckinSent] = useState(false);
 
+  // 최근 긴급재난문자 목록 모달 상태
+  const [recentAlertsList, setRecentAlertsList] = useState<Array<{ msg: string; date: string; region: string; type: string }>>([]);
+  const [showRecentModal, setShowRecentModal] = useState(false);
+
   // Auth states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -843,7 +847,26 @@ export default function Home() {
 
             <button
               className="sample-button"
-              onClick={() => {
+              onClick={async () => {
+                try {
+                  const res = await fetch("/api/disaster-alert?numOfRows=5");
+                  if (res.ok) {
+                    const data = await res.json();
+                    const list = Array.isArray(data) ? data : data?.body || data?.data || data?.result || [];
+                    if (list && list.length > 0) {
+                      const firstAlert = list[0];
+                      let msg = firstAlert.MSG_CN || firstAlert.MSG || firstAlert.msg_cn || firstAlert.CRT_DT_MSG || firstAlert.SJ;
+                      if (typeof msg === "string") {
+                        msg = msg.replace(/https?:\/\/vo\.la\/\S+|vo\.la\/\S+/gi, "").replace(/\s*\/\s*$/g, "").trim();
+                        setAlertText(msg);
+                        setAlertError(false);
+                        return;
+                      }
+                    }
+                  }
+                } catch (e) {
+                  console.error(e);
+                }
                 setAlertText(SAMPLE_ALERT);
                 setAlertError(false);
               }}
@@ -852,8 +875,8 @@ export default function Home() {
                 <span className="material-symbols-rounded">notifications_active</span>
               </span>
               <span>
-                <strong>지금 울린 재난알림 문자 불러오기</strong>
-                <small>프로토타입을 바로 체험해보세요</small>
+                <strong>실시간 공공 긴급재난문자 불러오기</strong>
+                <small>공공데이터 API(/V2/api/DSSP-IF-00247) 연동</small>
               </span>
               <span>＋</span>
             </button>
@@ -2575,6 +2598,39 @@ export default function Home() {
               <button className="text-button" style={{ width: "100%", padding: 10 }} onClick={() => setShowAvatarModal(false)}>
                 닫기
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* 최근 긴급재난문자 목록 모달 (실종신고 제외) */}
+        {showRecentModal && (
+          <div className="recent-modal-overlay" onClick={() => setShowRecentModal(false)}>
+            <div className="recent-modal-card" onClick={(e) => e.stopPropagation()}>
+              <header className="recent-modal-header">
+                <div>
+                  <h3>최근 긴급재난문자</h3>
+                  <small>실종 알림 제외 · 순수 재난/방재 문자</small>
+                </div>
+                <button className="recent-modal-close" onClick={() => setShowRecentModal(false)}>
+                  ✕
+                </button>
+              </header>
+              <div className="recent-modal-body">
+                {recentAlertsList.length === 0 ? (
+                  <div className="recent-empty">불러오는 중이거나 재난문자가 없습니다.</div>
+                ) : (
+                  recentAlertsList.map((item, idx) => (
+                    <div key={idx} className="recent-item">
+                      <div className="recent-item-meta">
+                        <span className="recent-tag">{item.type}</span>
+                        <span className="recent-region">{item.region}</span>
+                        <span className="recent-date">{item.date}</span>
+                      </div>
+                      <p className="recent-item-msg">{item.msg}</p>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           </div>
         )}
