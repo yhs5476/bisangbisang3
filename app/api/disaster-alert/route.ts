@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const serviceKey = searchParams.get("serviceKey") || "45OXT7682D1L49IA";
+  const serviceKey =
+    process.env.DISASTER_API_KEY ||
+    searchParams.get("serviceKey") ||
+    "45OXT7682D1L49IA";
   const pageNo = searchParams.get("pageNo") || "1";
   const numOfRows = searchParams.get("numOfRows") || "10";
 
