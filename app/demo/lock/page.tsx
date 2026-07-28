@@ -486,17 +486,23 @@ function LockContent() {
           gap: 8px;
           margin-bottom: 8px;
           font-size: 12px;
+          width: 100%;
         }
 
         .recent-tag {
           background: rgba(225, 29, 72, 0.15);
           color: #fb7185;
-          border: 1px solid rgba(225, 29, 72, 0.3);
-          padding: 2px 8px;
+          border: 1px solid rgba(225, 29, 72, 0.35);
+          padding: 3px 8px;
           border-radius: 8px;
           font-weight: 700;
           font-size: 11px;
           letter-spacing: -0.2px;
+          white-space: nowrap;
+          word-break: keep-all;
+          flex-shrink: 0;
+          display: inline-block;
+          line-height: 1.2;
         }
 
         .recent-region {
@@ -505,6 +511,11 @@ function LockContent() {
           font-size: 12px;
           letter-spacing: -0.2px;
           line-height: 1.3;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 170px;
+          flex: 1;
         }
 
         .recent-date {
