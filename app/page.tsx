@@ -16,7 +16,6 @@ type Screen =
   | "quiz"
   | "photoReward"
   | "reward"
-  | "world"
   | "safety"
   | "family"
   | "guardian";
@@ -792,19 +791,6 @@ export default function Home() {
               </button>
             )}
 
-            <button className="world-preview" onClick={() => navigate("world")}>
-              <div>
-                <span className="eyebrow">우리 동네 안전 월드</span>
-                <strong>성수동에 불을 밝혀주세요</strong>
-              </div>
-              <div className="mini-map" aria-hidden="true">
-                <span className="map-road road-one" />
-                <span className="map-road road-two" />
-                <span className="map-pin pin-home">⌂</span>
-                <span className="map-pin pin-school">▤</span>
-                <span className="map-pin pin-park">♧</span>
-              </div>
-            </button>
 
             {/* 재난상황 시뮬레이션 이동 버튼 */}
             <button
@@ -1816,63 +1802,6 @@ export default function Home() {
           </div>
         )}
 
-        {screen === "world" && (
-          <div className="screen-content world-screen">
-            <header className="world-header">
-              <div>
-                <span className="eyebrow">성동구 안전 월드</span>
-                <h1>우리 동네를 밝혀요</h1>
-              </div>
-              <span className="spark-counter">✦ {sparks}</span>
-            </header>
-
-            <section className="world-map">
-              <div className="river"><span>한강</span></div>
-              <span className="map-path path-a" />
-              <span className="map-path path-b" />
-              <span className="map-path path-c" />
-              <div className="world-place place-home unlocked">
-                <span className="place-light" />
-                <span className="place-icon">⌂</span>
-                <strong>우리 집</strong>
-                <small>{missionDone ? "불이 켜졌어요!" : "미션 1개 남음"}</small>
-              </div>
-              <div className="world-place place-school">
-                <span className="place-icon">▤</span>
-                <strong>학교 가는 길</strong>
-                <small>다음 지역</small>
-              </div>
-              <div className="world-place place-park locked">
-                <span className="lock-mark">⌾</span>
-                <span className="place-icon">♧</span>
-                <strong>서울숲</strong>
-                <small>미션 3개 필요</small>
-              </div>
-              <div className="world-place place-station locked">
-                <span className="lock-mark">⌾</span>
-                <span className="place-icon">M</span>
-                <strong>성수역</strong>
-                <small>미션 5개 필요</small>
-              </div>
-              <div className="map-cloud cloud-a">☁</div>
-              <div className="map-cloud cloud-b">☁</div>
-            </section>
-
-            <section className="next-zone-card">
-              <div className="zone-thumbnail">▤</div>
-              <div>
-                <span className="eyebrow">다음 탐험</span>
-                <strong>학교 가는 길 안전 찾기</strong>
-                <p>횡단보도와 안전한 기다림 장소를 찾아봐요.</p>
-              </div>
-              <button onClick={() => navigate("mission")}>›</button>
-            </section>
-
-            <aside className="map-disclaimer">
-              이 지도는 안전 습관을 위한 게임형 지도예요. 실제 대피 경로는 공식 지도를 확인해주세요.
-            </aside>
-          </div>
-        )}
 
         {screen === "safety" && (
           <div className="screen-content safety-world-screen">
