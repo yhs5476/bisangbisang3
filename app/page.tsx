@@ -1473,40 +1473,62 @@ export default function Home() {
             {/* 3. 🛍️ 불씨 상점 탭 */}
             {rewardSubTab === "shop" && (
               <section>
-                <div style={{ background: "white", padding: 16, borderRadius: 20, border: "1px solid #e1ebe6", marginBottom: 16 }}>
-                  <h3 style={{ margin: "0 0 6px", fontSize: 16, color: "#1b4035" }}>🔥 불씨 → 🎟️ 뽑기 티켓 교환소</h3>
+                <div style={{ background: "white", padding: 18, borderRadius: 24, border: "1.5px solid #e1ebe6", marginBottom: 16 }}>
+                  <h3 style={{ margin: "0 0 4px", fontSize: 16, color: "#1b4035", fontWeight: 900 }}>
+                    🔥 불씨 → 🎟️ 뽑기 티켓 교환소
+                  </h3>
                   <p style={{ margin: "0 0 14px", fontSize: 12, color: "#5d756c" }}>
-                    미션과 퀴즈를 풀고 모은 불씨로 뽑기 티켓을 교환하세요.
+                    미션과 퀴즈를 풀고 모은 불씨로 캐릭터 뽑기 티켓을 교환하세요.
                   </p>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#f7faf8", padding: "12px 14px", borderRadius: 14 }}>
-                      <div>
-                        <strong>뽑기 티켓 1장</strong>
-                        <small style={{ display: "block", color: "#777" }}>불씨 🔥 100개 소모</small>
+                  <div className="ticket-shop-grid">
+                    {/* 1장 단품 교환 */}
+                    <article className="ticket-shop-card">
+                      <div className="ticket-card-header">
+                        <div className="ticket-badge-wrap">
+                          <span className="ticket-icon">🎟️</span>
+                          <div>
+                            <strong className="ticket-card-title">뽑기 티켓 1장</strong>
+                            <p className="ticket-card-sub">캐릭터 1회 뽑기에 사용됩니다</p>
+                          </div>
+                        </div>
+                        <div className="ticket-price-box">
+                          <span className="ticket-cost-label">필요 불씨</span>
+                          <strong className="ticket-cost-val">🔥 100개</strong>
+                        </div>
                       </div>
                       <button
-                        className="primary-button"
-                        style={{ padding: "8px 14px", fontSize: 12 }}
+                        className="ticket-buy-btn"
                         onClick={() => handleBuyTickets(1)}
                       >
-                        1장 구매
+                        🎟️ 1장 교환하기
                       </button>
-                    </div>
+                    </article>
 
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff8f0", border: "1px solid #ffe0b2", padding: "12px 14px", borderRadius: 14 }}>
-                      <div>
-                        <strong>뽑기 티켓 10장 묶음 🔥 10% 할인</strong>
-                        <small style={{ display: "block", color: "#e65100" }}>불씨 🔥 900개 소모 (100개 절약)</small>
+                    {/* 10장 묶음 교환 (할인 특가) */}
+                    <article className="ticket-shop-card bundle-featured">
+                      <span className="discount-ribbon">🔥 10% 할인</span>
+                      <div className="ticket-card-header">
+                        <div className="ticket-badge-wrap">
+                          <span className="ticket-icon bundle">🎟️x10</span>
+                          <div>
+                            <strong className="ticket-card-title">뽑기 티켓 10장 묶음</strong>
+                            <p className="ticket-card-sub">불씨 100개 절약! 연속 10회 뽑기 가능</p>
+                          </div>
+                        </div>
+                        <div className="ticket-price-box">
+                          <span className="ticket-cost-label">할인 적용가</span>
+                          <strong className="ticket-cost-val bundle-val">🔥 900개</strong>
+                          <small className="ticket-original-price">1,000개</small>
+                        </div>
                       </div>
                       <button
-                        className="primary-button"
-                        style={{ padding: "8px 14px", fontSize: 12, background: "linear-gradient(135deg, #ff9800, #f57c00)" }}
+                        className="ticket-buy-btn bundle-btn"
                         onClick={() => handleBuyTickets(10)}
                       >
-                        10장 구매
+                        ⚡ 10장 한꺼번에 교환하기 (🔥 100개 절약)
                       </button>
-                    </div>
+                    </article>
                   </div>
                 </div>
 
@@ -1531,67 +1553,86 @@ export default function Home() {
             {/* 4. 🎁 포인트 보상 탭 */}
             {rewardSubTab === "points" && (
               <section>
-                <div style={{ background: "white", padding: 16, borderRadius: 20, border: "1px solid #e1ebe6", marginBottom: 16 }}>
-                  <h3 style={{ margin: "0 0 4px", fontSize: 16, color: "#1b4035" }}>💰 보상센터 포인트 연동 실물 교환소</h3>
-                  <p style={{ margin: "0 0 12px", fontSize: 12, color: "#5d756c" }}>
-                    캐릭터 도감을 완성하여 얻은 포인트로 맞춤형 안심 키트 및 혜택을 수령하세요!
-                  </p>
+                <div style={{ background: "white", padding: 18, borderRadius: 24, border: "1.5px solid #e1ebe6", marginBottom: 16 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+                    <div>
+                      <h3 style={{ margin: "0 0 2px", fontSize: 16, color: "#1b4035", fontWeight: 900 }}>
+                        💰 포인트 연동 실물 교환소
+                      </h3>
+                      <p style={{ margin: 0, fontSize: 12, color: "#5d756c" }}>
+                        도감 수집으로 모은 포인트로 맞춤형 실물 키트를 신청하세요!
+                      </p>
+                    </div>
+                    <div style={{ background: "#fff5ec", padding: "6px 12px", borderRadius: 14, border: "1px solid #ffcc80", textAlign: "right", flexShrink: 0 }}>
+                      <span style={{ fontSize: 10, color: "#e65100", display: "block", fontWeight: 700 }}>내 보상 포인트</span>
+                      <strong style={{ fontSize: 15, color: "#ff7043", fontWeight: 900 }}>{rewardPoints.toLocaleString()} P</strong>
+                    </div>
+                  </div>
 
                   <div className="point-exchange-grid">
                     <article className="point-item-card">
-                      <span className="point-item-icon">🎒</span>
-                      <div className="point-item-details">
-                        <strong>도도의 맞춤형 안전 백팩 키트</strong>
-                        <p>도도 캐릭터 패치와 진화 정보가 그대로 반영된 비상 가방</p>
-                        <span className="point-cost-tag">20,000 Pts</span>
+                      <div className="point-item-header">
+                        <span className="point-item-icon">🎒</span>
+                        <div className="point-item-info">
+                          <div className="point-title-row">
+                            <strong>도도의 맞춤형 안전 백팩 키트</strong>
+                            <span className="point-cost-badge">20,000 Pts</span>
+                          </div>
+                          <p>도도 캐릭터 패치와 진화 정보가 그대로 반영된 비상 가방</p>
+                        </div>
                       </div>
                       <button
-                        className="primary-button"
-                        style={{ padding: "8px 12px", fontSize: 12 }}
+                        className="point-claim-btn"
                         onClick={() => {
                           triggerFireworks();
                           setShowKitModal(true);
                         }}
                       >
-                        신청하기
+                        🚚 키트 배송 신청하기
                       </button>
                     </article>
 
                     <article className="point-item-card">
-                      <span className="point-item-icon">⛑️</span>
-                      <div className="point-item-details">
-                        <strong>어린이 안전 방재모 & 플래시</strong>
-                        <p>충격 흡수 야간 반사 모자 및 LED 랜턴</p>
-                        <span className="point-cost-tag">10,000 Pts</span>
+                      <div className="point-item-header">
+                        <span className="point-item-icon">⛑️</span>
+                        <div className="point-item-info">
+                          <div className="point-title-row">
+                            <strong>어린이 안전 방재모 & 플래시</strong>
+                            <span className="point-cost-badge">10,000 Pts</span>
+                          </div>
+                          <p>충격 흡수 야간 반사 모자 및 고성능 LED 랜턴 세트</p>
+                        </div>
                       </div>
                       <button
-                        className="primary-button"
-                        style={{ padding: "8px 12px", fontSize: 12 }}
+                        className="point-claim-btn"
                         onClick={() => {
                           triggerFireworks();
                           setShowKitModal(true);
                         }}
                       >
-                        신청하기
+                        🚚 키트 배송 신청하기
                       </button>
                     </article>
 
                     <article className="point-item-card">
-                      <span className="point-item-icon">📖</span>
-                      <div className="point-item-details">
-                        <strong>도도 주인공 3D 안전 팝업북</strong>
-                        <p>도도가 직접 주인공으로 등장하는 재난 대응 만화책</p>
-                        <span className="point-cost-tag">5,000 Pts</span>
+                      <div className="point-item-header">
+                        <span className="point-item-icon">📖</span>
+                        <div className="point-item-info">
+                          <div className="point-title-row">
+                            <strong>도도 주인공 3D 안전 팝업북</strong>
+                            <span className="point-cost-badge">5,000 Pts</span>
+                          </div>
+                          <p>도도가 직접 주인공으로 등장하는 입체 재난 대응 만화책</p>
+                        </div>
                       </div>
                       <button
-                        className="primary-button"
-                        style={{ padding: "8px 12px", fontSize: 12 }}
+                        className="point-claim-btn"
                         onClick={() => {
                           triggerFireworks();
                           setShowKitModal(true);
                         }}
                       >
-                        신청하기
+                        🚚 키트 배송 신청하기
                       </button>
                     </article>
                   </div>
