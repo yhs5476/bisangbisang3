@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import confetti from "canvas-confetti";
 import { supabase } from "./supabaseClient";
 
@@ -231,9 +231,94 @@ export default function Home() {
   const [isGachaAnimating, setIsGachaAnimating] = useState(false);
   const [rewardNotice, setRewardNotice] = useState<string | null>(null);
 
-  // Daily 1-time reward limit states (1일 1회 불씨 수급 제한)
+  // Daily 1-time reward limit states
   const [dailyMissionRewarded, setDailyMissionRewarded] = useState(false);
   const [dailyQuizRewarded, setDailyQuizRewarded] = useState(false);
+
+  // User Account Persistence ID
+  const [userId, setUserId] = useState<string>("default_user");
+
+  // 1. Supabase auth session sync
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        setUserId(session.user.id || session.user.email || "default_user");
+        if (session.user.email) setEmail(session.user.email);
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUserId(session.user.id || session.user.email || "default_user");
+        if (session.user.email) setEmail(session.user.email);
+      } else {
+        setUserId("default_user");
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // 2. Load User Profile Data per userId
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const stored = localStorage.getItem(`bisang_profile_${userId}`);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        const today = new Date().toISOString().split("T")[0];
+
+        if (parsed.userName) setUserName(parsed.userName);
+        if (typeof parsed.sparks === "number") setSparks(parsed.sparks);
+        if (typeof parsed.gachaTickets === "number") setGachaTickets(parsed.gachaTickets);
+        if (typeof parsed.rewardPoints === "number") setRewardPoints(parsed.rewardPoints);
+        if (Array.isArray(parsed.unlockedCharacters)) setUnlockedCharacters(parsed.unlockedCharacters);
+        if (parsed.profileAvatarSrc !== undefined) setProfileAvatarSrc(parsed.profileAvatarSrc);
+
+        if (parsed.lastUpdatedDate !== today) {
+          setDailyMissionRewarded(false);
+          setDailyQuizRewarded(false);
+        } else {
+          setDailyMissionRewarded(!!parsed.dailyMissionRewarded);
+          setDailyQuizRewarded(!!parsed.dailyQuizRewarded);
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load user profile", e);
+    }
+  }, [userId]);
+
+  // 3. Auto-save User Profile Data whenever state changes
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const today = new Date().toISOString().split("T")[0];
+      const dataToSave = {
+        userName,
+        sparks,
+        gachaTickets,
+        rewardPoints,
+        unlockedCharacters,
+        profileAvatarSrc,
+        dailyMissionRewarded,
+        dailyQuizRewarded,
+        lastUpdatedDate: today,
+      };
+      localStorage.setItem(`bisang_profile_${userId}`, JSON.stringify(dataToSave));
+    } catch (e) {
+      console.error("Failed to save user profile", e);
+    }
+  }, [
+    userId,
+    userName,
+    sparks,
+    gachaTickets,
+    rewardPoints,
+    unlockedCharacters,
+    profileAvatarSrc,
+    dailyMissionRewarded,
+    dailyQuizRewarded,
+  ]);
 
   const handleDrawGacha = (count: 1 | 10) => {
     if (gachaTickets < count) {
@@ -1230,29 +1315,7 @@ export default function Home() {
               <div className="wallet-chip">
                 <span className="chip-icon">⛑️</span>
                 <div className="wallet-chip-info">
-                  <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                    <label>보유 안전모자</label>
-                    <button
-                      style={{
-                        background: "#ff5722",
-                        color: "white",
-                        border: "none",
-                        fontSize: 9,
-                        fontWeight: 900,
-                        padding: "1px 5px",
-                        borderRadius: 6,
-                        cursor: "pointer"
-                      }}
-                      onClick={() => {
-                        setSparks((prev) => prev + 50);
-                        triggerFireworks();
-                        setRewardNotice("⛑️ 테스트 보너스 안전모자 50개가 즉시 충전되었습니다!");
-                        setTimeout(() => setRewardNotice(null), 3000);
-                      }}
-                    >
-                      +50개
-                    </button>
-                  </div>
+                  <label>보유 안전모자</label>
                   <strong>{sparks}개</strong>
                 </div>
               </div>
@@ -1260,29 +1323,7 @@ export default function Home() {
               <div className="wallet-chip">
                 <span className="chip-icon">🎟️</span>
                 <div className="wallet-chip-info">
-                  <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                    <label>뽑기 티켓</label>
-                    <button
-                      style={{
-                        background: "#ff9800",
-                        color: "white",
-                        border: "none",
-                        fontSize: 9,
-                        fontWeight: 900,
-                        padding: "1px 5px",
-                        borderRadius: 6,
-                        cursor: "pointer"
-                      }}
-                      onClick={() => {
-                        setGachaTickets((prev) => prev + 50);
-                        triggerFireworks();
-                        setRewardNotice("🎟️ 보너스 뽑기 티켓 50장이 즉시 지급되었습니다!");
-                        setTimeout(() => setRewardNotice(null), 3000);
-                      }}
-                    >
-                      +50장
-                    </button>
-                  </div>
+                  <label>뽑기 티켓</label>
                   <strong>{gachaTickets}장</strong>
                 </div>
               </div>
