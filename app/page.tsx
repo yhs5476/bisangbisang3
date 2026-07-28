@@ -2318,28 +2318,59 @@ export default function Home() {
 
         {showAvatarModal && (
           <div className="avatar-selector-modal" onClick={() => setShowAvatarModal(false)}>
-            <div className="avatar-modal-card" onClick={(e) => e.stopPropagation()}>
-              <h3 style={{ margin: "0 0 4px", fontSize: 18, color: "#1b4035", fontWeight: 900 }}>
-                {userName} 어린이 프로필 설정
-              </h3>
-              <p style={{ margin: "0 0 14px", fontSize: 13, color: "var(--muted)" }}>
-                이름과 프로필 아바타 사진/캐릭터를 자유롭게 변경해 보세요!
-              </p>
+            <div className="avatar-modal-card" style={{ position: "relative" }} onClick={(e) => e.stopPropagation()}>
+              {/* 우측 상위 컴팩트 미니멀 저장 버튼 */}
+              <button
+                type="button"
+                style={{
+                  position: "absolute",
+                  top: 20,
+                  right: 20,
+                  width: "auto",
+                  display: "inline-block",
+                  padding: "4px 10px",
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: "#ffffff",
+                  borderRadius: 10,
+                  background: "linear-gradient(135deg, #1b4035, #2d5b4c)",
+                  boxShadow: "0 2px 6px rgba(27, 64, 53, 0.2)",
+                  border: "none",
+                  cursor: "pointer",
+                  zIndex: 10,
+                }}
+                onClick={() => {
+                  setRewardNotice(`✨ ${userName} 어린이의 프로필이 성공적으로 저장되었습니다!`);
+                  setTimeout(() => setRewardNotice(null), 3000);
+                  setShowAvatarModal(false);
+                }}
+              >
+                저장
+              </button>
 
-              <div style={{ marginBottom: 16, background: "#f4f8f6", padding: 12, borderRadius: 16, border: "1px solid #dbe8e2" }}>
+              {/* 상단 툴바 */}
+              <div style={{ marginBottom: 12, paddingRight: 60 }}>
+                <h3 style={{ margin: "0 0 2px", fontSize: 18, color: "#1b4035", fontWeight: 900 }}>
+                  프로필 설정
+                </h3>
+                <span style={{ fontSize: 12, color: "#667c73" }}>이름과 캐릭터 아바타를 수정하세요</span>
+              </div>
+
+              {/* 어린이 이름 입력란 */}
+              <div style={{ margin: "16px 0 14px", background: "#f6faf8", padding: "12px 14px", borderRadius: 18, border: "1.5px solid #e1ebe6" }}>
                 <label style={{ fontSize: 12, fontWeight: 800, color: "#1b4035", display: "block", marginBottom: 6 }}>
-                  ✏️ 어린이 이름 변경
+                  ✏️ 어린이 이름
                 </label>
                 <input
                   type="text"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  placeholder="이름을 입력하세요 (예: 도도, 서준, 지민)"
+                  placeholder="이름을 입력하세요 (예: 도도, 서준)"
                   style={{
                     width: "100%",
-                    padding: "10px 12px",
-                    borderRadius: 12,
-                    border: "1.5px solid #b2d6c7",
+                    padding: "10px 14px",
+                    borderRadius: 14,
+                    border: "1.5px solid #b8d5c8",
                     fontSize: 14,
                     fontWeight: 800,
                     color: "#1b4035",
@@ -2350,8 +2381,27 @@ export default function Home() {
                 />
               </div>
 
-              <label className="primary-button" style={{ display: "block", textAlign: "center", marginBottom: 12, cursor: "pointer" }}>
-                📷 새 사진/파일 업로드
+              {/* 사진 업로드 버튼 */}
+              <label
+                className="outline-button"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 6,
+                  textAlign: "center",
+                  marginBottom: 14,
+                  cursor: "pointer",
+                  padding: "10px 14px",
+                  borderRadius: 14,
+                  fontSize: 13,
+                  fontWeight: 800,
+                  borderColor: "#cce0d8",
+                  color: "#1b4035",
+                  background: "#f0f7f3",
+                }}
+              >
+                📷 직접 찍은 사진 / 파일 업로드
                 <input
                   type="file"
                   accept="image/*"
@@ -2362,7 +2412,6 @@ export default function Home() {
                       const reader = new FileReader();
                       reader.onload = () => {
                         setProfileAvatarSrc(String(reader.result));
-                        setShowAvatarModal(false);
                       };
                       reader.readAsDataURL(file);
                     }
@@ -2373,19 +2422,17 @@ export default function Home() {
               {userPhoto && (
                 <button
                   className="secondary-button"
-                  style={{ width: "100%", marginBottom: 16 }}
-                  onClick={() => {
-                    setProfileAvatarSrc(userPhoto);
-                    setShowAvatarModal(false);
-                  }}
+                  style={{ width: "100%", marginBottom: 14, borderRadius: 14 }}
+                  onClick={() => setProfileAvatarSrc(userPhoto)}
                 >
                   📸 미션 중 촬영한 사진 적용하기
                 </button>
               )}
 
-              <strong style={{ fontSize: 13, display: "block", marginBottom: 8 }}>
+              <strong style={{ fontSize: 13, color: "#1b4035", fontWeight: 800, display: "block", marginBottom: 8 }}>
                 안전 캐릭터 선택
               </strong>
+
               <div className="avatar-character-grid">
                 {ALL_CHARACTERS.map((char) => {
                   const isUnlocked = unlockedCharacters.includes(char.name);
@@ -2398,31 +2445,39 @@ export default function Home() {
                       onClick={() => {
                         if (!isUnlocked) return;
                         setProfileAvatarSrc(char.src);
-                        setShowAvatarModal(false);
-                      }}
-                      style={{
-                        opacity: isUnlocked ? 1 : 0.45,
-                        cursor: isUnlocked ? "pointer" : "not-allowed",
-                        position: "relative",
                       }}
                     >
-                      {!isUnlocked && (
-                        <span style={{ position: "absolute", top: 2, right: 4, fontSize: 10 }}>🔒</span>
+                      {isSelected && (
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: 4,
+                            right: 4,
+                            fontSize: 10,
+                            background: "#1b4035",
+                            color: "white",
+                            width: 16,
+                            height: 16,
+                            borderRadius: "50%",
+                            display: "grid",
+                            placeItems: "center",
+                            fontWeight: 900,
+                          }}
+                        >
+                          ✓
+                        </span>
                       )}
-                      <img
-                        src={char.src}
-                        alt={char.name}
-                        style={{ filter: isUnlocked ? "none" : "brightness(0.2) opacity(0.5)" }}
-                      />
-                      <span style={{ fontSize: 11, fontWeight: 700 }}>
-                        {isUnlocked ? char.name : "미획득"}
-                      </span>
+                      {!isUnlocked && (
+                        <span style={{ position: "absolute", top: 4, right: 4, fontSize: 10 }}>🔒</span>
+                      )}
+                      <img src={char.src} alt={char.name} />
+                      <span>{isUnlocked ? char.name : "미획득"}</span>
                     </button>
                   );
                 })}
               </div>
 
-              <button className="text-button" style={{ width: "100%" }} onClick={() => setShowAvatarModal(false)}>
+              <button className="text-button" style={{ width: "100%", padding: 10 }} onClick={() => setShowAvatarModal(false)}>
                 닫기
               </button>
             </div>

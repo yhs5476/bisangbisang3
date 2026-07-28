@@ -4672,51 +4672,89 @@ textarea:focus-visible {
   position: fixed;
   inset: 0;
   z-index: 999;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(15, 30, 25, 0.55);
+  backdrop-filter: blur(8px);
   display: grid;
   place-items: center;
   padding: 20px;
+  animation: fadeIn 0.25s ease;
 }
 
 .avatar-modal-card {
-  background: white;
-  border-radius: 24px;
+  background: #ffffff;
+  border-radius: 28px;
   padding: 24px;
   width: 100%;
-  max-width: 360px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  max-width: 380px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(27, 64, 53, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .avatar-character-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  margin: 16px 0;
+  margin: 14px 0 18px;
 }
 
 .avatar-char-btn {
-  border: 2px solid #eee;
-  border-radius: 16px;
-  padding: 8px;
-  background: #fdfdfd;
+  position: relative;
+  border: 1.5px solid #e2ece7;
+  border-radius: 18px;
+  padding: 10px 6px;
+  background: #fafcfb;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  transition: all 0.2s ease;
+  gap: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.avatar-char-btn:hover,
+.avatar-char-btn:hover:not(.locked) {
+  border-color: #b2d6c7;
+  background: #f0f7f3;
+  transform: translateY(-2px);
+}
+
 .avatar-char-btn.selected {
-  border-color: #ff9800;
-  background: #fff8e7;
+  border: 2px solid #1b4035;
+  background: #eaf4ef;
+  box-shadow: 0 4px 14px rgba(27, 64, 53, 0.15);
+  transform: translateY(-2px);
+}
+
+.avatar-char-btn.locked {
+  background: #f4f7f5;
+  border-color: #e5ebe8;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .avatar-char-btn img {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
+  transition: filter 0.2s ease;
+}
+
+.avatar-char-btn.locked img {
+  filter: grayscale(100%) contrast(80%) opacity(0.35);
+}
+
+.avatar-char-btn span {
+  font-size: 11px;
+  font-weight: 800;
+  color: #1b4035;
+  word-break: keep-all;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.avatar-char-btn.locked span {
+  color: #889993;
 }
 
 .child-hero-avatar small {
