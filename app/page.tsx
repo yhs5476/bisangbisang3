@@ -237,7 +237,7 @@ export default function Home() {
 
   const handleDrawGacha = (count: 1 | 10) => {
     if (gachaTickets < count) {
-      alert(`뽑기 티켓이 부족합니다! (필요: 🎟️ ${count}장, 보유: 🎟️ ${gachaTickets}장)\n불씨 상점에서 티켓을 먼저 교환해 보세요.`);
+      alert(`뽑기 티켓이 부족합니다! (필요: 🎟️ ${count}장, 보유: 🎟️ ${gachaTickets}장)\n안전모자 상점에서 티켓을 먼저 교환해 보세요.`);
       return;
     }
     setGachaTickets((prev) => prev - count);
@@ -282,7 +282,7 @@ export default function Home() {
   const handleBuyTickets = (count: 1 | 10) => {
     const cost = count === 1 ? 100 : 900;
     if (sparks < cost) {
-      alert(`불씨가 부족합니다! (필요: 🔥 ${cost}개, 보유: 🔥 ${sparks}개)\n미션과 퀴즈를 풀고 불씨를 모아보세요.`);
+      alert(`안전모자가 부족합니다! (필요: ⛑️ ${cost}개, 보유: ⛑️ ${sparks}개)\n미션과 퀴즈를 풀고 안전모자를 모아보세요.`);
       return;
     }
     setSparks((prev) => prev - cost);
@@ -383,12 +383,12 @@ export default function Home() {
 
   const finishMissionReward = () => {
     if (dailyMissionRewarded) {
-      setRewardNotice("ℹ️ 오늘 미션 완료 불씨 보상은 이미 수령하셨습니다. (내일 다시 도전해 주세요!)");
+      setRewardNotice("ℹ️ 오늘 미션 완료 안전모자 보상은 이미 수령하셨습니다. (내일 다시 도전해 주세요!)");
     } else {
       const earnedSparks = 30;
       setSparks((current) => current + earnedSparks);
       setDailyMissionRewarded(true);
-      setRewardNotice(`🎉 축하합니다! 오늘 미션 완수 보상으로 불씨 🔥 +${earnedSparks}개를 획득했습니다!`);
+      setRewardNotice(`🎉 축하합니다! 오늘 미션 완수 보상으로 안전모자 ⛑️ +${earnedSparks}개를 획득했습니다!`);
       triggerFireworks();
     }
     setTimeout(() => {
@@ -399,12 +399,12 @@ export default function Home() {
 
   const finishQuizReward = () => {
     if (dailyQuizRewarded) {
-      setRewardNotice("ℹ️ 오늘 퀴즈 완료 불씨 보상은 이미 수령하셨습니다. (내일 새로운 퀴즈로 도전해 주세요!)");
+      setRewardNotice("ℹ️ 오늘 퀴즈 완료 안전모자 보상은 이미 수령하셨습니다. (내일 새로운 퀴즈로 도전해 주세요!)");
     } else {
       const earnedSparks = 30;
       setSparks((current) => current + earnedSparks);
       setDailyQuizRewarded(true);
-      setRewardNotice(`🎉 축하합니다! 오늘 안전 퀴즈 완수 보상으로 불씨 🔥 +${earnedSparks}개를 획득했습니다!`);
+      setRewardNotice(`🎉 축하합니다! 오늘 안전 퀴즈 완수 보상으로 안전모자 ⛑️ +${earnedSparks}개를 획득했습니다!`);
       triggerFireworks();
     }
     setTimeout(() => {
@@ -624,7 +624,7 @@ export default function Home() {
                   style={dailyQuizRewarded ? { background: "#e8f2ee", color: "#1b4035", borderColor: "#b8d5c8" } : {}}
                   onClick={() => navigate("quiz")}
                 >
-                  {dailyQuizRewarded ? "✓ 오늘 퀴즈 완료 (보상 획득됨)" : "퀴즈 풀고 불씨 키우기"}
+                  {dailyQuizRewarded ? "✓ 오늘 퀴즈 완료 (보상 획득됨)" : "퀴즈 풀고 안전모자 모으기"}
                 </button>
               </div>
             </section>
@@ -632,9 +632,9 @@ export default function Home() {
             <div className="section-heading">
               <div>
                 <span className="eyebrow">오늘의 안전 습관</span>
-                <h2>{userName}와(과) 불씨를 밝혀볼까요?</h2>
+                <h2>{userName}와(과) 안전모자를 모아볼까요?</h2>
               </div>
-              <span className="streak-pill">🔥 3일째</span>
+              <span className="streak-pill">⛑️ 3일째</span>
             </div>
 
             <section className="mission-card" onClick={() => navigate("mission")}>
@@ -643,8 +643,8 @@ export default function Home() {
                 <h3>책상 아래 안전 자세 연습</h3>
                 <p>지진이 나면 머리를 보호하고 책상 아래로 숨는 자세를 연습해요.</p>
                 <div className="reward-row">
-                  <span className="spark-token">{dailyMissionRewarded ? "✓" : "✦"}</span>
-                  <strong>{dailyMissionRewarded ? "오늘 미션 보상 완료" : "불씨 30개"}</strong>
+                  <span className="spark-token">{dailyMissionRewarded ? "✓" : "⛑️"}</span>
+                  <strong>{dailyMissionRewarded ? "오늘 미션 보상 완료" : "안전모자 30개"}</strong>
                   <span className="mission-arrow">›</span>
                 </div>
               </div>
@@ -656,12 +656,12 @@ export default function Home() {
 
             <section className="spark-progress-card">
               <div className="spark-status">
-                <span className="spark-orb">✦</span>
+                <span className="spark-orb">⛑️</span>
                 <div>
-                  <small>우리 집 안전불</small>
-                  <strong>{sparks} / 100 불씨</strong>
+                  <small>우리 집 안전모 지수</small>
+                  <strong>{sparks} / 100 안전모자</strong>
                 </div>
-                <span className="level-label">Lv. 2 작은 불씨</span>
+                <span className="level-label">Lv. 2 안전모 등급</span>
               </div>
               <div className="progress-track">
                 <span style={{ width: `${Math.min(sparks, 100)}%` }} />
@@ -1228,10 +1228,10 @@ export default function Home() {
             {/* 통합 재화 지갑 바 */}
             <section className="reward-wallet-bar">
               <div className="wallet-chip">
-                <span className="chip-icon">🔥</span>
+                <span className="chip-icon">⛑️</span>
                 <div className="wallet-chip-info">
                   <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                    <label>보유 불씨</label>
+                    <label>보유 안전모자</label>
                     <button
                       style={{
                         background: "#ff5722",
@@ -1246,7 +1246,7 @@ export default function Home() {
                       onClick={() => {
                         setSparks((prev) => prev + 50);
                         triggerFireworks();
-                        setRewardNotice("🔥 테스트 보너스 불씨 50개가 즉시 충전되었습니다!");
+                        setRewardNotice("⛑️ 테스트 보너스 안전모자 50개가 즉시 충전되었습니다!");
                         setTimeout(() => setRewardNotice(null), 3000);
                       }}
                     >
@@ -1314,7 +1314,7 @@ export default function Home() {
                 className={`reward-nav-tab ${rewardSubTab === "shop" ? "active" : ""}`}
                 onClick={() => setRewardSubTab("shop")}
               >
-                🛍️ 불씨 상점
+                ⛑️ 안전모 상점
               </button>
               <button
                 className={`reward-nav-tab ${rewardSubTab === "points" ? "active" : ""}`}
@@ -1332,7 +1332,7 @@ export default function Home() {
                   SEASON 1 :: 안전 수호 정령 뽑기
                 </span>
                 <h2 style={{ margin: "4px 0 12px", fontSize: 20, color: "#1b4035" }}>
-                  불씨로 티켓을 사서 캐릭터를 뽑아보세요!
+                  안전모자로 티켓을 사서 캐릭터를 뽑아보세요!
                 </h2>
 
                 <div className="gacha-stage-visual">
@@ -1351,7 +1351,7 @@ export default function Home() {
                 </div>
 
                 <p style={{ fontSize: 12, color: "#5d756c", margin: "0 0 16px" }}>
-                  💡 이미 수집한 캐릭터가 나오면 <strong>+20 불씨</strong>로 자동 환산됩니다.
+                  💡 이미 수집한 캐릭터가 나오면 <strong>+20 안전모자</strong>로 자동 환산됩니다.
                 </p>
 
                 <div className="gacha-btn-group">
@@ -1528,15 +1528,15 @@ export default function Home() {
               </div>
             )}
 
-            {/* 3. 🛍️ 불씨 상점 탭 */}
+            {/* 3. 🛍️ 안전모자 상점 탭 */}
             {rewardSubTab === "shop" && (
               <section>
                 <div style={{ background: "white", padding: 18, borderRadius: 24, border: "1.5px solid #e1ebe6", marginBottom: 16 }}>
                   <h3 style={{ margin: "0 0 4px", fontSize: 16, color: "#1b4035", fontWeight: 900 }}>
-                    🔥 불씨 → 🎟️ 뽑기 티켓 교환소
+                    ⛑️ 안전모자 → 🎟️ 뽑기 티켓 교환소
                   </h3>
                   <p style={{ margin: "0 0 14px", fontSize: 12, color: "#5d756c" }}>
-                    미션과 퀴즈를 풀고 모은 불씨로 캐릭터 뽑기 티켓을 교환하세요.
+                    미션과 퀴즈를 풀고 모은 안전모자로 캐릭터 뽑기 티켓을 교환하세요.
                   </p>
 
                   <div className="ticket-shop-grid">
@@ -1551,8 +1551,8 @@ export default function Home() {
                           </div>
                         </div>
                         <div className="ticket-price-box">
-                          <span className="ticket-cost-label">필요 불씨</span>
-                          <strong className="ticket-cost-val">🔥 100개</strong>
+                          <span className="ticket-cost-label">필요 안전모자</span>
+                          <strong className="ticket-cost-val">⛑️ 100개</strong>
                         </div>
                       </div>
                       <button
@@ -1571,12 +1571,12 @@ export default function Home() {
                           <span className="ticket-icon bundle">🎟️x10</span>
                           <div>
                             <strong className="ticket-card-title">뽑기 티켓 10장 묶음</strong>
-                            <p className="ticket-card-sub">불씨 100개 절약! 연속 10회 뽑기 가능</p>
+                            <p className="ticket-card-sub">안전모자 100개 절약! 연속 10회 뽑기 가능</p>
                           </div>
                         </div>
                         <div className="ticket-price-box">
                           <span className="ticket-cost-label">할인 적용가</span>
-                          <strong className="ticket-cost-val bundle-val">🔥 900개</strong>
+                          <strong className="ticket-cost-val bundle-val">⛑️ 900개</strong>
                           <small className="ticket-original-price">1,000개</small>
                         </div>
                       </div>
@@ -1584,7 +1584,7 @@ export default function Home() {
                         className="ticket-buy-btn bundle-btn"
                         onClick={() => handleBuyTickets(10)}
                       >
-                        ⚡ 10장 한꺼번에 교환하기 (🔥 100개 절약)
+                        ⚡ 10장 한꺼번에 교환하기 (⛑️ 100개 절약)
                       </button>
                     </article>
                   </div>
@@ -1592,10 +1592,10 @@ export default function Home() {
 
                 <div style={{ background: "#f0f7f3", padding: 16, borderRadius: 20, textAlign: "center" }}>
                   <strong style={{ display: "block", fontSize: 14, color: "#1b4035", marginBottom: 4 }}>
-                    불씨가 부족하신가요?
+                    안전모자가 부족하신가요?
                   </strong>
                   <p style={{ fontSize: 12, color: "#5d756c", margin: "0 0 12px" }}>
-                    일일 미션 수행과 재난 안전 퀴즈를 풀면 매일 불씨를 수급할 수 있습니다!
+                    일일 미션 수행과 재난 안전 퀴즈를 풀면 매일 안전모자를 수급할 수 있습니다!
                   </p>
                   <button
                     className="secondary-button"
@@ -1717,7 +1717,7 @@ export default function Home() {
                         <img src={char.src} alt={char.name} />
                         <strong style={{ fontSize: 11, color: "#1b4035" }}>{char.name}</strong>
                         {!char.isNew && (
-                          <small style={{ fontSize: 9, color: "#ff5722", fontWeight: 800 }}>+20 불씨 환산</small>
+                          <small style={{ fontSize: 9, color: "#ff5722", fontWeight: 800 }}>+20 안전모자 환산</small>
                         )}
                       </div>
                     ))}
@@ -2046,7 +2046,7 @@ export default function Home() {
               </div>
               <div className="report-stats">
                 <div><strong>2</strong><span>완료 미션</span></div>
-                <div><strong>80</strong><span>모은 불씨</span></div>
+                <div><strong>80</strong><span>모은 안전모자</span></div>
                 <div><strong>3일</strong><span>연속 참여</span></div>
               </div>
             </section>
@@ -2078,7 +2078,7 @@ export default function Home() {
               <div>
                 <small>다음 추천 미션</small>
                 <strong>가족 비상 연락처 확인하기</strong>
-                <p>약 5분 · 불씨 30개</p>
+                <p>약 5분 · 안전모자 30개</p>
               </div>
               <button onClick={() => navigate("mission")}>›</button>
             </section>
@@ -2299,7 +2299,7 @@ export default function Home() {
                             navigate("reward");
                           }}
                         >
-                          🎲 불씨 상점에서 뽑기 티켓으로 획득하기 →
+                          🎲 안전모자 상점에서 뽑기 티켓으로 획득하기 →
                         </button>
                       </div>
                     )}

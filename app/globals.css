@@ -5363,18 +5363,19 @@ textarea:focus-visible {
 
 .reward-nav-tabs {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   background: #eaf2ee;
-  padding: 5px;
+  padding: 4px;
   border-radius: 16px;
-  margin-bottom: 18px;
+  margin-bottom: 8px;
 }
 
 .reward-nav-tab {
   flex: 1;
-  padding: 10px 4px;
-  font-size: 12px;
+  padding: 8px 3px;
+  font-size: 11px;
   font-weight: 800;
+  letter-spacing: -0.3px;
   color: #5d756c;
   border: none;
   background: transparent;
@@ -5384,7 +5385,9 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 .reward-nav-tab.active {
