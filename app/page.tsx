@@ -498,6 +498,21 @@ export default function Home() {
     navigate("reward");
   };
 
+  const resetDailyRewards = () => {
+    setDailyMissionRewarded(false);
+    setDailyQuizRewarded(false);
+    try {
+      const stored = localStorage.getItem(`bisang_profile_${userId}`);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        parsed.dailyMissionRewarded = false;
+        parsed.dailyQuizRewarded = false;
+        localStorage.setItem(`bisang_profile_${userId}`, JSON.stringify(parsed));
+      }
+    } catch (e) {}
+    alert("🔄 오늘 미션 & 퀴즈 보상 수령 상태가 성공적으로 초기화되었습니다! (미션/퀴즈 보상을 다시 받을 수 있습니다)");
+  };
+
   const handlePhoto = (file?: File) => {
     if (!file) return;
     const reader = new FileReader();
@@ -752,6 +767,31 @@ export default function Home() {
                 <span style={{ width: `${Math.min(sparks, 100)}%` }} />
               </div>
             </section>
+
+            {(dailyMissionRewarded || dailyQuizRewarded) && (
+              <button
+                type="button"
+                className="secondary-button"
+                style={{
+                  width: "100%",
+                  marginTop: 10,
+                  padding: "10px 14px",
+                  borderRadius: 14,
+                  fontSize: 12,
+                  fontWeight: 800,
+                  color: "#2d5b4c",
+                  borderColor: "#b8d5c8",
+                  background: "#f0f7f3",
+                  cursor: "pointer",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  resetDailyRewards();
+                }}
+              >
+                🔄 오늘 미션/퀴즈 보상 완료 상태 초기화 (테스트용)
+              </button>
+            )}
 
             <button className="world-preview" onClick={() => navigate("world")}>
               <div>
@@ -2127,19 +2167,29 @@ export default function Home() {
             <p className="report-disclaimer">
               이 기록은 가족의 안전교육 진행 상황을 보여주는 참고 자료이며 실제 재난 대응 능력을 평가하지 않아요.
             </p>
-            <button
-              className="outline-button wide onboarding-replay"
-              onClick={async () => {
-                await supabase.auth.signOut();
-                setEmail("");
-                setPassword("");
-                setAuthSuccess("");
-                setAuthError("");
-                navigate("login");
-              }}
-            >
-              로그아웃
-            </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 12 }}>
+              <button
+                className="secondary-button wide"
+                style={{ borderRadius: 14, fontSize: 13, color: "#2d5b4c", borderColor: "#b8d5c8", background: "#f0f7f3", cursor: "pointer" }}
+                onClick={resetDailyRewards}
+              >
+                🔄 오늘 미션/퀴즈 보상 상태 초기화 (테스트용)
+              </button>
+
+              <button
+                className="outline-button wide onboarding-replay"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  setEmail("");
+                  setPassword("");
+                  setAuthSuccess("");
+                  setAuthError("");
+                  navigate("login");
+                }}
+              >
+                로그아웃
+              </button>
+            </div>
           </div>
         )}
 
@@ -2571,6 +2621,28 @@ export default function Home() {
                   );
                 })}
               </div>
+
+              <button
+                type="button"
+                className="secondary-button"
+                style={{
+                  width: "100%",
+                  marginBottom: 10,
+                  borderRadius: 14,
+                  fontSize: 12,
+                  fontWeight: 800,
+                  color: "#2d5b4c",
+                  borderColor: "#b8d5c8",
+                  background: "#f0f7f3",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  resetDailyRewards();
+                  setShowAvatarModal(false);
+                }}
+              >
+                🔄 오늘 미션/퀴즈 보상 상태 초기화 (테스트용)
+              </button>
 
               <button className="text-button" style={{ width: "100%", padding: 10 }} onClick={() => setShowAvatarModal(false)}>
                 닫기
