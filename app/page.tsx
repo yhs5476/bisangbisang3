@@ -171,6 +171,7 @@ export default function Home() {
   const [checks, setChecks] = useState([false, false, false, false]);
   const [missionHeroImage, setMissionHeroImage] = useState<string | null>("/assets/mission-initial-hero.jpg");
   const [profileAvatarSrc, setProfileAvatarSrc] = useState<string | null>(null);
+  const [userName, setUserName] = useState("도도");
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [showKitModal, setShowKitModal] = useState(false);
   const [showCodexModal, setShowCodexModal] = useState(false);
@@ -440,19 +441,22 @@ export default function Home() {
                 onClick={() => setRole("child")}
                 type="button"
               >
-                <span className="role-avatar child-avatar">도</span>
-                <span><strong>도도 어린이</strong><small>미션으로 안전 행동을 연습해요</small></span>
+                <span className="role-avatar child-avatar">{userName[0] || "도"}</span>
+                <span><strong>{userName} 어린이</strong><small>미션으로 안전 행동을 연습해요</small></span>
                 <i />
               </button>
             </fieldset>
 
             <aside className="permission-preview">
-              <span>✓</span>
-              <p><strong>최소 권한으로 시작해요</strong><br />위치는 안심지도에서만, 사진은 퍼즐을 만들 때만 사용해요.</p>
+              <span>🔒</span>
+              <div>
+                <strong>위치 및 알림 권한 허용 필요</strong>
+                <small>가족 안전 및 위치 기반 대피 가이드를 제공합니다.</small>
+              </div>
             </aside>
 
-            <button className="primary-button" onClick={() => navigate("home")}>
-              비상비상 시작하기 <span>→</span>
+            <button className="primary-button full-width" type="button" onClick={() => navigate("home")}>
+              {role === "guardian" ? "보호자 모드로 시작하기" : `${userName} 어린이 모드로 시작하기`}
             </button>
           </div>
         )}
@@ -552,7 +556,7 @@ export default function Home() {
                   <img src="/assets/logo-bisang.png" alt="비상비상" className="brand-logo-img" />
                 </div>
                 <button className="location-pill" aria-label="생활 지역 설정">
-                  {role === "guardian" ? "김민지 보호자" : "도도 어린이"} · 성수동 <span>⌄</span>
+                  {role === "guardian" ? "김민지 보호자" : `${userName} 어린이`} · 성수동 <span>⌄</span>
                 </button>
               </div>
               <button className="icon-button notification-button" aria-label="리워드 보상 센터" onClick={() => navigate("reward")}>
@@ -569,7 +573,7 @@ export default function Home() {
               <span className="checkin-heart">{checkinSent ? "✓" : "♥"}</span>
               <span>
                 <strong>{checkinSent ? "안전 알림을 보냈어요" : "1‑Click 안부 보내기"}</strong>
-                <small>{role === "guardian" ? "도도에게 안부 확인을 요청해요" : "보호자에게 지금 안전하다고 알려요"}</small>
+                <small>{role === "guardian" ? `${userName}에게 안부 확인을 요청해요` : "보호자에게 지금 안전하다고 알려요"}</small>
               </span>
               <span>›</span>
             </button>
@@ -596,7 +600,7 @@ export default function Home() {
             <div className="section-heading">
               <div>
                 <span className="eyebrow">오늘의 안전 습관</span>
-                <h2>도도와 불씨를 밝혀볼까요?</h2>
+                <h2>{userName}와(과) 불씨를 밝혀볼까요?</h2>
               </div>
               <span className="streak-pill">🔥 3일째</span>
             </div>
@@ -882,17 +886,17 @@ export default function Home() {
               <span className="checkin-ripple ripple-two" />
               <span className="big-heart">♥</span>
               <span className="success-badge">전송 완료</span>
-              <h1>{role === "guardian" ? "도도에게 안부 확인을 보냈어요" : "엄마에게 ‘안전해요’를 보냈어요"}</h1>
-              <p>{role === "guardian" ? "도도가 답하면 가족 화면에서 바로 알려드릴게요." : "김민지 보호자의 휴대폰에 지금 위치와 안전 상태가 전달됐어요."}</p>
+              <h1>{role === "guardian" ? `${userName}에게 안부 확인을 보냈어요` : "엄마에게 ‘안전해요’를 보냈어요"}</h1>
+              <p>{role === "guardian" ? `${userName}(이)가 답하면 가족 화면에서 바로 알려드릴게요.` : "김민지 보호자의 휴대폰에 지금 위치와 안전 상태가 전달됐어요."}</p>
             </section>
 
             <section className="checkin-detail-card">
               <div className="family-avatar-pair">
-                <span className="role-avatar child-avatar">도</span>
+                <span className="role-avatar child-avatar">{userName[0] || "도"}</span>
                 <span className="status-online" />
               </div>
               <div>
-                <small>도도 · 초등학교 2학년</small>
+                <small>{userName} · 초등학교 2학년</small>
                 <strong>성수초등학교 돌봄교실</strong>
                 <span>방금 전 · 안전 상태 확인됨</span>
               </div>
@@ -1575,10 +1579,10 @@ export default function Home() {
                         <span className="point-item-icon">🎒</span>
                         <div className="point-item-info">
                           <div className="point-title-row">
-                            <strong>도도의 맞춤형 안전 백팩 키트</strong>
+                            <strong>{userName}의 맞춤형 안전 백팩 키트</strong>
                             <span className="point-cost-badge">20,000 Pts</span>
                           </div>
-                          <p>도도 캐릭터 패치와 진화 정보가 그대로 반영된 비상 가방</p>
+                          <p>{userName} 캐릭터 패치와 진화 정보가 그대로 반영된 비상 가방</p>
                         </div>
                       </div>
                       <button
@@ -1619,10 +1623,10 @@ export default function Home() {
                         <span className="point-item-icon">📖</span>
                         <div className="point-item-info">
                           <div className="point-title-row">
-                            <strong>도도 주인공 3D 안전 팝업북</strong>
-                            <span className="point-cost-badge">5,000 Pts</span>
+                            <strong>{userName} 주인공 3D 안전 팝업북</strong>
+                            <span className="point-cost-badge">50,000 Pts</span>
                           </div>
-                          <p>도도가 직접 주인공으로 등장하는 입체 재난 대응 만화책</p>
+                          <p>{userName}(이)가 직접 주인공으로 등장하는 입체 재난 대응 만화책</p>
                         </div>
                       </div>
                       <button
@@ -1809,25 +1813,25 @@ export default function Home() {
               <span className="family-road road-a" />
               <span className="family-road road-b" />
               <div className="family-person child-location">
-                <span className="role-avatar child-avatar">도</span>
-                <strong>도도</strong>
+                <span className="role-avatar child-avatar">{userName[0] || "도"}</span>
+                <strong>{userName}</strong>
                 <small>돌봄교실</small>
               </div>
               <div className="family-person guardian-location">
                 <span className="role-avatar guardian-avatar">민</span>
                 <strong>엄마</strong>
-                        <small>성수동 회사</small>
+                <small>성수동 회사</small>
               </div>
               <span className="family-map-label">성수초등학교</span>
             </section>
 
             <section className={`family-status-card ${checkinSent ? "is-safe" : ""}`}>
               <div className="family-avatar-pair">
-                <span className="role-avatar child-avatar">도</span>
+                <span className="role-avatar child-avatar">{userName[0] || "도"}</span>
                 <span className="status-online" />
               </div>
               <div>
-                <small>도도 · 방과후 돌봄교실</small>
+                <small>{userName} · 방과후 돌봄교실</small>
                 <strong>{checkinSent ? "“엄마, 저는 안전해요!”" : "아직 안부를 확인하지 않았어요"}</strong>
                 <span>{checkinSent ? "방금 전 상태 확인 · 배터리 82%" : "마지막 확인 18분 전"}</span>
               </div>
@@ -1838,7 +1842,7 @@ export default function Home() {
               <button>
                 <span>☎</span>
                 <strong>전화하기</strong>
-                <small>도도에게 전화 연결</small>
+                <small>{userName}에게 전화 연결</small>
               </button>
               <button onClick={openCheckin}>
                 <span>♥</span>
@@ -1871,18 +1875,24 @@ export default function Home() {
             <header className="guardian-header">
               <div>
                 <span className="eyebrow">더보기</span>
-                <h1>도도의 성장 기록</h1>
+                <h1>{userName}의 성장 기록</h1>
               </div>
-              <button className="icon-button" aria-label="설정">⚙</button>
+              <button className="icon-button" aria-label="프로필 설정" onClick={() => setShowAvatarModal(true)}>⚙</button>
             </header>
 
             <section className="profile-card">
-              <div className="profile-avatar">도</div>
+              <div className="profile-avatar">
+                {profileAvatarSrc ? (
+                  <img src={profileAvatarSrc} alt={userName} style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover" }} />
+                ) : (
+                  userName[0] || "도"
+                )}
+              </div>
               <div>
-                <strong>도도 · 초등학교 2학년</strong>
+                <strong>{userName} · 초등학교 2학년</strong>
                 <span>서울 성동구 · 아파트</span>
               </div>
-              <button>수정</button>
+              <button onClick={() => setShowAvatarModal(true)}>프로필 수정</button>
             </section>
 
             <section className="character-collection">
@@ -2258,15 +2268,15 @@ export default function Home() {
                 배송 신청 완료!
               </h2>
               <p style={{ margin: "0 0 12px", fontSize: 13, color: "#555" }}>
-                <strong>도도 어린이</strong>를 위한 맞춤형 안전 키트 배송이 시작되었어요! 🎁
+                <strong>{userName} 어린이</strong>를 위한 맞춤형 안전 키트 배송이 시작되었어요! 🎁
               </p>
 
               <div className="kit-items-preview">
                 <div className="kit-item-row">
                   <span>🎒</span>
                   <div>
-                    <div>도도의 맞춤형 안전 백팩</div>
-                    <small style={{ color: "#777" }}>도도 캐릭터 패치 및 방재 도구 내장</small>
+                    <div>{userName}의 맞춤형 안전 백팩</div>
+                    <small style={{ color: "#777" }}>{userName} 캐릭터 패치 및 방재 도구 내장</small>
                   </div>
                 </div>
                 <div className="kit-item-row">
@@ -2279,8 +2289,8 @@ export default function Home() {
                 <div className="kit-item-row">
                   <span>📖</span>
                   <div>
-                    <div>도도 주인공 3D 안전 팝업북</div>
-                    <small style={{ color: "#777" }}>도도 어린이가 직접 등장하는 재난 대응 만화</small>
+                    <div>{userName} 주인공 3D 안전 팝업북</div>
+                    <small style={{ color: "#777" }}>{userName} 어린이가 직접 등장하는 재난 대응 만화</small>
                   </div>
                 </div>
               </div>
@@ -2309,10 +2319,36 @@ export default function Home() {
         {showAvatarModal && (
           <div className="avatar-selector-modal" onClick={() => setShowAvatarModal(false)}>
             <div className="avatar-modal-card" onClick={(e) => e.stopPropagation()}>
-              <h3 style={{ margin: "0 0 8px" }}>도도 어린이 프로필 변경</h3>
-              <p style={{ margin: "0 0 16px", fontSize: 13, color: "var(--muted)" }}>
-                캐릭터 아바타를 선택하거나 직접 촬영/업로드한 사진을 적용해 보세요!
+              <h3 style={{ margin: "0 0 4px", fontSize: 18, color: "#1b4035", fontWeight: 900 }}>
+                {userName} 어린이 프로필 설정
+              </h3>
+              <p style={{ margin: "0 0 14px", fontSize: 13, color: "var(--muted)" }}>
+                이름과 프로필 아바타 사진/캐릭터를 자유롭게 변경해 보세요!
               </p>
+
+              <div style={{ marginBottom: 16, background: "#f4f8f6", padding: 12, borderRadius: 16, border: "1px solid #dbe8e2" }}>
+                <label style={{ fontSize: 12, fontWeight: 800, color: "#1b4035", display: "block", marginBottom: 6 }}>
+                  ✏️ 어린이 이름 변경
+                </label>
+                <input
+                  type="text"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  placeholder="이름을 입력하세요 (예: 도도, 서준, 지민)"
+                  style={{
+                    width: "100%",
+                    padding: "10px 12px",
+                    borderRadius: 12,
+                    border: "1.5px solid #b2d6c7",
+                    fontSize: 14,
+                    fontWeight: 800,
+                    color: "#1b4035",
+                    outline: "none",
+                    boxSizing: "border-box",
+                    background: "white",
+                  }}
+                />
+              </div>
 
               <label className="primary-button" style={{ display: "block", textAlign: "center", marginBottom: 12, cursor: "pointer" }}>
                 📷 새 사진/파일 업로드
