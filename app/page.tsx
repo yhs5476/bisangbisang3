@@ -32,7 +32,6 @@ const locationOptions = [
 
 const navItems: Array<{ screen: Screen; icon: React.ReactNode; label: string }> = [
   { screen: "home", icon: "⌂", label: "홈" },
-  { screen: "mission", icon: "★", label: "미션" },
   { screen: "safety", icon: "⌖", label: "안심지도" },
   { screen: "family", icon: "♧", label: "가족" },
   {

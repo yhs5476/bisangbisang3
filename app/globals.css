@@ -862,7 +862,7 @@ textarea:focus-visible {
   left: 0;
   display: grid;
   height: 82px;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding: 10px 12px 12px;
   border-top: 1px solid rgba(231, 236, 232, 0.9);
   background: rgba(255, 255, 255, 0.96);
